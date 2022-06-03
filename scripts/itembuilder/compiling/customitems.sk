@@ -1,0 +1,86 @@
+options:
+	permission: sk.administrator
+	permission_message: &cNo permission.
+	prefix: &8[&eProjectFCM&8]
+	prefix_cut: &eProjectFCM&f
+	color1: &x&8&5&4&b&2&a
+	version: 0.1
+	path: plugins/Skript/data/items/
+
+function jsonItemParse(name:string) :: item:
+	set {_file::*} to file contents of "%{_name}%"
+	set {_file} to (join {_file::*} by "")
+	replace all newline in {_file} with ""
+	replace all "	" in {_file} with "" # erase tabs
+	map json of {_file} to {_data::*}
+	
+	replace all ".json" in {_name} with ""
+	set {_name} to getLastInList(split {_name} at "\")
+
+	set {_attackSpeedOffset} to 4
+
+	set {_item} to ("%{_data::Stack}% of %{_data::ItemType}%" parsed as item)
+	set {_item}'s name to colored {_data::Name}
+	set {_item} to {_item} with all flags hidden if {_data::HideAllFlags}
+	set {_item} to unbreakable {_item} if {_data::Unbreakable}
+	set {_item} to glowing {_item} if {_data::EnchantGlow}
+	set {_item} to setItemNBTTag({_item}, "IBItemsData;GenUnique", true) if {_data::MakeUnique}
+	set {_colors::*} to {_data::Dye::*} if {_data::Dye}
+	color {_item} ({_colors::1}, {_colors::2}, {_colors::3})
+	set {_item} to setItemNBTTag({_item}, "IBItemsData;ItemID", {_name})
+	add {_data::OtherNBT} to nbt of {_item} if {_data::OtherNBT}
+	set {_item} to setItemNBTTag({_item}, "IBItemsData;Type", "%{_data::Type}%")
+
+	loop {_data::Stats::*}:
+		set {_temp1::*} to loop-value split at "/" # 1 = value ; 2 = slot 
+		set {_calc} to {_temp1::1} parsed as number
+		if loop-index contains "rate":
+			if {_temp1::1} = "-1":
+				set {_calc} to 999
+			set {_calc} to {_calc} - {_attackSpeedOffset}
+		else if loop-index contains "swiftness":
+			set {_calc} to {_calc}/100
+		else if loop-index contains "armor":
+			set {_calc} to {_calc} + 1
+		else if loop-index contains "damage":
+			set {_calc} to {_calc} * (3/4)
+		set {_item} to addAttribute({_item}, translate_01(loop-index), "%{_calc}%", {_temp1::2})
+		set {_valdis} to {_temp1::1}
+		if {_calc} > 500:
+			set {_valdis} to "∞"
+		add "%colored {_data::LoreColor}% %{_valdis}% %capitalizeFirst(loop-index)%" to lore of {_item}
+		
+	if {_data::CustomStats}:
+		loop {_data::CustomStats::*}:
+			set {_item} to setItemNBTTag({_item}, "IBItemsData;%loop-index%", loop-value)
+			add "%colored {_data::LoreColor}% %loop-value% %capitalizeFirst(loop-index)%" to lore of {_item}
+		
+	if {_data::Enchants}:
+		loop {_data::Enchants::*}:
+			set {_t} to loop-value
+			replace all "_" in {_t} with " "
+			enchant {_item} with ({_t} parsed as enchantment type)
+			set {_temp2::*} to loop-value split at " "
+			replace all "_" in {_temp2::1} with " "
+			add "%colored {_data::LoreColor}% %{_temp2::2}% %capitalizeSentence({_temp2::1})%" to lore of {_item}
+		
+	if {_data::CustomEnchants}:
+		loop {_data::CustomEnchants::*}:
+			set {_item} to setItemNBTTag({_item}, "IBItemsData;CustomEnchants;%loop-index%", loop-value)
+			add "%colored {_data::LoreColor}% %loop-value% %capitalizeFirst(loop-index)%" to lore of {_item}
+		
+	if {_data::ExtraLore}:
+		loop {_data::ExtraLore::*}:
+			add LoreFormat("%colored loop-value%", "%colored {_data::LoreColor}%") to lore of {_item}
+		
+	if {_data::Execute}:
+		loop {_data::Execute::*}:
+			set {_t6} to join({_data::Execute::%loop-index%::*},"<$DataSplit$>")
+			replace all "''" in {_t6} with """"
+			set {_item} to setItemNBTTag({_item}, "IBItemsData;DynamicExecute;%capitalizeFirst(loop-index)%", {_t6})
+
+	return {_item}
+
+
+function parseDynamicExecute(c:string) :: objects:
+	return split({_c},"<$DataSplit$>")

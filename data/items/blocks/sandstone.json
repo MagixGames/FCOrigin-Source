@@ -1,0 +1,20 @@
+{
+	"Name": "&fSandstone",
+	"MakeUnique": false,
+	"HideAllFlags": true,
+	"ItemType": "cut sandstone",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Placement": "2,2",
+	"Cost": 10,
+	"ExtraLore": [
+		
+	],
+	"Execute": {
+		"Place": [
+		],
+		"Break": [
+		]
+	},
+	"OtherNBT": "{}"
+}

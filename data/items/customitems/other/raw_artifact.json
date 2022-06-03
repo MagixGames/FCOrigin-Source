@@ -1,0 +1,24 @@
+{
+	"Name": "&7Raw Artifact",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "artifact",
+	"ItemType": "light gray dye",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Swiftness": "-0.5/offhand"
+	},
+	"CustomStats": {
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		"Raw artifact, ready to be upgraded to a refined artifact",
+		"Quite heavy, gives no boosts"
+	],
+	"OtherNBT": "{}"
+}

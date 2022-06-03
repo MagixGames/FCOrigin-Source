@@ -1,0 +1,10 @@
+{
+	"Name": "Bargain",
+	"HideAllFlags": true,
+	"ItemType": "gold ingot",
+	"LoreColor": "&7",
+	"Cost": 0,
+	"Desctiption": [
+		"Item prices reduced by 15%"
+	]
+}

@@ -1,0 +1,26 @@
+{
+	"Name": "&7Wooden Shortbow",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Type": "shortbow",
+	"ItemType": "bow",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		
+	},
+	"CustomStats": {
+		"Power": 3,
+		"Range": 0.8,
+		"Reload": 2,
+		"Accuracy": 1
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		"Left click to instantly shoot"
+	],
+	"OtherNBT": "{}"
+}

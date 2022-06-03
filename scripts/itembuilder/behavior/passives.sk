@@ -1,0 +1,27 @@
+function getItemID(i:item) :: object:
+	return (getItemNBTTag({_i}, "IBItemsData;ItemID"))
+function getLightAtPlayer(p:player) :: integer:
+	return "%light level at {_p}%" parsed as integer
+#function replace(s:string,v:string,t:string) :: string:
+#	replace all "%{_v}%" in {_s} with {_t}
+#	return {_s} 
+
+every 1 second:
+	loop all players:
+		if getItemNBTTag(loop-player's tool, "IBItemsData;DynamicExecute;Passive") is set:
+			set {_l} to getItemNBTTag(loop-player's tool, "IBItemsData;DynamicExecute;Passive")
+			loop parseDynamicExecute({_l}):
+				set {_p} to "%loop-value-2%"
+				set {_player} to loop-player
+				replace all "[player]" in {_p} with "{_player}"
+				evaluate "%{_p}%"
+		
+		
+		if getItemID(loop-player's tool) = "null":
+			broadcast "&C&l&nHow?"
+
+		else if getItemID(loop-player's tool) = "darkstone_pickaxe":
+			PotionEffect(loop-player, slowness, 3, 1.2 seconds, true, true) if getLightAtPlayer(loop-player) > 6 
+		else if getItemID(loop-player's tool) = "holy_pickaxe":
+			PotionEffect(loop-player, regeneration, 3, 1.2 seconds, true, true) if getLightAtPlayer(loop-player) > 8
+			PotionEffect(loop-player, speed, 1, 1.2 seconds, true, true) if getLightAtPlayer(loop-player) > 8 

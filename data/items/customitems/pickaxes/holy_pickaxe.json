@@ -1,0 +1,35 @@
+{
+	"Name": "&5Holy Pickaxe",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": true,
+	"Type": "tool",
+	"ItemType": "gold pickaxe",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "6/mainhand",
+		"Rate": "1/mainhand",
+		"armor": "1/offhand"
+	},
+	"CustomStats": {
+	},
+	"Enchants": [
+		"efficiency 1"
+	],
+	"CustomEnchants": {
+	},
+	"ExtraLore": [
+		"Grants regeneration in the light when held in your main hand"
+	],
+	"Execute": {
+		"Passive": [
+			
+		],
+		"Use": [
+			
+		]
+	},
+	"OtherNBT": "{}"
+}

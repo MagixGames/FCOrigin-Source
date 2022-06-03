@@ -1,0 +1,20 @@
+{
+	"Name": "&fCrimson Stone",
+	"MakeUnique": false,
+	"HideAllFlags": true,
+	"ItemType": "red glazed terracotta",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Placement": "8,3",
+	"Cost": 100000,
+	"ExtraLore": [
+		
+	],
+	"Execute": {
+		"Place": [
+		],
+		"Break": [
+		]
+	},
+	"OtherNBT": "{}"
+}

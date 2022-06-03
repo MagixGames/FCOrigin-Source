@@ -1,0 +1,11 @@
+{
+	"Name": "&9Used Charm Slot",
+	"HideAllFlags": true,
+	"EnchantGlow": true,
+	"ItemType": "ender eye",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Lore": [
+		
+	]
+}

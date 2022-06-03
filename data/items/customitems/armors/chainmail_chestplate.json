@@ -1,0 +1,20 @@
+{
+	"Name": "&9Chainmail Chestplate",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "armor",
+	"ItemType": "chainmail chestplate",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Armor": "5/chest"
+	},
+	"Enchants": [
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

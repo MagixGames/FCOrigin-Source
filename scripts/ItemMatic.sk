@@ -1,0 +1,82 @@
+
+command /colorgenerate:
+    trigger:
+        loop 30 times:
+            set {_hex} to RandomHex()
+            set {_name} to RandomColorName()
+            send formatted "<tooltip:Click to save><suggest command:/coloradd %{_hex}% %{_name}%><##%{_hex}%> %{_name}% (%{_hex}%)"
+
+command /coloradd <string> <string>:
+    permission: admin 
+    trigger:
+        set {color::%arg 2%} to arg 1
+
+command /colorremove <string>:
+    permission: admin 
+    trigger:
+        if {color::%arg 1%} is set:
+            set {_hex} to {color::%arg 1%}
+            send formatted "<tooltip:Click to restore><suggest command:/coloradd %{_hex}% %arg 1%><##%{_hex}%>Deleted color %arg 1%"
+            delete {color::%arg 1%}
+        else:
+            message "<##6985a1>That color does not exist!"
+
+command /colors:
+    permission: admin 
+    trigger:
+        loop {color::*}:
+            send formatted "<##%loop-value%>%loop-index%"
+
+command /colorbook:
+    permission: admin 
+    trigger:
+        set {_i} to enchanted book named "<##ef025a>Color Book"
+        loop {color::*}:
+            add 1 to {_n}
+            set line {_n} of lore of {_i} to formatted "<##%loop-value%> %loop-index%"
+        add {_i} to player's inventory
+        message "Use the creative hotbar to transfer to book to other servers, Rightclick it to add it's colors to the server"
+on rightclick:
+    if player's tool is enchanted book named "<##ef025a>Color Book":
+        set {_lore} to number of lore of player's tool 
+        message "Adding Colors..."
+        loop {_lore} times:
+            set {_l} to line loop-number of lore of player's tool 
+            set {_split::*} to {_l} split at " "
+            set {_name} to {_split::2}
+            set {_color} to {_split::1}
+            replace all "§x" with "" in {_color}
+            replace all "§" with "" in {_color}
+            if {color::%{_name}%} is not set:
+                set {color::%{_name}%} to {_color}
+                send formatted "<##%{_color}%> Added %{_name}%"
+            else:
+                send formatted "<##%{_color}%> A color already exists with the name: %{_name}%"
+                
+        message "Done"
+
+function RandomHex() :: string:
+    set {_col} to convert rgb (random integer between 0 and 255), (random integer between 0 and 255), (random integer between 0 and 255) to hex 
+    return {_col}
+
+function RandomColorName() :: string:
+    set {_first} to "wh,or,mag,yel,lim,pin,pik,gar,cay,pur,bl,gr,y,r,pr,bl,"
+    set {_first::*} to {_first} split at ","
+    set {_second} to "a,e,o,i,u,it,age,en,ue,ime,edo,bri,ara,mor"
+    set {_second::*} to {_second} split at ","
+    set {_third} to "e,ta,low,me,nk,een,le,ku,cot,na,p,r,d"
+    set {_third::*} to {_third} split at ","
+    return "%random element of {_first::*}%%random element of {_second::*}%%random element of {_third::*}%"
+
+function C(string:string) :: string:
+    loop {color::*}:
+        replace all "[%loop-index%]" with formatted "<##%loop-value%>" in {_string} 
+    return {_string}
+function Color(string:string) :: string:
+    loop {color::*}:
+        replace all "[%loop-index%]" with formatted "<##%loop-value%>" in {_string} 
+    return {_string}
+function CustomColor(string:string) :: string:
+    loop {color::*}:
+        replace all "[%loop-index%]" with formatted "<##%loop-value%>" in {_string} 
+    return {_string}

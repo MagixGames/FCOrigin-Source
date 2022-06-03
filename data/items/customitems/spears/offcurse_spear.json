@@ -1,0 +1,27 @@
+{
+	"Name": "&6Offcurse Spear",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"ID": "true_lightspeed_spear",
+	"Type": "spear",
+	"ItemType": "golden shovel",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "5/mainhand",
+		"Rate": "-1/mainhand"
+	},
+	"CustomStats": {
+		"Dash": 1.2,
+		"Cooldown": 4
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

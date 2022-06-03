@@ -1,0 +1,22 @@
+{
+	"Name": "&9Amethyst Helmet",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "armor",
+	"ItemType": "leather helmet",
+	"LoreColor": "<##4956A7>",
+	"Dye": [159, 94, 255],
+	"Stack": 1,
+	"Stats": {
+		"Armor": "1/head",
+		"Swiftness": "0.5/head"
+	},
+	"Enchants": [
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

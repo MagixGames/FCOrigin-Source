@@ -1,0 +1,29 @@
+{
+	"Name": "&6Holy Carrot Blade",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Type": "sword",
+	"ItemType": "gold carrot",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "6/mainhand",
+		"Rate": "-1/mainhand"
+	},
+	"CustomStats": {
+		
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"Execute": {
+		"Passive": [
+			"PotionEffect([player], jump boost, 2, 1.2 seconds, true, true)"
+		]
+	},
+	"OtherNBT": "{}"
+}

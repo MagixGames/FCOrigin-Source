@@ -1,0 +1,22 @@
+{
+	"Name": "&9Phloem Chainmail",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Type": "armor",
+	"ItemType": "leather chestplate",
+	"LoreColor": "<##4956A7>",
+	"Dye": [21, 89, 35],
+	"Stack": 1,
+	"Stats": {
+		"Armor": "5/chest",
+		"Swiftness": "0.5/chest"
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

@@ -1,0 +1,23 @@
+{
+	"Name": "&6Tanglegroove Chestplate",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": true,
+	"Type": "armor",
+	"ItemType": "leather chestplate",
+	"LoreColor": "<##4956A7>",
+	"Dye": [21, 89, 35],
+	"Stack": 1,
+	"Stats": {
+		"Armor": "5/chest",
+		"Swiftness": "0.5/chest"
+	},
+	"Enchants": [
+		"blast_protection 2"
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

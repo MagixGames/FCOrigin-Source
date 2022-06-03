@@ -1,0 +1,33 @@
+{
+	"Name": "&9Steel Longsword",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "longsword",
+	"ItemType": "iron sword",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "6/mainhand",
+		"Rate": "1.6/mainhand"
+	},
+	"CustomStats": {
+		"Range": 3.75
+	},
+	"Enchants": [
+	],
+	"CustomEnchants": {
+	},
+	"ExtraLore": [
+	],
+	"Execute": {
+		"Passive": [
+			
+		],
+		"Use": [
+			
+		]
+	},
+	"OtherNBT": "{}"
+}

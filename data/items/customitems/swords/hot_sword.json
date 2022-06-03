@@ -1,0 +1,23 @@
+{
+	"Name": "&9Hot Sword",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "artifact",
+	"ItemType": "iron sword",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "4.5/mainhand",
+		"Rate": "-1/mainhand"
+	},
+	"CustomStats": {
+	},
+	"Enchants": [
+		"fire_aspect 1"
+	],
+	"ExtraLore": [
+	],
+	"OtherNBT": "{}"
+}

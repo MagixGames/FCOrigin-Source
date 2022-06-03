@@ -1,0 +1,22 @@
+{
+	"Name": "&9Crystal Pickaxe",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Type": "tool",
+	"ItemType": "diamond pickaxe",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "5/mainhand",
+		"Rate": "1/mainhand",
+		"Armor": "2/offhand"
+	},
+	"Enchants": [
+		"efficiency 2"
+	],
+	"ExtraLore": [
+		"Gives armor when in your offhand"
+	],
+	"OtherNBT": "{}"
+}

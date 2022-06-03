@@ -1,0 +1,9 @@
+
+function getHPInHearts(p: entity) :: string:
+	set {_hp} to (health of {_p}) * 2
+	set health of {_p} to max health of {_p} if health of {_p} > max health of {_p}
+	loop ({_hp}) times:
+		add "&c|" to {_hearts::*}
+	loop (difference between {_hp} and (max health of {_p}) * 2) times:
+		add "&8|" to {_hearts::*}
+	return (join {_hearts::*} by "")

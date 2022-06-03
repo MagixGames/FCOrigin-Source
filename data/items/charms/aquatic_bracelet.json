@@ -1,0 +1,10 @@
+{
+	"Name": "Aquatic Bracelet",
+	"HideAllFlags": true,
+	"ItemType": "tropical fish",
+	"LoreColor": "&7",
+	"Cost": 1,
+	"Desctiption": [
+		"Allows you to swim faster"
+	]
+}

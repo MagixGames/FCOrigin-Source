@@ -1,0 +1,52 @@
+options:
+	permission: sk.administrator
+	permission_message: &cNo permission.
+	prefix: &8[&eProjectFCM&8]
+	prefix_cut: &eProjectFCM&f
+	feedback: &aFeed &8|&f
+	#extra
+	color1: &x&8&5&4&b&2&a # 854b2a
+	color2: &x&0&3&b&a&3&8 # 03ba38
+	lorecolor: &x&4&9&5&6&A&7 # 4956a7
+
+command /profile <offline player>:
+	trigger:
+		openPlayerProfile(player, arg)
+
+function openPlayerProfile(player:player,profile:player):
+	create a gui with virtual chest inventory with 6 rows named "%{_profile}%'s Profile":
+		set {_uuid} to uuid of {_player}
+		set {_openuuid} to uuid of {_profile}
+		loop 54 times:
+			format next gui slot with black stained glass pane named "&7"
+		format gui slot 49 with barrier named "&cClose":
+			close {_player}'s inventory
+		format gui slot 20 with emerald named "&aLevel: %regex({playerstats::level::%{_openuuid}%})%"
+		format gui slot 21 with raw gold named "&6Gps: %regex({playerstats::gps::%{_openuuid}%})%"
+		format gui slot 23 with gold ingot named "&eGold: %regex({playerstats::gold::%{_openuuid}%})%"
+		format gui slot 24 with prismarine crystals named "&bShards: %regex({playerstats::soulshards::%{_openuuid}%})%"
+		#format gui slot 32 with shulker box named "&aOpen %{_profile}%'s Vault":
+		#	close player's inventory
+		#	openViewOthersVault({_p},{_profile})
+		add "{@lorecolor} Charms Unlocked: %size of {playerstats::charms_obtained::%{_openuuid}%::*}%" to {_lore::*}
+		format gui slot 13 with {_profile}'s head named "%{nicks::%{_openuuid}%}%" with lore {_lore::*}
+		#loop 28 times:
+		#	format next gui slot with gray stained glass pane named "&8Not Coming Soon"
+		
+	open last gui for {_player}
+#{vaultData::%{_p}%::%{_n}%}
+function openViewOthersVault(player:player,otherplayer:player):
+	create a gui with virtual chest inventory with 6 rows named "%{_otherplayer}%'s Profile":
+		set {_uuid} to uuid of {_player}
+		set {_openuuid} to uuid of {_otherplayer}
+		format gui slot (numbers between 0 and 8) with black stained glass pane named "&7"
+		format gui slot (numbers between 45 and 53) with black stained glass pane named "&7"
+		format gui slot 49 with barrier named "&cClose":
+			close {_player}'s inventory
+		format gui slot 4 with {_otherplayer}'s head named "%{nicks::%{_openuuid}%}%" with lore {_lore::*}
+		loop {vaultData::%{_otherplayer}%::*}:
+			format gui slot 9+(loop-index parsed as number) with {vaultData::%{_otherplayer}%::%loop-index%}
+		#loop 28 times:
+		#	format next gui slot with gray stained glass pane named "&8Not Coming Soon"
+		
+	open last gui for {_player}

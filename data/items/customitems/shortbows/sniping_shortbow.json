@@ -1,0 +1,35 @@
+{
+	"Name": "&6Sniping Shortbow",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": true,
+	"Type": "shortbow",
+	"ItemType": "bow",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+	},
+	"CustomStats": {
+		"Power": 4,
+		"Range": 3,
+		"Reload": 8,
+		"Accuracy": 10
+	},
+	"Enchants": [
+	],
+	"CustomEnchants": {
+	},
+	"ExtraLore": [
+		"Left click to instantly shoot"
+	],
+	"Execute": {
+		"Passive": [
+			
+		],
+		"Use": [
+			
+		]
+	},
+	"OtherNBT": "{}"
+}

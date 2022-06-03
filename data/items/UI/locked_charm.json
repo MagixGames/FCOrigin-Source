@@ -1,0 +1,11 @@
+{
+	"Name": "&cLocked Charm",
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"ItemType": "coal block",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Lore": [
+		
+	]
+}

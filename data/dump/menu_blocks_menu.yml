@@ -1,0 +1,59 @@
+menuname: Blocks Shop
+
+menurows: 6
+
+data:
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- cut sandstone block$!NBT!${display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"10 Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Sandstone"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopBuy [player] sandstone //shopBuy [player] sandstone<!CMD!>"}
+- cut sandstone block$!NBT!${display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"80 Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Sandstone"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] sandstone_bulk //shopbuy [player] sandstone_bulk<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- dried kelp block$!NBT!${display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"800 Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Shatterkelp"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] shatterkelp_bulk //shopbuy [player] shatterkelp_bulk<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- brown stained hardened clay$!NBT!${display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"200 Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Hard Clay"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] hard_clay //shopbuy [player] hard_clay<!CMD!>"}
+- brown stained hardened clay$!NBT!${display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"1.6k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Hard Clay"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] hard_clay_bulk //shopbuy [player] hard_clay_bulk<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- red glazed terracotta block$!NBT!${display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"10k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Crimson Stone"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] crimson_stone //shopbuy [player] crimson_stone<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- dark gray stained hardened clay$!NBT!${display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"800 Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Harder Clay"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] harder_clay //shopbuy [player] harder_clay<!CMD!>"}
+- dark gray stained hardened clay$!NBT!${display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"6.4k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Harder Clay"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] harder_clay_bulk //shopbuy [player] harder_clay_bulk<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- yellow glazed terracotta block$!NBT!${display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"5k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Shockstone"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] shockstone //shopbuy [player] shockstone<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- black stained hardened clay$!NBT!${display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"2k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Hardest Clay"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] hardest_clay //shopbuy [player] hardest_clay<!CMD!>"}
+- black stained hardened clay$!NBT!${display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"16k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Hardest Clay"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] hardest_clay_bulk //shopbuy [player] hardest_clay_bulk<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- cobweb$!NBT!${display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"500 Gold"}],"text"/$COLON/$""}']},runCmd/$COLON/$"<!CMD!>/shopbuy [player] cobweb_bulk //shopbuy [player] cobweb_bulk<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- barrier block$!NBT!${HideFlags/$COLON/$111,display/$COLON/${Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"red","text"/$COLON/$"Exit Menu"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/openmenu [player] main_menu //openmenu [player] main_menu<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>

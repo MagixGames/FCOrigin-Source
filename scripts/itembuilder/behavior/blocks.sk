@@ -1,0 +1,70 @@
+options:
+	degradingBlocks: cut sandstone or brown terracotta or gray terracotta or black terracotta
+
+function kelpDestroy(b: block):
+	wait 2 tick
+	loop all blocks in radius 1 around {_b}:
+		set {_lb} to loop-block
+		if loop-block is dried kelp block:
+			set loop-block to air
+			play sound "minecraft:block.grass.break" with pitch 0.8 at location of loop-block
+			draw 15 of block particle using dried kelp block at location of loop-block
+			kelpDestroy(loop-block)
+		if {_lb} is {@degradingBlocks}:
+			set loop-block to air 
+			play sound "minecraft:block.stone.break" with pitch 0.8 at location of loop-block
+			draw 15 of block particle using (loop-block) at location of loop-block
+
+# red -> black -> gray -> brown
+
+on break of red terracotta:
+	cancel event
+	set event-block to black terracotta
+
+on break of black terracotta:
+	cancel event
+	set event-block to gray terracotta
+
+on break of gray terracotta:
+	cancel event
+	set event-block to brown terracotta
+
+on place of brown terracotta:
+	{charm_toggle::%player's uuid%::enforced_medallion} = true
+	chance of 33%:
+		set event-block to gray terracotta
+
+on place of gray terracotta:
+	{charm_toggle::%player's uuid%::enforced_medallion} = true
+	chance of 33%:
+		set event-block to black terracotta
+
+on place of black terracotta:
+	{charm_toggle::%player's uuid%::enforced_medallion} = true
+	chance of 33%:
+		set event-block to red terracotta
+
+
+on break:
+	cancel drops
+	clear drops
+
+on left click:
+	if clicked block is cobweb:
+		if player's tool is an axe:
+			set clicked block to air
+			play sound "minecraft:block.stone.break" with pitch 0.8 at location of clicked block
+			draw 15 of block particle using cobweb at location of clicked block
+
+on break of dried kelp block:
+	kelpDestroy(event-block)
+
+on break of red glazed terracotta:
+	play sound "minecraft:entity.guardian.ambient_land" at location of event-block
+	loop all players in radius 4.5 around event-block:
+		push loop-player (direction from loop-player to location of event-block) at speed -1.5
+every second:
+	loop all players:
+		if block underneath loop-player is yellow glazed terracotta:
+			damage loop-player by 4
+			play sound "minecraft:entity.guardian.ambient_land" at loop-player

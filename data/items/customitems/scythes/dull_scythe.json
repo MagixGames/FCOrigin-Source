@@ -1,0 +1,25 @@
+{
+	"Name": "&9Dull Scythe",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "scythe",
+	"ItemType": "wooden hoe",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "5.0/mainhand",
+		"Rate": "-1/mainhand"
+	},
+	"CustomStats": {
+		"Range": 3.75
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		"Has extended range"
+	],
+	"OtherNBT": "{}"
+}

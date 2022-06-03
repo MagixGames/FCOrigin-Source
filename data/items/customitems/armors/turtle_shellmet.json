@@ -1,0 +1,20 @@
+{
+	"Name": "&5Turtle Shellmet",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Type": "armor",
+	"ItemType": "turtle helmet",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Armor": "3/head",
+		"swiftness": "-1/head"
+	},
+	"Enchants": [
+		"projectile_protection 5"
+	],
+	"ExtraLore": [
+	],
+	"OtherNBT": "{}"
+}

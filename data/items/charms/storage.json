@@ -1,0 +1,10 @@
+{
+	"Name": "Vault",
+	"HideAllFlags": true,
+	"ItemType": "shulker shell",
+	"LoreColor": "&7",
+	"Cost": 0,
+	"Desctiption": [
+		"Unlocks the /vault (Default of 2 rows)"
+	]
+}

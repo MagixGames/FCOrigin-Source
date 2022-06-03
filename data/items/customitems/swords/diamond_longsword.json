@@ -1,0 +1,33 @@
+{
+	"Name": "&5Diamond Longsword",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "longsword",
+	"ItemType": "diamond sword",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "7/mainhand",
+		"Rate": "1.6/mainhand"
+	},
+	"CustomStats": {
+		"Range": 4
+	},
+	"Enchants": [
+	],
+	"CustomEnchants": {
+	},
+	"ExtraLore": [
+	],
+	"Execute": {
+		"Passive": [
+			
+		],
+		"Use": [
+			
+		]
+	},
+	"OtherNBT": "{}"
+}

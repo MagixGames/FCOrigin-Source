@@ -1,0 +1,83 @@
+
+options:
+	defaultRows: 3
+	guiName: Vault
+
+every 5 seconds:
+	loop {vault::*}:
+		saveVault(loop-index parsed as player)
+
+on inventory close:
+	saveVault(player)
+	delete {vaultOpen::%player%}
+	delete {trashOpen::%player%}
+
+function saveVault(p:player):
+	loop 9*{playerstats::vaultRows::%{_p}'s uuid%} times:
+		set {_n} to -1 + loop-number
+		set {_item} to slot {_n} of {vault::%{_p}%}
+		if {vaultData::%{_p}%::%{_n}%} is not {_item}:
+			set {vaultData::%{_p}%::%{_n}%} to {_item}
+	delete {vault::%{_p}%} if {_p} parsed as player is not online
+	wait a tick #so there cant be any lag at all. Doesnt affect its ability to save. Can be deleted if you want
+
+command /vault:
+	trigger:
+		send "&cCommand disabled due to: 'being buggy af'"
+		stop
+		if {charm_toggle::%player's uuid%::storage} = true:
+			set {playerstats::vaultRows::%player's uuid%} to {playerstats::vaultRows::%player's uuid%} ? 2  
+			openVault(player)
+		else:
+			send "&cYou do not have the vault unlocked!"
+
+#on inventory close:
+#	delete {vaultOpen::%player%}
+
+function clearVault(p:player):
+	delete {vault::%{_p}%}
+	delete {vaultData::%{_p}%}
+	delete {vaultData::%{_p}%::*}
+
+function checkVaultItemClick(i:item) :: boolean:
+	return true if {_i} is a banner
+	return true if getItemNBTTag({_i}, "WeaponTreeSlot") is set
+	return true if getItemNBTTag({_i}, "GearTreeSlot") is set
+	return false
+
+command /trash:
+	trigger:
+		open_chest(player, "Trash", 5)
+		set {trashOpen::%player%} to true
+
+
+on inventory click:
+	if {trashOpen::%player%}:
+		if checkVaultItemClick(event-item):
+			cancel event
+			send "&cYou cannot put that in the trash!"
+on inventory click:
+	if {vaultOpen::%player%}:
+		if checkVaultItemClick(event-item):
+			cancel event
+			send "&cYou cannot put that in the vault!"
+
+function openVault(p:player):
+	if {vault::%{_p}%} is not set:
+		print("setting vault")
+		defineVault({_p},{playerstats::vaultRows::%{_p}'s uuid%})
+	open {vault::%{_p}%} to {_p}
+	set {vaultOpen::%{_p}%} to true
+
+function defineVault(p:player,r:integer = 3):
+	open_chest({_p}, "{@guiName}", {_r})
+	set {vault::%{_p}%} to {_p}'s current inventory
+	print({_p}'s current inventory)
+	print({vault::%{_p}%})
+	set {playerstats::vaultRows::%{_p}'s uuid%} to {_r} if {playerstats::vaultRows::%{_p}'s uuid%} is not 1 or 2 or 3 or 4 or 5 or 6
+	loop 9*{playerstats::vaultRows::%{_p}'s uuid%} times:
+		set {_n} to loop-number - 1
+		set slot {_n} of {vault::%{_p}%} to {vaultData::%{_p}%::%{_n}%}
+
+on load:
+	delete {vault::*}

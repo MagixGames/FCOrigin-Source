@@ -1,0 +1,41 @@
+menuname: Armor Shop
+
+menurows: 4
+
+data:
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- chain chestplate$!NBT!${Damage/$COLON/$0,HideFlags/$COLON/$111,Unbreakable/$COLON/$1b,display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"500 Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Chainmail Chestplate"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] chainmail_chestplate //shopbuy [player] chainmail_chestplate<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- diamond chestplate$!NBT!${Damage/$COLON/$0,HideFlags/$COLON/$111,Unbreakable/$COLON/$1b,display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"70k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"light_purple","text"/$COLON/$"Crystal Chestplate"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] crystal_chestplate //shopbuy [player] crystal_chestplate<!CMD!>"}
+- air$!NBT!$<none>
+- elytra$!NBT!${Damage/$COLON/$0,HideFlags/$COLON/$111,display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"4k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"dark_aqua","text"/$COLON/$"Monarch Wings"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] monarch_wings //shopbuy [player] monarch_wings<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- leather chestplate$!NBT!${Damage/$COLON/$0,HideFlags/$COLON/$111,Unbreakable/$COLON/$1b,display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"5 Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"gray","text"/$COLON/$"Leather Chestplate"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] leather_chestplate //shopbuy [player] leather_chestplate<!CMD!>"}
+- air$!NBT!$<none>
+- iron chestplate$!NBT!${Damage/$COLON/$0,HideFlags/$COLON/$111,Unbreakable/$COLON/$1b,display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"3k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Iron Chestplate"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] iron_chestplate //shopbuy [player] iron_chestplate<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- gold chestplate$!NBT!${Damage/$COLON/$0,HideFlags/$COLON/$111,Unbreakable/$COLON/$1b,display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"1.5m Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"Holy Chestplate"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] holy_chestplate //shopbuy [player] holy_chestplate<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- barrier block$!NBT!${HideFlags/$COLON/$111,display/$COLON/${Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"red","text"/$COLON/$"Exit Menu"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/openmenu [player] main_menu //openmenu [player] main_menu<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>

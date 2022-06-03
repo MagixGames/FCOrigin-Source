@@ -1,0 +1,19 @@
+{
+	"Name": "&fHarderest Clay",
+	"MakeUnique": false,
+	"HideAllFlags": true,
+	"ItemType": "red terracotta",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Cost": 25000000,
+	"ExtraLore": [
+		
+	],
+	"Execute": {
+		"Place": [
+		],
+		"Break": [
+		]
+	},
+	"OtherNBT": "{}"
+}

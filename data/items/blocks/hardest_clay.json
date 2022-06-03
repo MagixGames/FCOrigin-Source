@@ -1,0 +1,20 @@
+{
+	"Name": "&fHardest Clay",
+	"MakeUnique": false,
+	"HideAllFlags": true,
+	"ItemType": "black terracotta",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Placement": "2,5",
+	"Cost": 175000,
+	"ExtraLore": [
+		
+	],
+	"Execute": {
+		"Place": [
+		],
+		"Break": [
+		]
+	},
+	"OtherNBT": "{}"
+}

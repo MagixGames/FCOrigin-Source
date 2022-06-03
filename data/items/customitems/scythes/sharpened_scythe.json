@@ -1,0 +1,24 @@
+{
+	"Name": "&5Sharpened Scythe",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "scythe",
+	"ItemType": "gold hoe",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "6/mainhand",
+		"Rate": "-1/mainhand"
+	},
+	"CustomStats": {
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+	],
+	"OtherNBT": "{}"
+}
+

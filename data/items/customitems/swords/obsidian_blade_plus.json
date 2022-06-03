@@ -1,0 +1,35 @@
+{
+	"Name": "&dObsidian Blade+",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "sword",
+	"ItemType": "netherite sword",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "9/mainhand",
+		"Rate": "0.7/mainhand",
+		"swiftness": "-2.5/mainhand"
+	},
+	"CustomStats": {
+	},
+	"Enchants": [
+		"knockback 1"
+	],
+	"CustomEnchants": {
+	},
+	"ExtraLore": [
+		"Quite heavy"
+	],
+	"Execute": {
+		"Passive": [
+			
+		],
+		"Use": [
+			
+		]
+	},
+	"OtherNBT": "{}"
+}

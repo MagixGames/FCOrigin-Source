@@ -1,0 +1,23 @@
+{
+	"Name": "Chicken Wing",
+	"MakeUnique": false,
+	"HideAllFlags": true,
+	"ItemType": "feather",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Placement": "2,2",
+	"Cost": 2000,
+	"ExtraLore": [
+		"&85s cooldown"
+	],
+	"Execute": {
+		"Use": [
+			"playsound(player, ''minecraft:entity.chicken.hurt'')",
+			"particle(player's location, cloud, 25, 0.2)",
+			"push player forwards at force 1.6",
+			"remove 1 of player's tool from player's tool",
+			"ItemCooldown(player, 100)"
+		]
+	},
+	"OtherNBT": "{}"
+}

@@ -1,0 +1,25 @@
+{
+	"Name": "&7Wooden Spear",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Type": "spear",
+	"ItemType": "wooden shovel",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "4/mainhand",
+		"Rate": "-1/mainhand"
+	},
+	"CustomStats": {
+		"Dash": 0.9,
+		"Cooldown": 8
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

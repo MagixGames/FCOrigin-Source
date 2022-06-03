@@ -1,0 +1,196 @@
+options:
+	permission: sk.administrator
+	permission_message: &cNo permission.
+	prefix: &8[&eProjectFCM&8]
+	prefix_cut: &eProjectFCM&f
+	color1: &x&8&5&4&b&2&a # 854b2a
+	color2: &x&0&3&b&a&3&8 # 03ba38
+	lorecolor: &x&4&9&5&6&A&7 # 4956a7
+	version: 0.1
+	path: plugins/Skript/data/
+	wt_costs_file: weapon_tree_costs.json
+	wt_file: weapon_tree.json
+	wtdv: wtplayerdata
+	gtdv: gtplayerdata
+
+
+function WT_loadCosts():
+	delete {wtweaponcosts::*}
+	set {_file::*} to file contents of "{@path}{@wt_costs_file}"
+	set {_file} to (join {_file::*} by "")
+	replace all newline in {_file} with ""
+	replace all "	" in {_file} with "" # erase tabs
+	map json of {_file} to {wtweaponcosts::*}
+
+function WT_loadTree(): 
+	delete {wtweapons::*}
+	set {_file::*} to file contents of "{@path}{@wt_file}"
+	set {_file} to (join {_file::*} by "")
+	replace all newline in {_file} with ""
+	replace all "	" in {_file} with "" # erase tabs
+	map json of {_file} to {wtweapons::*}
+
+function WT_resetPlayer(p:player):
+	set {{@wtdv}.slots::%{_p}%} to 2
+	loop {{@wtdv}.slots::%{_p}%} times:
+		set {{@wtdv}.cw::%{_p}%::%loop-number%} to "default_weapon"
+function GT_resetPlayer(p:player): 
+	set {{@gtdv}.slots::%{_p}%} to 2
+	loop {{@gtdv}.slots::%{_p}%} times:
+		set {{@gtdv}.cw::%{_p}%::%loop-number%} to "default_gear"
+
+function updateCustomItems(p:player):
+	loop all items in {_p}'s inventory:
+		loop {{@wtdv}.slots::%{_p}%} times:
+			set {_n} to {{@wtdv}.cw::%{_p}%::%loop-number%}
+			set {_i} to {customitems::%{_n}%}
+			set {_i} to setItemNBTTag({_i}, "WeaponTreeSlot", loop-number)
+			if "%getItemNBTTag(loop-slot, "WeaponTreeSlot")%" = "%loop-number%":
+				set loop-slot to {_i}
+		loop {{@gtdv}.slots::%{_p}%} times:
+			set {_n} to {{@gtdv}.cw::%{_p}%::%loop-number%}
+			set {_i} to {customitems::%{_n}%}
+			set {_i} to setItemNBTTag({_i}, "GearTreeSlot", loop-number)
+			if "%getItemNBTTag(loop-slot, "GearTreeSlot")%" = "%loop-number%":
+				set loop-slot to {_i}
+
+function removeCustomItemDupes(p:player):
+	loop all items in {_p}'s inventory:
+		if getItemNBTTag(loop-slot, "WeaponTreeSlot") is set:
+			add 1 to {_count}
+			set loop-slot to air if {_i::*} contains loop-item's nbt
+			add loop-item's nbt to {_i::*}
+			if {_count} > {{@wtdv}.slots::%{_p}%}:
+				set loop-slot to air
+		if getItemNBTTag(loop-slot, "GearTreeSlot") is set:
+			add 1 to {_c}
+			set loop-slot to air if {_i::*} contains loop-item's nbt
+			add loop-item's nbt to {_i::*}
+			if {_c} > {{@gtdv}.slots::%{_p}%}:
+				set loop-slot to air
+
+
+every 1 seconds:
+	loop all players:
+		updateCustomItems(loop-player)
+		removeCustomItemDupes(loop-player)
+		loop {{@wtdv}.slots::%loop-player%} times:
+			set {_n} to {{@wtdv}.cw::%loop-player%::%loop-number%}
+			set {_i} to {customitems::%{_n}%}
+			set {_i} to setItemNBTTag({_i}, "WeaponTreeSlot", loop-number)
+			if (loop-player does not have {_i}):
+				give loop-player {_i} if (cursor slot of loop-player is not {_i})
+		loop {{@gtdv}.slots::%loop-player%} times:
+			set {_n} to {{@gtdv}.cw::%loop-player%::%loop-number%}
+			set {_i} to {customitems::%{_n}%}
+			set {_i} to setItemNBTTag({_i}, "GearTreeSlot", loop-number)
+			if (loop-player does not have {_i}):
+				give loop-player {_i} if (cursor slot of loop-player is not {_i})
+		wait a tick
+
+command /^wt <string>:
+	permission: console
+	trigger:
+		executor is console
+		set {_args::*} to split(arg, " ")
+		if {_args::1} = "buyWeapon":
+			setWeaponTree({_args::2} parsed as player, {_args::3}, {_args::4} parsed as integer)
+
+function setWeaponTree(p:player,item:string,pos:integer):
+	set {_uuid} to {_p}'s uuid
+	set {_gold} to {playerstats::gold::%{_uuid}%}
+	set {_cost} to {wtweaponcosts::%{_item}%}
+	close {_p}'s inventory
+	
+	if {_gold} >= {_cost}:
+		remove {_cost} from {playerstats::gold::%{_uuid}%}
+		play sound "minecraft:entity.item.pickup" at {_p}
+		set {_i} to {customitems::%{_item}%}
+		set {_i} to setItemNBTTag({_i}, "WeaponTreeSlot", {_pos})
+		set {{@wtdv}.cw::%{_p}%::%{_pos}%} to {_item}
+		loop all items in {_p}'s inventory:
+			if getItemNBTTag(loop-item, "WeaponTreeSlot") = {_pos}:
+				set loop-slot to {_i}
+				exit loop
+		give {_p} {_i} if {_p} does not have {_i}
+		play sound "minecraft:block.anvil.use" at volume 2 at {_p}
+	else:
+		send "&cYou cannot afford that!" to {_p}
+		play sound "minecraft:block.anvil.destroy" at volume 2 at {_p}
+	#command "/openmenu %{_p}% weapon_tree_menu"
+command /^gt <string>:
+	permission: console
+	trigger:
+		executor is console
+		set {_args::*} to split(arg, " ")
+		if {_args::1} = "buyGear":
+			setGearTree({_args::2} parsed as player, {_args::3}, {_args::4} parsed as integer)
+
+function setGearTree(p:player,item:string,pos:integer):
+	set {_uuid} to {_p}'s uuid
+	set {_gold} to {playerstats::gold::%{_uuid}%}
+	set {_cost} to {wtweaponcosts::%{_item}%}
+	close {_p}'s inventory
+	
+	if {_gold} >= {_cost}:
+		remove {_cost} from {playerstats::gold::%{_uuid}%}
+		play sound "minecraft:entity.item.pickup" at {_p}
+		set {_i} to {customitems::%{_item}%}
+		set {_i} to setItemNBTTag({_i}, "GearTreeSlot", {_pos})
+		set {{@gtdv}.cw::%{_p}%::%{_pos}%} to {_item}
+		loop all items in {_p}'s inventory:
+			if getItemNBTTag(loop-item, "GearTreeSlot") = {_pos}:
+				set loop-slot to {_i}
+				exit loop
+		give {_p} {_i} if {_p} does not have {_i}
+		play sound "minecraft:block.anvil.use" at volume 2 at {_p}
+	else:
+		send "&cYou cannot afford that!" to {_p}
+	#command "/openmenu %{_p}% gear_tree_menu"
+
+
+
+function getWeaponTreeItem(p:player, item:string, pos:integer) :: item:
+	set {_i} to {customitems::%{_item}%}
+	set {_i} to toWeapon_applyLore({_p},{_i},{_pos})
+	return {_i}
+	
+
+function toWeapon_applyLore(p:player, item:item, pos:integer) :: item:
+	set {_itemid} to getItemNBTTag({_item}, "IBItemsData;ItemID") 
+
+	set {_t1} to {customitems::%{{@wtdv}.cw::%{_p}%::%{_pos}%}%}
+	set {_t1} to uncolored {_t1}'s name
+	set {_t1} to "None" if {_t1} is not set
+	set {_t2} to uncolored {_item}'s name
+
+	add "&x&2&c&0&4&6&3&m                                                       " to lore of {_item}
+	add "{@lorecolor} Turn {@color2}%{_t1}%" to lore of {_item}
+	add "{@lorecolor} into {@color2}%{_t2}%" to lore of {_item}
+	add "{@lorecolor} Price: {@color2}%toUnits({wtweaponcosts::%{_itemid}%})%" to lore of {_item}
+	
+	return {_item}
+function getGearTreeItem(p:player, item:string, pos:integer) :: item:
+	set {_i} to {customitems::%{_item}%}
+	set {_i} to toGear_applyLore({_p},{_i},{_pos})
+	return {_i}
+function toGear_applyLore(p:player, item:item, pos:integer) :: item:
+	set {_itemid} to getItemNBTTag({_item}, "IBItemsData;ItemID")
+	set {_t1} to {customitems::%{{@gtdv}.cw::%{_p}%::%{_pos}%}%}
+	set {_t1} to uncolored {_t1}'s name
+	set {_t1} to "None" if {_t1} is not set 
+	set {_t2} to uncolored {_item}'s name
+	add "&x&2&c&0&4&6&3&m                                                       " to lore of {_item}
+	add "{@lorecolor} Turn {@color2}%{_t1}%" to lore of {_item}
+	add "{@lorecolor} into {@color2}%{_t2}%" to lore of {_item}
+	add "{@lorecolor} Price: {@color2}%toUnits({wtweaponcosts::%{_itemid}%})%" to lore of {_item}
+	
+	return {_item}
+
+function WT_setDefaults(p:player):
+	set {{@wtdv}.slots::%{_p}%} to 2 if {{@wtdv}.slots::%{_p}%} is not set
+	loop {{@wtdv}.slots::%{_p}%} times:
+		set {{@wtdv}.cw::%{_p}%::%loop-number%} to "default_weapon" if {{@wtdv}.cw::%{_p}%::%loop-number%} is not set
+	set {{@gtdv}.slots::%{_p}%} to 2 if {{@gtdv}.slots::%{_p}%} is not set
+	loop {{@gtdv}.slots::%{_p}%} times:
+		set {{@gtdv}.cw::%{_p}%::%loop-number%} to "default_gear" if {{@gtdv}.cw::%{_p}%::%loop-number%} is not set

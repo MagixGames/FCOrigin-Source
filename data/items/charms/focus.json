@@ -1,0 +1,10 @@
+{
+	"Name": "Focus",
+	"HideAllFlags": true,
+	"ItemType": "prismarine crystals",
+	"LoreColor": "&7",
+	"Cost": 0,
+	"Desctiption": [
+		"Allows you to heal by sneaking and looking down"
+	]
+}

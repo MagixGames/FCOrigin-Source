@@ -1,0 +1,22 @@
+{
+	"Name": "&7Stick",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"ID": "wooden_sword",
+	"Type": "sword",
+	"ItemType": "stick",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "3/mainhand",
+		"Rate": "-1/mainhand"
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

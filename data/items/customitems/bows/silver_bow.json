@@ -1,0 +1,27 @@
+{
+	"Name": "&5Silver Bow",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "bow",
+	"ItemType": "bow",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		
+	},
+	"CustomStats": {
+		"Power": 6,
+		"Range": 1.8,
+		"Reload": 6,
+		"Accuracy": 0.8
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

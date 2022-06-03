@@ -1,0 +1,71 @@
+
+ 
+#command /errors:
+#    permission: admin
+#    trigger:
+#        set {_lines} to line count of file "logs/latest.log"
+#        loop 100 times:
+#            set {_n} to "%{_lines}-loop-number%" 
+#            set {_n} to {_n} parsed as number
+#            broadcast "&c%{_n}% &8| &f%line {_n} in file "logs/latest.log"%" 
+# 
+#on command "sk":
+#    set {_errorCount} to 0
+#    set {_warningCount} to 0
+#    if player is set:
+#        set {_now} to now
+#        cancel event
+#        set {_script} to first element of arguments
+#        replace all "/" with "\" in {_script}
+#        wait 1 tick
+#        make console execute command "skript reload %{_script}%"
+#        wait 1 tick 
+#        set {_lines} to line count of file "logs/latest.log"
+#        send formatted "&9&m                                                                            " to #player
+#        loop 100 times:
+#            set {_n} to "%{_lines}-loop-number%" 
+#            set {_n} to {_n} parsed as number
+#            set {_line} to line {_n} in file "logs/latest.log"
+#            if {_line} contains "[Skript] Reloading ":
+#                if {_errorCount} is 0:
+#                    send formatted "&a No Errors!"
+#                    playsound(player,"entity.player.levelup")
+#                else:
+#                    playsound(player,"entity.wither.hurt",1.5)
+#                if {_warningCount} is not 0:
+#                    send formatted "&e (+%{_warningCount}%)"
+#                send formatted "&9&m                                                                            " #to player
+#                send formatted "&8 Reloaded %{_script}% in %difference between {_now} and now%"
+#                stop 
+#
+#            if {_line} contains "[Server thread/Warn]":
+#                add 1 to {_warningCount}
+#            if {_line} contains "[Server thread/ERROR]":
+#                set {_error::*} to {_line} split at "[Server thread/ERROR]: "
+#                set {_error} to {_error::2}
+#                set {_splitted::*} to {_error} split at " "
+#                
+#                set {_mainError} to ""
+#                set {_line} to -1
+#
+#                set {_mode} to "main"
+#                loop {_splitted::*}:
+#                    set {_w} to {_splitted::%loop-index%}
+#                    
+#                    
+#                    if {_w} is "(%{_script}%,":
+#                        set {_mode} to "loc"
+#                    if {_mode} is "loc":
+#                        if {_w} is "line":
+#                            set {_mode} to "lineNext"
+#
+#                    if {_mode} is "main":
+#                        set {_mainError} to "%{_mainError}%%{_w}% "
+#                    if {_mode} is "lineNext":
+#                        set {_mode} to "line"
+#                    else if {_mode} is "line":
+#                        set {_mode} to "none"
+#                        set {_line} to {_w}
+#                if {_line} is not -1:
+#                    send formatted "<tooltip:%{_error}%>&c Line %{_line}% &8| &f%{_mainError}%" to player
+#                    add 1 to {_errorCount}

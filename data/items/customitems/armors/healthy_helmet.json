@@ -1,0 +1,20 @@
+{
+	"Name": "&6Healthy Helmet",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Type": "armor",
+	"ItemType": "leather helmet",
+	"LoreColor": "<##4956A7>",
+	"Dye": [255, 83, 74],
+	"Stack": 1,
+	"Stats": {
+		"Armor": "1/head",
+		"health": "2/head"
+	},
+	"Enchants": [
+	],
+	"ExtraLore": [
+	],
+	"OtherNBT": "{}"
+}

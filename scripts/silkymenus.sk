@@ -1,0 +1,431 @@
+options:
+	pickaxesor: wooden pickaxe or stone pickaxe or iron pickaxe or diamond pickaxe or gold pickaxe
+	pickaxesand: wooden pickaxe and stone pickaxe and iron pickaxe and diamond pickaxe and gold pickaxe
+	armoror: leather chestplate or chainmail chestplate or iron chestplate or diamond chestplate or gold chestplate
+	armorand: leather chestplate and chainmail chestplate and iron chestplate and diamond chestplate and gold chestplate
+	weaponsor: wooden sword or stone sword or iron sword or diamond sword or gold sword
+	weaponsand: wooden sword and stone sword and iron sword and diamond sword and gold sword
+	axesor: wooden axe or stone axe or iron axe or diamond axe or gold axe
+	axesand: wooden axe and stone axe and iron axe and diamond axe and gold axe
+	prefixdev: &8[&2Dev&8]&f
+	yamlpath: plugins/Skript/data/
+	wtdv: wtplayerdata
+	gtdv: gtplayerdata
+
+function custom_case(player:player,case:string,olditem:item) :: item:
+	set {_uuid} to uuid of {_player}
+	set {_item} to redstone named "&cCASE ERROR"
+	set {_cmd} to "$cancel$"
+
+	if {_case} is "Test":
+		set {_item} to piston
+		set {_cmd} to "/say push!"
+	else if {_case} is "levelup":
+		set {_item} to {levelupicon} with name "&6Level Up" with lore "&e Cost: %regex({playerstats::gold.required::%{_uuid}%})% Gold" 
+		set {_cmd} to "menuPlayerU %{_player}% tryUpgradeFlag"
+
+	else if {_case} contains "charm_":
+		set {_text} to {_case}
+		replace all "charm_" with "" in {_text}
+		if {playerdata::charms_obtained::%{_uuid}%::%{_text}%} is true:
+			if {charm_toggle::%{_uuid}%::%{_text}%} is true:
+				set {_item} to {charmicons::%{_text}%}
+				set {_item} to glowing {_item}
+				set {_item}'s name to "&a%{_item}'s name%"
+			else:
+				set {_item} to {charmicons::%{_text}%}
+				set {_item}'s name to "&c%{_item}'s name%"
+			add "&8 Charm Cost: [%{charmcosts::%{_text}%}%]" to lore of {_item}  
+			set {_cmd} to "/charmtoggle %{_player}% %{_text}% //charmtoggle %{_player}% %{_text}%"
+		else:
+			set {_item} to {uielements::locked_charm}
+
+
+	else if {_case} contains "cmd_e_result":
+		set {_t1} to {_case}
+		replace all "cmd_e_result" in {_t1} with "" 
+		set {_id} to {itemsearchresults::itemindexes::%{_t1} parsed as integer + {itemsearchresults::offset}%}
+		set {_item} to {%{itemsearchresults::itemslistgrab}%::%{_id}%}
+		add "%nl%&8ITEM ID: %{_id}%" to lore of {_item}
+		set {_cmd} to "/ibgive %{_player}% %{itemsearchresults::itemslistgrab}% %{_id}% //ibgive %{_player}% %{itemsearchresults::itemslistgrab}% %{_id}%"
+	
+	else if {_case} contains "wt_current_weapon":
+		WT_setDefaults({_player})
+		set {_t1} to {_case}
+		replace all "wt_current_weapon" in {_t1} with ""
+		if {{@wtdv}.slots::%{_player}%} >= ({_t1} parsed as integer):
+			set {_item} to {customitems::%{{@wtdv}.cw::%{_player}%::%{_t1}%}%}
+		else:
+			set {_item} to gray stained glass pane named "&8Locked" with lore "&7 &7 ???"
+
+	else if {_case} contains "wt_upgrade_weapon":
+		set {_t1} to {_case}
+		replace all "wt_upgrade_weapon" in {_t1} with ""
+		set {_t1::*} to split({_t1}, "_")
+		set {_slot} to {_t1::1}
+		if {{@wtdv}.slots::%{_player}%} >= ({_t1::1} parsed as integer):
+			set {_currentweapon} to {{@wtdv}.cw::%{_player}%::%{_slot}%}
+			set {_upgradeweapon} to {wtweapons::%{_currentweapon}%::%{_t1::2}%}
+			if {_t1::2} = "1":
+				{_upgradeweapon} is not set
+				set {_upgradeweapon} to {wtweapons::default_weapon::%{_t1::2}%}
+			set {_item} to getWeaponTreeItem({_player}, {_upgradeweapon}, {_t1::1} parsed as integer)
+			set {_cmd} to "/^wt buyWeapon %{_player}% %{_upgradeWeapon}% %{_slot}% //^wt buyWeapon %{_player}% %{_upgradeWeapon}% %{_slot}%"
+		else:
+			set {_item} to gray stained glass pane named "&8Locked" with lore "&7 &7 ???"
+
+	else if {_case} contains "gt_current_weapon":
+		WT_setDefaults({_player})
+		set {_t1} to {_case}
+		replace all "gt_current_weapon" in {_t1} with ""
+		if {{@gtdv}.slots::%{_player}%} >= ({_t1} parsed as integer):
+			set {_item} to {customitems::%{{@gtdv}.cw::%{_player}%::%{_t1}%}%}
+		else:
+			set {_item} to gray stained glass pane named "&8Locked" with lore "&7 &7 ???"
+
+	else if {_case} contains "gt_upgrade_weapon":
+		set {_t1} to {_case}
+		replace all "gt_upgrade_weapon" in {_t1} with ""
+		set {_t1::*} to split({_t1}, "_")
+		set {_slot} to {_t1::1}
+		if {{@gtdv}.slots::%{_player}%} >= ({_t1::1} parsed as integer):
+			set {_currentgear} to {{@gtdv}.cw::%{_player}%::%{_slot}%}
+			set {_upgradegear} to {wtweapons::%{_currentgear}%::%{_t1::2}%}
+			if {_t1::2} = "1":
+				{_upgradegear} is not set
+				set {_upgradegear} to {wtweapons::default_gear::%{_t1::2}%}
+			set {_item} to getGearTreeItem({_player}, {_upgradegear}, {_t1::1} parsed as integer)
+			set {_cmd} to "/^gt buygear %{_player}% %{_upgradegear}% %{_slot}% //^gt buygear %{_player}% %{_upgradegear}% %{_slot}%"
+		else:
+			set {_item} to gray stained glass pane named "&8Locked" with lore "&7 &7 ???"
+
+	else if {_case} contains "grabStaticUIElement_":
+		set {_c} to replace("%{_case}%","grabStaticUIElement_","")
+		set {_item} to {UIElements::%{_c}%}
+
+	if {_case} contains "charmslot":
+		set {playerstats::charmslotsused::%{_uuid}%} to 0 if {playerstats::charmslotsused::%{_uuid}%} < 0
+		set {playerstats::charmslotsused::%{_uuid}%} to 0 if {playerstats::charmslotsused::%{_uuid}%} is not set
+		set {playerstats::charmslotsused::%{_uuid}%} to {playerstats::charmslotsmax::%{_uuid}%} if {playerstats::charmslotsused::%{_uuid}%} > {playerstats::charmslotsmax::%{_uuid}%}
+		set {_c} to replace("%{_case}%","charmslot","") parsed as integer
+		if {playerstats::charmslotsused::%{_uuid}%} >= {_c}:
+			set {_item} to {uielements::used_charm_slot}
+		else:
+			set {_item} to {uielements::unused_charm_slot}
+		if {_c} > {playerstats::charmslotsmax::%{_uuid}%}:
+			set {_item} to air
+		updateCharmSlotsUsed({_player})
+	
+
+	
+	add "{runCmd:""<!CMD!>%{_cmd}%<!CMD!>""}" to nbt of {_item}
+	return {_item}
+
+command /menuPlayerU <player> <string>:
+	permission: op
+	aliases: mpu
+	trigger:
+		if arg-2 is "closecurrentinventory":
+			close arg-1's inventory
+		else if arg-2 is "tryUpgradeFlag":
+			command "menuPlayerU %arg-1% closecurrentinventory"
+			if {playerstats::gold::%arg-1's uuid%} >= {playerstats::gold.required::%arg-1's uuid%}:
+				remove {playerstats::gold.required::%arg-1's uuid%} from {playerstats::gold::%arg-1's uuid%}
+				add 1 to {playerstats::level::%arg-1's uuid%}
+				command "/updateflagstats %arg-1%"
+				play sound "minecraft:block.beacon.activate" with pitch 0.8 at {flags::%arg-1%}
+				send title "&bLeveled up!" to arg-1
+				if mod({playerstats::level::%arg-1's uuid%}, 7) = 0:
+					add ceil(random number between 3 and 7) to {playerstats::soulshards::%arg-1's uuid%}
+				if {playerstats::level::%arg-1's uuid%} = 8:
+					wait 2 seconds
+					unlockCharm(arg-1,"focus")
+				if {playerstats::level::%arg-1's uuid%} = 30:
+					wait 2 seconds
+					unlockCharm(arg-1,"quick_respawn")
+				if {playerstats::level::%arg-1's uuid%} = 50:
+					wait 2 seconds
+					unlockCharm(arg-1,"mend")
+				if {playerstats::level::%arg-1's uuid%} = 60:
+					wait 2 seconds
+					unlockCharm(arg-1,"bargain")
+				if {playerstats::level::%arg-1's uuid%} = 70:
+					wait 2 seconds
+					unlockCharm(arg-1,"olympic_runner")
+			else:
+				send "&cYou do not have the required amount of gold." to arg-1
+		else if arg-2 is "removeflag":
+			command "menuPlayerU %arg-1% closecurrentinventory"
+			removeFlag(arg-1)
+		stop
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#
+#
+#              Moon Menus Code Below
+#
+#
+
+command /mm [<string>] [<string>] [<string>]:
+		permission: admin
+		aliases: magicmenu, magicmenus, menu
+		trigger:
+				if arg 1 is "edit":
+						if arg 2 is set:
+								send_mb(player,"Editing menu &b%arg 2%")
+								menu_edit(player,arg 2)
+								stop
+						send_error(player,"Incorrect usage! &7/mm edit <menu id>")
+						stop
+
+				if arg 1 is "open":
+						if arg 2 is set:
+								send_mb(player,"Opening menu &b%arg 2%")
+								menu_open(player,arg 2)
+								stop
+						send_error(player,"Incorrect usage! &7/mm open <menu id>")
+						stop
+
+				if arg 1 is "delete":
+						if arg 2 is set:
+								send_mb(player,"Deleted menu &b%arg 2%")
+								menu_delete(arg-2)
+								stop
+						send_error(player,"Incorrect usage! &7/mm delete <menu id>")
+						stop
+
+				if arg 1 is "rows":
+						if arg 2 is set:
+								if arg 3 is set:
+										set {_int} to arg 3 parsed as integer
+										if {_int} is 1 or 2 or 3 or 4 or 5 or 6:
+												set {menu.rows::%arg 2%} to {_int}
+												send_mb(player,"Menu rows updated!")
+												stop
+										send_error(player,"Not a valid number! Use 1 to 6!")
+										stop
+								send_error(player,"Incorrect usage! &7/mm rows <menu id> <rows>")
+								stop
+						send_error(player,"Incorrect usage! &7/mm rows <menu id> <rows>")
+						stop
+
+				if arg 1 is "name":
+						if arg 2 is set:
+								if arg 3 is set:
+										set {menu.name::%arg 2%} to colored arg-3
+										send_mb(player,"Menu display name set to %colored arg-3%&f!")
+										stop
+								
+								send_error(player,"Incorrect usage! &7/mm name <menu id> <display name>")
+								stop
+						send_error(player,"Incorrect usage! &7/mm name <menu id> <display name>")
+						stop
+
+				if arg 1 is set:
+						send_error(player,"Unknown sub-command, Use /mm for the list!")
+						stop
+				
+				message "&7 /mm edit <menu id>"
+				message "&7 /mm delete <menu id> (Deletes menu)"
+				message "&7 /mm open <menu id> (Opens a menu, for quick testing)"
+				message "&7 /openmenu <player> <menu id> (Opens a menu, use this everything!)"
+				
+				message "&7 /mm rows <menu id> <rows> (Change the number of rows of a menu)"
+				message "&7 /mm name <menu id> <display name> (Change the display name of a menu)"
+
+				message "&7 /setcmd (Set the click command for an item)"
+				message "&7 /setcustomcase (Set the custom case ID for an item)"
+				
+
+command /openmenu <player> <string>:
+		permission: admin 
+		trigger:
+				menu_open(arg 1,arg 2)
+				play sound "minecraft:entity.item.pickup" with volume 0.2 at arg-1
+
+
+on inventory close:
+		if {menuEdit::%player%} is set:
+				delete {menuEdit::%player%}
+				send_mb(player,"Menu edit succesful!")
+
+		if {menuOpen::%player%} is set:
+				delete {menuOpen::%player%}
+
+
+on every tick:
+		loop all players:
+				if {menuEdit::%loop-player%} is set:
+						set {_m} to {menuEdit::%loop-player%}
+						loop 9*{menu.rows::%{_m}%} times:
+								set {_n} to -1 + loop-number
+								set {_item} to slot {_n} of loop-player's current inventory
+								if {menuData.%{_m}%::%{_n}%} is not {_item}:
+										set {menuData.%{_m}%::%{_n}%} to {_item}
+
+on inventory click:
+		if {menuOpen::%player%} is set:
+				set {_m} to {menuOpen::%player%}
+				cancel event
+
+				set {_cmd} to nbt of clicked slot
+				set {_run::*} to {_cmd} split at "<!CMD!>"
+				set {_close} to true if {_cmd} contains "closeOnClick:1b"
+				set {_run} to {_run::2}
+
+
+				if {_cmd} is set:
+						if click type is left mouse:
+								set {_run} to replace({_run},"[player]","%player%")
+								set {_run} to replace({_run},"//","/$cancel$")
+								set {_c::*} to {_run} split at "/"
+								loop {_c::*}:
+										if {_c::%loop-index%} does not contain "$cancel$":
+												command {_c::%loop-index%}
+
+						if click type is right mouse:
+								set {_run} to replace({_run},"[player]","%player%")
+								set {_run} to replace({_run},"//","\")
+								set {_run} to replace({_run},"/","/$cancel$")
+								set {_run} to replace({_run},"\","/")
+
+
+								set {_c::*} to {_run} split at "/"
+
+								loop {_c::*}:
+										if {_c::%loop-index%} does not contain "$cancel$":
+												command {_c::%loop-index%}
+				if {_close} is set:
+						close player's inventory
+
+function menu_edit(p:player,m:string):
+		set {menuEdit::%{_p}%} to {_m}
+		menu_define({_m})
+				
+		open_chest({_p} , "%{menu.name::%{_m}%}% &7(edit mode)", {menu.rows::%{_m}%})
+		loop 9*{menu.rows::%{_m}%} times:
+				set {_n} to loop-number - 1
+				set slot {_n} of {_p}'s current inventory to {menuData.%{_m}%::%{_n}%}
+
+command /silky_copymenu <string> <string>:
+	permission: admin
+	trigger:
+		loop 9*{menu.rows::%arg-1%} times:
+			set {_n} to loop-number - 1
+			set {_i} to {menuData.%arg-1%::%{_n}%}
+			set {menuData.%arg-2%::%{_n}%} to {_i}
+		send "{@prefixdev} Menu %arg-2%'s contents set to %arg-1%'s contents."
+
+
+function menu_open(p:player,m:string):
+		menu_define({_m})
+		#if {menuOpen::%{_p}%} is not set:
+		open_chest({_p} , {menu.name::%{_m}%}, {menu.rows::%{_m}%}) if {menuOpen::%{_p}%} is not set
+		set {menuOpen::%{_p}%} to {_m}
+		loop 9*{menu.rows::%{_m}%} times:
+				set {_n} to loop-number - 1
+				set {_i} to {menuData.%{_m}%::%{_n}%}
+				
+				if nbt of {_i} contains "<!CASE!>":
+						set {_c::*} to nbt of {_i} split at "<!CASE!>"
+						set {_i} to custom_case({_p},{_c::2},{_i})
+				set slot {_n} of {_p}'s current inventory to {_i}
+				
+
+function menu_define(m:string):
+		if {menu.name::%{_m}%} is not set:
+				set {menu.rows::%{_m}%} to 3
+				set {menu.name::%{_m}%} to {_m}
+
+function menu_delete(m:string):
+		delete {menu.rows::%{_m}%}
+		delete {menu.name::%{_m}%}
+		delete {menuData.%{_m}%::*}
+
+command /setcmd <string>:
+		permission: admin
+		trigger:
+				set tool to setItemNBTTag(tool,"runCmd","<!CMD!>%arg%<!CMD!>")
+				message "&eTip: use / for commands use // for rightclick commands use [player] for the player that clicked"
+
+command /setcustomcase <string>:
+		permission: admin
+		trigger:
+				set tool to setItemNBTTag(tool,"customCase","<!CASE!>%arg%<!CASE!>")
+				set name of player's held item to "&3[%arg 1%]"
+
+command /setcloseonclick:
+		permission: admin
+		trigger:
+				add "{closeOnClick:1b}" to nbt of player's held item
+				message "&aAdded!"
+
+
+on tab complete of "/mm" and "/menu" and "/magicmenu":
+	set {_completers1::*} to "edit", "delete", "open", "rows", and "name"
+	loop {menu.name::*}:
+		add loop-index to {_completers2::*}
+	set tab completions for position 1 to {_completers1::*}
+	set tab completions for position 2 to {_completers2::*}
+
+on tab complete of "/openmenu":
+	loop all players:
+		add loop-player to {_players::*}
+	loop {menu.name::*}:
+		add loop-index to {_completers::*}
+	set tab completions for position 1 to {_players::*}
+	set tab completions for position 2 to {_completers::*}
+
+on tab complete of "/silky_copymenu" and "/exportmenu" and "/importmenu":
+	loop {menu.name::*}:
+		add loop-index to {_completers::*}
+	set tab completions for position 1 to {_completers::*}
+	set tab completions for position 2 to {_completers::*}
+
+#function renames
+
+function open_chest(p:player,n:string,r:number):
+	open chest with {_r} rows named {_n} to {_p}
+
+function send_mb(p:player,s:string):
+	message "&a[MagixMenus] &8| &f%{_s}%" to {_p}
+
+function send_error(p:player,s:string):
+	message "&c[ERROR] &8| &f%{_s}%" to {_p}
+
+function colorize(string:string) :: string:
+	set {_string} to replace( {_string}, "&u", "&x&F&F&8&C&3&A" )
+	return {_string}
+
+function replace(inStr:string,replaceStr:string,endStr:string) :: string:
+	replace all {_replaceStr} in {_inStr} with {_endStr}
+	return {_inStr}
+
+function split(inStr:string,splitStr:string) :: objects:
+	set {_l::*} to {_inStr} split at {_splitStr}
+	return {_l::*}
+
+function join(list:objects,splitter:string) :: string:
+	set {_l} to join {_list::*} by {_splitter}
+	return {_l}
+
+function addNBT(i:item,nbtn:string, nbts:string) :: item:
+	add "{%{_nbtn}%:""%{_nbts}%""}" to nbt of {_i}
+	return {_i}
+	
+function CheckPermission(p:player,c:string) :: boolean:
+	return false if {_p} does not have permission "%{CCPermissions::%{_c}%}%"
+	return true

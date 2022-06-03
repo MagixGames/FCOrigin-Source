@@ -1,0 +1,10 @@
+{
+	"Name": "Assassin",
+	"HideAllFlags": true,
+	"ItemType": "iron sword",
+	"LoreColor": "&7",
+	"Cost": 2,
+	"Desctiption": [
+		"Deal 50% extra melee damage when at full health"
+	]
+}

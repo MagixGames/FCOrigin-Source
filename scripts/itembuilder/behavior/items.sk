@@ -1,0 +1,33 @@
+
+on right click:
+	set {_tool} to player's tool
+	if getItemNBTTag({_tool}, "IBItemsData;DynamicExecute;Use") is set:
+		set {_id} to getItemNBTTag({_tool}, "IBItemsData;ItemID")
+		not ActiveCooldown(player, "%{_id}%")
+		set {_l} to getItemNBTTag({_tool}, "IBItemsData;DynamicExecute;Use")
+		loop parseDynamicExecute({_l}):
+			set {_v} to replace("%loop-value%", "''", """")
+			evaluate "%loop-value%"
+		if {_cooldown} is set:
+			Cooldown(player,"%{_id}%",ceil({_cooldown}),"&x&2&e&f&f&a&1|",{_displayCooldown})
+
+on fishing:  
+	set {_tool} to player's tool
+	set {_id} to getItemNBTTag({_tool}, "IBItemsData;ItemID")
+	if {_id} contains "grappling_hook":
+		not ActiveCooldown(player, "grappling_hook")
+		if "%fish state%" is "CAUGHT" or "REEL_IN" or "IN_GROUND":
+			set {_ploc.x} to x coordinate of player
+			set {_floc.x} to x coordinate of fishing hook
+			set {_ang} to {_floc.x} - {_ploc.x}
+			set {_ploc.z} to z coordinate of player
+			set {_floc.z} to z coordinate of fishing hook
+			set {_ang.2} to {_floc.z} - {_ploc.z}
+			set {_ploc.y} to y coordinate of player
+			set {_floc.y} to y coordinate of fishing hook
+			set {_ang.3} to {_floc.y} - {_ploc.y}
+			set velocity of player to new Vector {_ang}/2, 1, {_ang.2}/2
+			Cooldown(player,"grappling_hook",ceil(100),"&x&2&e&f&f&a&1|", true)
+			if {_id} does not contain "unbreakable":
+				set player's tool to air
+				playsound(player,"minecraft:entity.item.break")

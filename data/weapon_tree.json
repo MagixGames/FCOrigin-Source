@@ -1,0 +1,294 @@
+{
+	"default_weapon": [
+		"stick"
+	],
+	"default_gear": [
+		"wood_pickaxe"
+	],
+	"wood_pickaxe": [
+		"darkstone_pickaxe",
+		"steel_pickaxe",
+		"leather_chestplate"
+	],
+	"leather_chestplate": [
+		"shell_platemail",
+		"wood_pickaxe"
+	],
+	"steel_pickaxe": [
+		"crystal_pickaxe",
+		"wood_pickaxe"
+	],
+	"crystal_pickaxe": [
+		"holy_pickaxe",
+		"steel_pickaxe"
+	],
+	"holy_pickaxe": [
+		"crystal_pickaxe"
+	],
+	"darkstone_pickaxe": [
+		"raw_artifact",
+		"wood_pickaxe"
+	],
+	"raw_artifact": [
+		"minor_artifact_of_health",
+		"darkstone_pickaxe"
+	],
+	"minor_artifact_of_health": [
+		"major_artifact_of_health",
+		"raw_artifact"
+	],
+	"major_artifact_of_health": [
+		"blood_artifact",
+		"minor_artifact_of_health"
+	],
+	"blood_artifact": [
+		"major_artifact_of_health"
+	],
+
+
+
+
+	"wooden_shortbow": [
+		"steel_shortbow",
+		"steel_bow"
+	],
+	"steel_shortbow": [
+		"silver_shortbow",
+		"wooden_shortbow"
+	],
+	"silver_shortbow": [
+		"sniping_shortbow",
+		"steel_shortbow"
+	],
+	"sniping_shortbow": [
+		"silver_shortbow"
+	],
+
+
+	"steel_bow": [
+		"silver_bow",
+		"wooden_shortbow",
+		"wooden_bow"
+	],
+	"silver_bow": [
+		"steel_bow"
+	],
+
+
+
+
+	"dull_scythe": [
+		"sharpened_scythe",
+		"phantom_scythe",
+		"wooden_sword"
+	],
+	"phantom_scythe": [
+		"dull_scythe"
+	],
+	"sharpened_scythe": [
+		"sharper_scythe",
+		"wither_sickle",
+		"dull_scythe"
+	],
+	"sharper_scythe": [
+		"sharpened_scythe"
+	],
+	
+	"wither_sickle": [
+		"wither_sickle_plus",
+		"sharpened_scythe"
+	],
+	"wither_sickle_plus": [
+		"wither_sickle"
+	],
+
+
+	"shell_platemail": [
+		"chainmail_chestplate",
+		"opal_platebody",
+		"shellmet",
+		"leather_chestplate"
+	],
+	"chainmail_chestplate": [
+		"iron_chestplate",
+		"cobalt_breastplate",
+		"shell_platemail"
+	],
+	"cobalt_breastplate": [
+		"cactus_chestplate",
+		"healthy_helmet",
+		"shell_platemail"
+	],
+	"cactus_chestplate": [
+		"cobalt_breastplate"
+	],
+	"healthy_helmet": [
+		"helmet_of_consitution",
+		"cobalt_breastplate"
+	],
+	"helmet_of_consitution": [
+		"healthy_helmet"
+	],
+	"iron_chestplate": [
+		"darksteel_platearmor",
+		"obsidian_breastplate",
+		"chainmail_chestplate"
+	],
+	"darksteel_platearmor": [
+		"crapclaw_scalemail",
+		"iron_chestplate"
+	],
+	"crapclaw_scalemail": [
+		"darksteel_platearmor"
+	],
+	"obsidian_breastplate": [
+		"deepslate_platebody",
+		"iron_chestplate"
+	],
+	"deepslate_platebody": [
+		"obsidian_breastplate"
+	],
+	"opal_platebody": [
+		"amethyst_helmet",
+		"phloem_chainmail",
+		"shell_platemail"
+	],
+	"amethyst_helmet": [
+		"opal_platebody"
+	],
+	"phloem_chainmail": [
+		"twisted_boots",
+		"tanglegroove_chestplate",
+		"opal_platebody"
+	],
+	"twisted_boots": [
+		"phloem_chainmail"
+	],
+	"tanglegroove_chestplate": [
+		"phloem_chainmail"
+	],
+	"shellmet": [
+		"turtle_shellmet",
+		"shell_platemail"
+	],
+	"turtle_shellmet": [
+		"shellmet"
+	],
+
+
+	"hunter_sword": [
+		"prismarine_dagger",
+		"hot_sword",
+		"wooden_sword"
+	],
+	"prismarine_dagger": [
+		"assassin_dagger",
+		"hunter_sword"
+	],
+	"assassin_dagger": [
+		"prismarine_dagger"
+	],
+	"stone_blade": [
+		"steel_blade",
+		"steel_longsword",
+		"wooden_sword"
+	],
+	
+	"steel_blade": [
+		"silver_blade",
+		"stone_blade"
+	],
+	"silver_blade": [
+		"obsidian_blade",
+		"stone_blade"
+	],
+	"obsidian_blade": [
+		"obsidian_blade_plus",
+		"silver_blade"
+	],
+	"obsidian_blade_plus": [
+		"obsidian_blade"
+	],
+	"steel_longsword": [
+		"diamond_longsword",
+		"stone_blade"
+	],
+	"diamond_longsword": [
+		"holy_carrot_blade",
+		"steel_longsword"
+	],
+	"hot_sword": [
+		"flame_blade",
+		"hunter_sword"
+	],
+	"flame_blade": [
+		"fireheart_sword",
+		"hot_sword"
+	],
+	"fireheart_sword": [
+		"flame_blade"
+	],
+	
+
+
+	"silver_spear": [
+		"lightspeed_spear",
+		"amethyst_spear",
+		"cobblestone_spear"
+	],
+	"lightspeed_spear": [
+		"true_lightspeed_spear",
+		"silver_spear"
+	],
+	"true_lightspeed_spear": [
+		"lightspeed_spear"
+	],
+	"amethyst_spear": [
+		"spear_of_the_mountain",
+		"offcurse_spear",
+		"silver_spear"
+	],
+	"spear_of_the_mountain": [
+		"amethyst_spear"
+	],
+	"offcurse_spear": [
+		"amethyst_spear"
+	],
+	"cobblestone_spear": [
+		"silver_spear",
+		"wooden_spear"
+	],
+
+
+	"stick": [
+		"wooden_sword",
+		"wooden_spear",
+		"cobble_crusher",
+		"wooden_bow"
+	],
+	"wooden_sword": [
+		"hunter_sword",
+		"stone_blade",
+		"dull_scythe",
+		"stick"
+	],
+	"wooden_spear": [
+		"cobblestone_spear",
+		"stick"
+	],
+	"cobble_crusher": [
+		"godly_axe",
+		"stick"
+	],
+	"godly_axe": [
+		"cobble_crusher"
+	],
+	"wooden_bow": [
+		"angelic_bow",
+		"steel_bow",
+		"stick"
+	],
+	"angelic_bow": [
+		"wooden_bow"
+	]
+}

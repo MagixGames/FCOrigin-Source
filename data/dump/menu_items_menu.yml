@@ -1,0 +1,59 @@
+menuname: Items Menu
+
+menurows: 6
+
+data:
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- feather$!NBT!${display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"2k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Chicken Wing"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] chicken_wing //shopbuy [player] chicken_wing<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- potion$!NBT!${CustomPotionColor/$COLON/$13102591,CustomPotionEffects/$COLON/$[{Ambient/$COLON/$0b,Amplifier/$COLON/$0b,Duration/$COLON/$100,Id/$COLON/$14b,ShowIcon/$COLON/$1b,ShowParticles/$COLON/$1b}],HideFlags/$COLON/$111,Potion/$COLON/$"minecraft/$COLON/$empty",Unbreakable/$COLON/$1b,display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"50k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Unseeable Potion"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] invisibility_potion //shopbuy [player] invisibility_potion<!CMD!>"}
+- potion$!NBT!${CustomPotionColor/$COLON/$16016116,CustomPotionEffects/$COLON/$[{Ambient/$COLON/$0b,Amplifier/$COLON/$0b,Duration/$COLON/$0,Id/$COLON/$6b,ShowIcon/$COLON/$1b,ShowParticles/$COLON/$1b}],HideFlags/$COLON/$111,Potion/$COLON/$"minecraft/$COLON/$empty",display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"1.2k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Lesser Healing Potion"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] lesser_healing_potion //shopbuy [player] lesser_healing_potion<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- flint$!NBT!${display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"3.5k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Shade Shard"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] shade_shard //shopbuy [player] shade_shard<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- obsidian block$!NBT!${display/$COLON/${Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"dark_gray","text"/$COLON/$"???"}],"text"/$COLON/$""}'}}
+- potion$!NBT!${CustomPotionColor/$COLON/$16016116,CustomPotionEffects/$COLON/$[{Ambient/$COLON/$0b,Amplifier/$COLON/$2b,Duration/$COLON/$0,Id/$COLON/$6b,ShowIcon/$COLON/$1b,ShowParticles/$COLON/$1b}],HideFlags/$COLON/$111,Potion/$COLON/$"minecraft/$COLON/$empty",display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"4k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Greater Healing Potion"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] greater_healing_potion //shopbuy [player] greater_healing_potion<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- tnt block$!NBT!${display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"1.5k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"TNT"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] tnt //shopbuy [player] tnt<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- potion$!NBT!${CustomPotionColor/$COLON/$16761149,CustomPotionEffects/$COLON/$[{Ambient/$COLON/$0b,Amplifier/$COLON/$0b,Duration/$COLON/$600,Id/$COLON/$3b,ShowIcon/$COLON/$1b,ShowParticles/$COLON/$1b}],HideFlags/$COLON/$111,Potion/$COLON/$"minecraft/$COLON/$empty",Unbreakable/$COLON/$1b,display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"6k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Hasteful Potion"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] haste_potion //shopbuy [player] haste_potion<!CMD!>"}
+- obsidian block$!NBT!${display/$COLON/${Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"dark_gray","text"/$COLON/$"???"}],"text"/$COLON/$""}'}}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- barrier block$!NBT!${HideFlags/$COLON/$111,display/$COLON/${Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"red","text"/$COLON/$"Exit Menu"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/openmenu [player] main_menu //openmenu [player] main_menu<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>

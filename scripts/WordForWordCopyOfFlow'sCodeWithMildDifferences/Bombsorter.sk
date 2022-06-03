@@ -1,0 +1,80 @@
+command /bombsorter:
+	trigger:
+		OpenMenu(player, "Bombsorter", 6, true)
+
+		set slot 18 of player's current inventory to red stained glass pane named "&cPut Red Bombs here"
+		set slot 27 of player's current inventory to red stained glass pane named "&cPut Red Bombs here"
+
+		set slot 18+8 of player's current inventory to blue stained glass pane named "&9Put Blue Bombs here"
+		set slot 27+8 of player's current inventory to blue stained glass pane named "&9Put Blue Bombs here"
+
+		set {bombsSorted::%player%} to 0
+		while name of player's current inventory contains "Bombsorter":
+			wait 1 tick
+			remove 1+{_speed} from {_spawnTime}
+			if {_spawnTime} < 0:
+				set {_bombCount} to number of player head in player's current inventory
+				if {_bombCount} is more than 20:
+					close player's inventory
+					send "&cL &7(&a%{bombsSorted::%player%}%&7)"
+				add 0.02 to {_speed}
+				add 1 to {_spawnCount}
+
+				set {_spawnTime} to 20
+				set {_x} to RandI(1,7)
+				set {_y} to RandI(0,5)
+				set {_bomb} to {bombRed} or {bombBlue}
+				if {_spawnCount} is 70:
+					set {_bomb} to {bombClear}
+
+				add "{Unique:""%RandI(0,999999999999)%""}" to nbt of {_bomb}
+				set slot {_x} + {_y}*9 of player's current inventory to {_bomb}
+				playsound(player,"entity.item.pickup", 3,1.2)
+
+on inventory click:
+	if name of player's current inventory contains "Bombsorter":
+		if index of event-slot is less than 0:
+			cancel event
+			stop
+		if event-inventory is player's inventory:
+			cancel event
+			stop
+		if click type is number key:
+			cancel event
+			stop
+		if "%click type%" contains "shift":
+			cancel event
+			stop
+		if name of event-item is name of {bombClear}:
+			loop 7 times:
+				loop 6 times:
+					set {_x} to loop-number-1
+					set {_y} to loop-number-2
+					set slot {_x} + {_y}*9 of player's current inventory to air
+			cancel event
+			set player's cursor slot to air
+			playsound(player,"entity.generic.explode")
+		if event-slot is red stained glass pane:
+			cancel event
+			if name of player's cursor slot is name of {bombRed}:
+				set player's cursor slot to air
+				playsound(player)
+				add 1 to {bombsSorted::%player%}
+			if name of player's cursor slot is name of {bombBlue}:
+				close player's inventory
+				send "&cL &7(&a%{bombsSorted::%player%}%&7)"
+		if event-slot is blue stained glass pane:
+			cancel event
+			if name of player's cursor slot is name of {bombBlue}:
+				set player's cursor slot to air
+				playsound(player)
+				add 1 to {bombsSorted::%player%}
+			if name of player's cursor slot is name of {bombRed}:
+				close player's inventory
+				send "&cL &7(&a%{bombsSorted::%player%}%&7)"
+	
+on inventory close:
+	wait a tick
+	remove all {bombRed} from player's inventory
+	remove all {bombBlue} from player's inventory
+	remove all {bombClear} from player's inventory

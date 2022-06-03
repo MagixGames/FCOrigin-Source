@@ -1,0 +1,22 @@
+{
+	"Name": "&dDeepslate Platebody",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Type": "armor",
+	"ItemType": "leather chestplate",
+	"LoreColor": "<##4956A7>",
+	"Dye": [50, 50, 50],
+	"Stack": 1,
+	"Stats": {
+		"Armor": "11.5/chest",
+		"swiftness": "-4/chest"
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		"Makes movement incredibly difficult"
+	],
+	"OtherNBT": "{}"
+}

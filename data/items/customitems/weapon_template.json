@@ -1,0 +1,38 @@
+{
+	"Name": "&f[Weapon Template]",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": true,
+	"Type": "sword",
+	"ItemType": "wooden sword",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "1/mainhand",
+		"Rate": "1/mainhand",
+		"Armor": "1/offhand"
+	},
+	"CustomStats": {
+		"Cool": 99
+	},
+	"Enchants": [
+		"fire_aspect 1"
+	],
+	"CustomEnchants": {
+		"Racism": 1
+	},
+	"ExtraLore": [
+		"Not for public use",
+		"Gives armor when in offhand"
+	],
+	"Execute": {
+		"Passive": [
+			
+		],
+		"Use": [
+			
+		]
+	},
+	"OtherNBT": "{}"
+}

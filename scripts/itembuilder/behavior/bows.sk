@@ -1,0 +1,48 @@
+
+on shoot:
+	wait 1 tick
+	event is not canceled
+	set {_item} to shooter's tool
+	if getItemNBTTag({_item},"IBItemsData;Type") = "bow":
+		kill event-projectile
+		set {_power} to getItemNBTTag({_item}, "IBItemsData;power")
+		set {_cooldown} to getItemNBTTag({_item}, "IBItemsData;reload")
+		set {_range} to getItemNBTTag({_item}, "IBItemsData;range")
+		set {_accuracy} to getItemNBTTag({_item}, "IBItemsData;accuracy")
+		set {_multishot} to getItemNBTTag({_item}, "IBItemsData;multishot")
+		set {_flame} to getItemNBTTag({_item}, "IBItemsData;flame")
+		set {_t} to true if GetItemCooldown(shooter) is 0
+		set {_t} to false if {CancelEvent::Use_Bow}
+		if {_t}:
+			set {_a} to (1 - 1/{_accuracy})/5
+			loop {_multishot} + 1 times:
+				set {_loc} to location(shooter's x coordinate, shooter's y coordinate, shooter's z coordinate, shooter's world, (random number between shooter's yaw + {_a} and shooter's yaw - {_a}), (random number between shooter's pitch + {_a} and shooter's pitch - {_a}))
+				set {_loc} to location 1.5 meter above {_loc}
+				shoot arrow from {_loc} at speed 0
+
+				set {_vel} to event-projectile's velocity
+				set {_vel} to {_vel} // vector(3 * (1/{_range}), 3 * (1/{_range}), 3 * (1/{_range}))
+				set {_vel} to {_vel} ++ vector((random number between -1 * {_a} and {_a}), (random number between -1 * {_a} and {_a}), (random number between -1 * {_a} and {_a}))
+				set last shot arrow on fire for ("%{_flame}% seconds" parsed as timespan)
+				set last shot arrow's velocity to {_vel}
+				
+				set nbt of last shot arrow to "{damage:%{_power}%}"
+			ItemCooldown(shooter, ceil({_cooldown} * 10))
+			stop
+
+every second:
+	loop all players:
+		set {_item} to loop-player's tool
+		if GetItemCooldown(loop-player) is not 0:
+			remove all arrows from loop-player's inventory
+			stop
+		else if getItemNBTTag({_item},"IBItemsData;Type") = "bow":
+			not ActiveCooldown(loop-player, "bow")
+			loop-player does not have arrow
+			give loop-player arrow named "&dArrow"
+		else:
+			remove all arrows from loop-player's inventory
+
+on shoot:
+	if shooter's offhand is event-item:
+		cancel event

@@ -1,0 +1,72 @@
+options:
+	permission: sk.administrator
+	permission_message: &cNo permission.
+	prefix: &8[&eProjectFCM&8]
+	prefix_cut: &eProjectFCM&f
+	feedback: &aFeed &8|&f
+
+function openInbox(p:player):
+	create a gui with virtual chest inventory with 6 rows named "Inbox":
+		format gui slot 0,1,2,3,4,5,6,7,8,9,17,18,26,27,35,36,44,45,46,47,48,50,51,52,53 with black stained glass pane named "&7" #frame
+		format gui slot 49 with barrier named "&cBack":
+			command "/openmenu %{_p}% main_menu"
+		loop 28 times:
+			add 1 to {_count}
+			format next gui slot with {inboxStash::%{_p}%::%{_count}%}:
+				set {_i} to {inboxStash::%{_p}%::%{_count}%}
+				removeFromInbox({_p}, {_i})
+				set {_i} to setItemNBTTag({_i}, "Unique", generateUnique())
+				if player's inventory can hold {_i}:
+					give {_p} {_i}
+					playsound({_p}, "minecraft:entity.item.pickup")
+					openInbox({_p})
+				else:
+					playsound({_p}, "minecraft:block.note_block.bit", 3, 0.1)
+					send "&cYou don't have enough inventory space to claim this item!" to {_p}
+	open last gui for {_p}
+
+function addToInbox(p:player,i:item):
+	add {_i} to {inboxStash::%{_p}%::*} if size of {inboxStash::%{_p}%::*} <= 27
+function removeFromInbox(p:player,i:item):
+	remove {_i} from {inboxStash::%{_p}%::*}
+
+command /inboxedit <string> <string> [<string>]:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		set {_p} to arg-1 parsed as player if arg-1 is not "all"
+		set {_p::*} to all players if arg-1 is "all"
+		if arg-2 is "add":
+			send "&cArgument-3 must be set!" if arg-3 is not set
+			arg-3 is set
+			send "&cText that will be turned into skript item parse, you dummy!" if arg-3 is "<skript item parse>"
+			stop if arg-3 is "<skript item parse>"
+			if arg-1 is "all":
+				loop {_p::*}:
+					addToInbox(loop-value parsed as player, tool) if arg-3 is "hand"
+					addToInbox(loop-value parsed as player, arg-3 parsed as item) if arg-3 is not "hand"
+			else:
+				addToInbox(player, tool) if arg-3 is "hand"
+				addToInbox(player, arg-3 parsed as item) if arg-3 is not "hand"
+			send "{@feedback} Added held item to [%{_p}%]'s inbox" if arg-3 is "hand"
+			send "{@feedback} Added set item to [%{_p}%]'s inbox" if arg-3 is not "hand"
+		else if arg-2 is "clear":
+			delete {inboxStash::%{_p}%::*}
+
+on tab complete of "/inboxedit":
+	set {_completers1::*} to "all", all players
+	set {_completers2::*} to "add", "clear"
+	set {_completers3::*} to "hand", "<skript item parse>"
+	set tab completions for position 1 to {_completers1::*}
+	set tab completions for position 2 to {_completers2::*}
+	set tab completions for position 3 to {_completers3::*}
+
+function openExamples(p:player):
+	create a gui with virtual chest inventory with 6 rows named "IDs"
+	edit gui last gui:
+		print(last gui)
+		loop 54 times:
+			set {_n} to -1 + loop-number
+			format gui slot {_n} with loop-number of black stained glass pane named "%{_n}%"
+
+	open last gui for {_p}

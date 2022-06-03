@@ -1,0 +1,22 @@
+{
+	"Name": "&5Netherite Chestplate",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"ID": "netherite_chestplate",
+	"Type": "armor",
+	"ItemType": "netherite chestplate",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Armor": "7.5/chest",
+		"Swiftness": "-2.5/chest"
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

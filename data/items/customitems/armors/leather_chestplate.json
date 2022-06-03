@@ -1,0 +1,22 @@
+{
+	"Name": "&fLeather Chestplate",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Dye": [],
+	"ID": "leather_chestplate",
+	"Type": "armor",
+	"ItemType": "leather chestplate",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Armor": "2/chest"
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

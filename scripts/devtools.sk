@@ -1,0 +1,105 @@
+options:
+	permission: sk.administrator
+	permission_message: Unknown command. Type "/help" for help.
+	prefix: &8[&cMagixDevTools 1.0&8]
+	prefix_cut: &cMagixDevTools
+	custom_items_locations: cs
+
+function sign_prompt(p:player) :: string:
+	open sign to {_p} with lines "", "", "^^^^^^^^^^^^^^^", and "Enter query":
+		set {_txt} to 1st element out of lines
+		return {_txt}
+
+command /signprompttest:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		broadcast sign_prompt(player)
+
+command /e [<string = "cs">]:
+	aliases: ^itemsearch
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		set {itemsearchresults::currentpage} to 1
+		item_search_result_set("all", {itemsearchresults::currentpage}, arg) if arg is set
+		command "/openmenu %player% dev_get_items"
+
+command /customitems [<string = "all">]:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		set {itemsearchresults::currentpage} to 1
+		item_search_result_set(arg, {itemsearchresults::currentpage}, "customitems") if arg is set
+		command "/openmenu %player% dev_get_items"
+
+function item_search_result_set(term:string,offset:integer,listname: string = "cs"):
+	delete {itemsearchresults::items::*}
+	delete {itemsearchresults::itemindexes::*}
+	set {_listname} to "cs" if {_listname} = "-1"
+	set {itemsearchresults::itemslistgrab} to {_listname}
+	loop {%{_listname}%::*}:
+		{_term} is set
+		if {_term} = "all":
+			add loop-index to {itemsearchresults::itemindexes::*}
+		else:
+			if loop-index contains {_term}:
+				add loop-index to {itemsearchresults::itemindexes::*}
+	set {itemsearchresults::offset} to (({itemsearchresults::currentpage}-1) * 21)
+
+command /^devconsoleonly <string>:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		set {_cmds::*} to arg split at " "
+		if {_cmds::1} = "item_search_page_set":
+			set {_p} to {_cmds::3}
+			set {_player} to {_cmds::3} parsed as player
+			set {itemsearchresults::currentpage} to ({_cmds::2} parsed as integer)
+			set {itemsearchresults::offset} to (({itemsearchresults::currentpage}-1) * 21)
+			command "/openmenu %{_p}% dev_get_items"
+		else if {_cmds::1} = "item_search_page_add":
+			set {_p} to {_cmds::3}
+			set {_player} to {_cmds::3} parsed as player
+			set {itemsearchresults::currentpage} to ({_cmds::2} parsed as integer) + {itemsearchresults::currentpage}
+			set {itemsearchresults::offset} to (({itemsearchresults::currentpage}-1) * 21)
+			command "/openmenu %{_p}% dev_get_items"
+		else if {_cmds::1} = "item_search_search":  
+			set {_p} to ({_cmds::2} parsed as player)
+			close {_p}'s inventory
+			set {itemsearchresults::currentpage} to 1
+			open sign to {_p} with lines "", "", "^^^^^^^", and "Enter query":
+				set {_txt} to 1st element out of lines
+				item_search_result_set({_txt}, {itemsearchresults::currentpage}, {itemsearchresults::itemslistgrab})
+			loop 100 times:
+				if {_p} does not have a sign open:
+					command "/openmenu %{_p}% dev_get_items"
+					stop
+				wait 1 second
+
+
+
+
+
+
+
+# /dev command
+
+command /dev <string>:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:	
+		if arg = "reset-self-wt-data":
+			WT_resetPlayer(player)
+		else if arg = "reset-self-gt-data":
+			GT_resetPlayer(player)
+		else if arg = "reset-all-self-data":
+			player_resetAllData(player)
+		else:
+			send "&cInvalid Function."
+			stop
+		send "&c[MagixDevTools] &8| &f&aExecuted function ""%arg%"""
+
+on tab complete of "/dev":
+	set {_c::*} to "reset-self-wt-data", "reset-self-gt-data", "reset-all-self-data" 
+	set tab completions for position 1 to {_c::*}

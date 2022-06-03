@@ -1,0 +1,20 @@
+{
+	"Name": "&fShroomlight",
+	"MakeUnique": false,
+	"HideAllFlags": true,
+	"ItemType": "shroomlight",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Placement": "7,2",
+	"Cost": 130000,
+	"ExtraLore": [
+		
+	],
+	"Execute": {
+		"Place": [
+		],
+		"Break": [
+		]
+	},
+	"OtherNBT": "{}"
+}

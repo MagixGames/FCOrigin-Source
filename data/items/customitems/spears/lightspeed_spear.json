@@ -1,0 +1,28 @@
+{
+	"Name": "&5Lightspeed Spear",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"ID": "true_lightspeed_spear",
+	"Type": "spear",
+	"ItemType": "golden shovel",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "5/mainhand",
+		"Rate": "-1/mainhand",
+		"Swiftness": "3/mainhand"
+	},
+	"CustomStats": {
+		"Dash": 1,
+		"Cooldown": 4
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

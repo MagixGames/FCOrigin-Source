@@ -1,0 +1,25 @@
+{
+	"Name": "&dAngelic Bow",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": true,
+	"Type": "bow",
+	"ItemType": "bow",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		
+	},
+	"CustomStats": {
+		"Reload": 30,
+		"Power": 2
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		"Special: Shoot to send yourself flying in the direction you are facing!"
+	],
+	"OtherNBT": "{}"
+}

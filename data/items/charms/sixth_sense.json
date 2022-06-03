@@ -1,0 +1,10 @@
+{
+	"Name": "Sixth Sense",
+	"HideAllFlags": true,
+	"ItemType": "ender eye",
+	"LoreColor": "&7",
+	"Cost": 1,
+	"Desctiption": [
+		"Htting someone shows their health"
+	]
+}

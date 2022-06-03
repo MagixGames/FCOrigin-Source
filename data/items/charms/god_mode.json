@@ -1,0 +1,10 @@
+{
+	"Name": "Embla's Ward",
+	"HideAllFlags": true,
+	"ItemType": "beacon",
+	"LoreColor": "&7",
+	"Cost": 1,
+	"Desctiption": [
+		"Sets all incoming damage to 0"
+	]
+}

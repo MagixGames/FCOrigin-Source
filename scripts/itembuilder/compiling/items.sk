@@ -1,0 +1,40 @@
+options:
+	permission: sk.administrator
+	permission_message: &cNo permission.
+	prefix: &8[&eProjectFCM&8]
+	prefix_cut: &eProjectFCM&f
+	color1: &x&8&5&4&b&2&a
+	version: 0.1
+	path: plugins/Skript/data/items/
+
+function loadItems(name:string) :: item:
+	set {_file::*} to file contents of "%{_name}%"
+	set {_file} to (join {_file::*} by "")
+	replace all newline in {_file} with ""
+	replace all "	" in {_file} with "" # erase tabs
+	map json of {_file} to {_data::*}
+	
+	replace all ".json" in {_name} with ""
+	set {_name} to getLastInList(split {_name} at "\")
+
+	set {_item} to ("%{_data::Stack}% of %{_data::ItemType}%" parsed as item)
+	set {_item}'s name to colored "&x&2&e&f&f&a&1%{_data::Name}%"
+	set {_item} to {_item} with all flags hidden if {_data::HideAllFlags}
+	set {_item} to unbreakable {_item} if {_data::Unbreakable}
+	set {_item} to glowing {_item} if {_data::EnchantGlow}
+	set {_item} to setItemNBTTag({_item}, "IBItemsData;GenUnique", true) if {_data::MakeUnique}
+	set {_item} to setItemNBTTag({_item}, "IBItemsData;GenStack", {_data::GenStack}) if {_data::GenStack}
+	set {itemdata::Placement::%{_name}%} to {_data::Placement} if {_data::Placement} is set
+	set {itemdata::Cost::%{_name}%} to {_data::Cost} if {_data::Cost} is set
+	set {_item} to setItemNBTTag({_item}, "IBItemsData;ItemID", {_name})
+	set {_item} to setItemNBTTag({_item}, "IBItemsData;Type", "item")
+	if {_data::ExtraLore}:
+		loop {_data::ExtraLore::*}:
+			add LoreFormat("%colored loop-value%", "%colored {_data::LoreColor}%") to lore of {_item}
+		
+	if {_data::Execute}:
+		loop {_data::Execute::*}:
+			set {_t6} to join({_data::Execute::%loop-index%::*},"<$DataSplit$>")
+			replace all "''" in {_t6} with """"
+			set {_item} to setItemNBTTag({_item}, "IBItemsData;DynamicExecute;%capitalizeFirst(loop-index)%", {_t6})
+	return {_item}

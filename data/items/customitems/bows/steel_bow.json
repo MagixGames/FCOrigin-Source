@@ -1,0 +1,27 @@
+{
+	"Name": "&9Steel Bow",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "bow",
+	"ItemType": "bow",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		
+	},
+	"CustomStats": {
+		"Power": 5,
+		"Range": 1.5,
+		"Reload": 4,
+		"Accuracy": 1.2
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

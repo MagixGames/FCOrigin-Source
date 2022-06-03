@@ -1,0 +1,34 @@
+{
+	"Name": "&aStone Blade",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "sword",
+	"ItemType": "stone sword",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "5.5/mainhand",
+		"Rate": "0.6/mainhand",
+		"swiftness": "-1.5/mainhand"
+	},
+	"CustomStats": {
+	},
+	"Enchants": [
+	],
+	"CustomEnchants": {
+	},
+	"ExtraLore": [
+		"Quite heavy"
+	],
+	"Execute": {
+		"Passive": [
+			
+		],
+		"Use": [
+			
+		]
+	},
+	"OtherNBT": "{}"
+}

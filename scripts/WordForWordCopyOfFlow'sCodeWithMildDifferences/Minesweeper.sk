@@ -1,0 +1,107 @@
+options:
+	CheatModeEnabled: false
+
+command /bombfinder:
+	trigger:
+		set {_fucked} to 35 #RandF(15,70)
+		OpenMenu(player, "Bombfinder (%{_fucked}%)", 6)
+		loop 6 times:
+			set {_y} to -1+loop-number
+			loop 9 times:
+				set {_x} to -1+loop-number-2
+				set {minesweeper::%player%::%{_x}%::%{_y}%} to false
+				chance of ({_fucked})%:
+					set {minesweeper::%player%::%{_x}%::%{_y}%} to true
+
+				set {_cheat} to ""
+				if {@CheatModeEnabled} = true:
+					set {_cheat} to "%nl%&a(Safe)"
+					set {_cheat} to "%nl%&c(Bomb)" if {minesweeper::%player%::%{_x}%::%{_y}%}
+				
+				set slot {_x}+{_y}*9 of player's current inventory to black wool named "&f???" with lore "&7Leftclick to mark as save","&7Rightclick to mark as bomb%{_cheat}%"
+
+		loop 6 times:
+			set {_y} to -1+loop-number
+			loop 9 times:
+				set {_x} to -1+loop-number-2 
+				set {_amount} to 0
+				if {minesweeper::%player%::%{_x}%::%{_y}%} is true:
+					add 1 to {_amount}
+				if {minesweeper::%player%::%{_x}+1%::%{_y}%} is true:
+					add 1 to {_amount}
+				if {minesweeper::%player%::%{_x}-1%::%{_y}%} is true:
+					add 1 to {_amount}
+				if {minesweeper::%player%::%{_x}%::%{_y}+1%} is true:
+					add 1 to {_amount}
+
+				if {minesweeper::%player%::%{_x}%::%{_y}-1%} is true:
+					add 1 to {_amount}
+				if {minesweeper::%player%::%{_x}+1%::%{_y}+1%} is true:
+					add 1 to {_amount}
+				if {minesweeper::%player%::%{_x}-1%::%{_y}+1%} is true:
+					add 1 to {_amount}
+				if {minesweeper::%player%::%{_x}+1%::%{_y}-1%} is true:
+					add 1 to {_amount}
+				if {minesweeper::%player%::%{_x}-1%::%{_y}-1%} is true:
+					add 1 to {_amount}
+				if {_amount} is 0:
+					add {_x}+{_y}*9 to {_start::*}
+		set {_n} to a random element of {_start::*}
+		set slot {_n} of player's current inventory to white wool named "0"
+		delete {minesweeperGot::%player%}
+
+on inventory click:
+	if name of event-inventory contains "Bombfinder":
+		if event-item is black wool:
+			set {_slot} to index of event-slot
+			set {_x} to mod({_slot},9)
+			set {_y} to floor({_slot}/9)
+			if "%click type%" contains "left":
+				if {minesweeper::%player%::%{_x}%::%{_y}%} is true:
+					close player's inventory
+					send "&cThere was a bomb there!" to player
+				else:
+					set {_amount} to 1
+					
+					if {minesweeper::%player%::%{_x}%::%{_y}%} is true:
+						add 1 to {_amount}
+					if {minesweeper::%player%::%{_x}+1%::%{_y}%} is true:
+						add 1 to {_amount}
+					if {minesweeper::%player%::%{_x}-1%::%{_y}%} is true:
+						add 1 to {_amount}
+					if {minesweeper::%player%::%{_x}%::%{_y}+1%} is true:
+						add 1 to {_amount}
+					if {minesweeper::%player%::%{_x}%::%{_y}-1%} is true:
+						add 1 to {_amount}
+ 
+					if {minesweeper::%player%::%{_x}+1%::%{_y}+1%} is true:
+						add 1 to {_amount}
+					if {minesweeper::%player%::%{_x}-1%::%{_y}+1%} is true:
+						add 1 to {_amount}
+					if {minesweeper::%player%::%{_x}+1%::%{_y}-1%} is true:
+						add 1 to {_amount}
+					if {minesweeper::%player%::%{_x}-1%::%{_y}-1%} is true:
+						add 1 to {_amount}
+					set {_t::*} to white wool,light blue wool, lime wool, yellow wool, orange wool, red wool, magenta wool, purple wool, pink wool, brown wool
+					set slot {_slot} of player's current inventory to {_t::%{_amount}%} named "%{_amount} - 1%"
+					add 1 to {minesweeperGot::%player%}
+					playsound(player)
+			else if click type is right mouse button:
+				if {minesweeper::%player%::%{_x}%::%{_y}%} is true:
+					set slot {_slot} of player's current inventory to tnt named "&fBomb"
+					add 1 to {minesweeperGot::%player%}
+
+					playsound(player)
+				else:
+					close player's inventory
+					send "&cThat was not a bomb!" to player
+		set {_target} to -1 + (9*6)
+
+		if {minesweeperGot::%player%} >= {_target}:
+			#Quest add here / QuestStatAdd(player, "Minesweeper",1)
+			close player's inventory
+			delete {minesweeperGot::%player%}
+			delete {minesweeper::%player%::*}
+			playsound(player, "entity.player.levelup")
+			wait a second
+			unlockCharm(player, "enforced_medallion") if playerHasCharm(player, "enforced_medallion") is false

@@ -1,0 +1,35 @@
+{
+	"Name": "&9Steel Shortbow",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "shortbow",
+	"ItemType": "bow",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+	},
+	"CustomStats": {
+		"Power": 4,
+		"Range": 1,
+		"Reload": 1.7,
+		"Accuracy": 0.8
+	},
+	"Enchants": [
+	],
+	"CustomEnchants": {
+	},
+	"ExtraLore": [
+		"Left click to instantly shoot"
+	],
+	"Execute": {
+		"Passive": [
+			
+		],
+		"Use": [
+			
+		]
+	},
+	"OtherNBT": "{}"
+}

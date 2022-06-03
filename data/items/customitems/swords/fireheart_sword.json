@@ -1,0 +1,22 @@
+{
+	"Name": "&6Fireheart Sword",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"ID": "fireheart_sword",
+	"Type": "sword",
+	"ItemType": "gold sword",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "5.5/mainhand",
+		"Rate": "1.8/mainhand"
+	},
+	"Enchants": [
+		"fire_aspect 2"
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

@@ -1,0 +1,26 @@
+{
+	"Name": "&fDarkstone Pickaxe",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"ID": "darkstone_pickaxe",
+	"Type": "tool",
+	"ItemType": "stone pickaxe",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "4/mainhand",
+		"Rate": "1/mainhand"
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"Execute": {
+		"Passive": [
+		]
+	},
+	"OtherNBT": "{}"
+}

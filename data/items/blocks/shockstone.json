@@ -1,0 +1,20 @@
+{
+	"Name": "&fShockstone",
+	"MakeUnique": false,
+	"HideAllFlags": true,
+	"ItemType": "yellow glazed terracotta",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Placement": "8,4",
+	"Cost": 50000,
+	"ExtraLore": [
+		
+	],
+	"Execute": {
+		"Place": [
+		],
+		"Break": [
+		]
+	},
+	"OtherNBT": "{}"
+}

@@ -1,0 +1,23 @@
+{
+	"Name": "&3Major Artifact of Health",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": true,
+	"Type": "artifact",
+	"ItemType": "apple",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Health": "4/offhand"
+	},
+	"CustomStats": {
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		"Grants health when held in your offhand"
+	],
+	"OtherNBT": "{}"
+}

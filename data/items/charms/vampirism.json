@@ -1,0 +1,10 @@
+{
+	"Name": "Vampirism",
+	"HideAllFlags": true,
+	"ItemType": "iron nugget",
+	"LoreColor": "&7",
+	"Cost": 1,
+	"Desctiption": [
+		"Heal a lot on kill"
+	]
+}

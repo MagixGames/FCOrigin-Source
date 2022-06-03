@@ -1,0 +1,35 @@
+{
+	"Name": "&5Silver Blade",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "sword",
+	"ItemType": "iron sword",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "7.5/mainhand",
+		"Rate": "0.7/mainhand",
+		"swiftness": "-2/mainhand"
+	},
+	"CustomStats": {
+	},
+	"Enchants": [
+		"knockback 1"
+	],
+	"CustomEnchants": {
+	},
+	"ExtraLore": [
+		"Quite heavy"
+	],
+	"Execute": {
+		"Passive": [
+			
+		],
+		"Use": [
+			
+		]
+	},
+	"OtherNBT": "{}"
+}

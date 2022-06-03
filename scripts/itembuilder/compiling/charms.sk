@@ -1,0 +1,39 @@
+options:
+	permission: sk.administrator
+	permission_message: &cNo permission.
+	prefix: &8[&eProjectFCM&8]
+	prefix_cut: &eProjectFCM&f
+	color1: &x&8&5&4&b&2&a
+	version: 0.1
+	path: plugins/Skript/data/items/
+
+options:
+	permission: sk.administrator
+	permission_message: &cNo permission.
+	prefix: &8[&eProjectFCM&8]
+	prefix_cut: &eProjectFCM&f
+	color1: &x&8&5&4&b&2&a
+	version: 0.1
+	path: plugins/Skript/data/items/
+
+function loadCharms(name:string) :: item:
+	set {_file::*} to file contents of "%{_name}%"
+	set {_file} to (join {_file::*} by "")
+	replace all newline in {_file} with ""
+	replace all "	" in {_file} with "" # erase tabs
+	map json of {_file} to {_data::*}
+	
+	replace all ".json" in {_name} with ""
+	set {_name} to getLastInList(split {_name} at "\")
+
+	set {_item} to ("1 of %{_data::ItemType}%" parsed as item)
+	set {_item}'s name to colored {_data::Name}
+	set {_item} to {_item} with all flags hidden if {_data::HideAllFlags}
+	set {_item} to setItemNBTTag({_item}, "CharmID", {_name})
+	set {charmCosts::%{_name}%} to {_data::Cost}
+	if {_data::Desctiption}:
+		loop {_data::Desctiption::*}:
+			add LoreFormat("%loop-value%", "%colored {_data::LoreColor}%") to lore of {_item}
+
+	
+	return {_item}

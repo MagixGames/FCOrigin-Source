@@ -1,0 +1,22 @@
+{
+	"Name": "&9Cactus Chestplate",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "armor",
+	"ItemType": "leather chestplate",
+	"LoreColor": "<##4956A7>",
+	"Dye": [0, 156, 8],
+	"Stack": 1,
+	"Stats": {
+		"Armor": "-3/chest"
+	},
+	"Enchants": [
+		"thorns 3"
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

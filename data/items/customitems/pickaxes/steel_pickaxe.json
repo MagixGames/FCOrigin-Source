@@ -1,0 +1,20 @@
+{
+	"Name": "&aSteel Pickaxe",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Type": "tool",
+	"ItemType": "iron pickaxe",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "4/mainhand",
+		"Rate": "1/mainhand"
+	},
+	"Enchants": [
+		"efficiency 1"
+	],
+	"ExtraLore": [
+	],
+	"OtherNBT": "{}"
+}

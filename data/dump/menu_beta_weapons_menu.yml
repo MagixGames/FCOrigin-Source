@@ -1,0 +1,59 @@
+menuname: Weapons Menu [Beta]
+
+menurows: 4
+
+data:
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- wood sword$!NBT!${Damage/$COLON/$0,HideFlags/$COLON/$111,Unbreakable/$COLON/$1b,display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"5 Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Wooden Blade"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] betabt_wood_sword //shopbuy [player] betabt_wood_sword<!CMD!>"}
+- stone sword$!NBT!${Damage/$COLON/$0,HideFlags/$COLON/$111,Unbreakable/$COLON/$1b,display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"2k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Cobblestone Clever"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] betabt_stone_sword //shopbuy [player] betabt_stone_sword<!CMD!>"}
+- iron sword$!NBT!${Damage/$COLON/$0,Enchantments/$COLON/$[{id/$COLON/$"minecraft/$COLON/$protection",lvl/$COLON/$0s}],HideFlags/$COLON/$111,Unbreakable/$COLON/$1b,display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"100k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Sharp Claymore"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] betabt_iron_sword //shopbuy [player] betabt_iron_sword<!CMD!>"}
+- diamond sword$!NBT!${Damage/$COLON/$0,Enchantments/$COLON/$[{id/$COLON/$"minecraft/$COLON/$protection",lvl/$COLON/$0s}],HideFlags/$COLON/$111,Unbreakable/$COLON/$1b,display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"750k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"light_purple","text"/$COLON/$"Hardened Diamond Sword"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] betabt_diamond_sword //shopbuy [player] betabt_diamond_sword<!CMD!>"}
+- gold sword$!NBT!${Damage/$COLON/$0,Enchantments/$COLON/$[{id/$COLON/$"minecraft/$COLON/$sharpness",lvl/$COLON/$7s}],HideFlags/$COLON/$111,Unbreakable/$COLON/$1b,display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"2.1m Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"gold","text"/$COLON/$"Holy Claymore"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] betabt_gold_sword //shopbuy [player] betabt_gold_sword<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- barrier block$!NBT!${HideFlags/$COLON/$111,display/$COLON/${Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"red","text"/$COLON/$"Exit Menu"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/openmenu [player] main_menu //openmenu [player] main_menu<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- barrier block$!NBT!${HideFlags/$COLON/$111,display/$COLON/${Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"red","text"/$COLON/$"Exit Menu"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/openmenu [player] main_menu //openmenu [player] main_menu<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>

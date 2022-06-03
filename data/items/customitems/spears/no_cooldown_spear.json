@@ -1,0 +1,27 @@
+{
+	"Name": "&cNo Cooldown Spear",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": true,
+	"Type": "spear",
+	"ItemType": "wooden shovel",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "1.0/mainhand",
+		"Rate": "-1/mainhand"
+	},
+	"CustomStats": {
+		"Dash": -0.5,
+		"Cooldown": 0.0,
+		"Power": 0
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

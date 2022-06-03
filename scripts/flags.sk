@@ -1,0 +1,156 @@
+options:
+  disallowed: infested stone bricks or infested chiseled stone bricks or barrier or cut sandstone or brown terracotta or gray terracotta or black terracotta or cobweb or dried kelp block or red glazed terracotta or yellow glazed terracotta or glass or white stained glass or red terracotta or shroomlight
+	
+on join:
+	#command "attribute %player% minecraft:generic.armor base set -10"
+	updatePlayer(player)
+	player_setDefaults(player)
+
+#Function that checks if the location and the banner type itself is valid
+function blocksCheck(b: block, c: block) :: boolean:
+  set {_t} to {@disallowed}
+  return false if "%{_c}%" does not contain "standing"
+  return false if "%{_b}%" contains "banner"
+  if {_b} is {@disallowed}:
+    return false
+  else:
+    return true
+
+#Function that checks if the player has placed their flag
+function playerPlacedFlag(p: player) :: boolean:
+  if {flags::%{_p}%} is set:
+    return true
+  else:
+    return false
+
+#Function that returns the player from a location if flag is set
+function findFlagFromLocation(t: location) :: text:
+  loop {flags::*}:
+    if "%loop-value%" is "%{_t}%":
+      return loop-index
+
+on place of banner:
+	if blocksCheck(block below event-block, event-block) = true:
+		if playerPlacedFlag(player) is false:
+			wait 1 tick
+			if event-block is banner:
+				set {flags::%player%} to location of event-block
+				play sound "minecraft:block.beacon.activate" at pitch 1 to player
+				send "&b[FlagClash] &8| &fFlag Placed!"
+		else:
+			cancel event
+	else:
+		cancel event
+
+#Function for shops
+function playerPurchase(p: player, i: item, n: number):
+  set {_uuid} to the uuid of {_p}
+  set {_gold} to {gold::%{_uuid}%}
+  if {_gold} >= {_n}:
+    remove {_n} from {gold::%{_uuid}%}
+    give {_p} {_i}
+    play sound "minecraft:entity.item.pickup" at {_p}
+  else:
+    send "&cYou cannot afford that!" to {_p}
+
+on break of banner:
+	if {flags::*} contains location of event-block:
+		if {flags::%player%} is not location of event-block:
+			wait 1 tick
+			if event-block is not banner:
+				set {_p} to findFlagFromLocation(location of event-block) parsed as player
+				delete {flags::%{_p}%}
+				set {_uuid} to uuid of {_p}
+				broadcast "&FFlagClash &8| &f%{_p}%'s flag was destroyed by %player%!"
+				send title "&4&lFlag Destroyed!" with subtitle "&cBy %player%" to {_p}
+				set {_g} to {playerstats::gold::%{_uuid}%}
+				set {_g} to floor({_g} / 2)
+				set {_g2} to min({_g}, {playerstats::gold.required::%uuid of player%}) #scaling
+				remove {_g} from {playerstats::gold::%{_uuid}%}
+				add {_g2} to {playerstats::gold::%uuid of player%}
+				send "&e+%displayWithCommas({_g2})%"
+				send "&c-%displayWithCommas({_g})%" to {_p}
+				play sound "minecraft:entity.ender_dragon.growl" at volume 0.2 to all players
+		else:
+			if player is sneaking:
+				cancel event
+				stop if {removingFlag::%player%}
+				removeFlag(player)			
+			else:
+				send "&cYou can't destroy your own flag! &8(Sneak to remove)"
+				cancel event
+
+
+on place:
+	if player's gamemode is not creative:
+		cancel event if past event-block is lava or water
+
+every second:
+	loop {flags::*}:
+		set {_p} to loop-index parsed as player
+		set {_uuid} to uuid of {_p}
+		if {_p} is online:
+			add {playerstats::gps::%{_uuid}%} * 2 to {playerstats::gold::%{_uuid}%}
+
+command /updateflagstats <player>:
+	permission: admin
+	permission message: &cNo Permission.
+	trigger:
+		updatePlayer(arg)
+
+function updatePlayer(p:offline player):
+		set {playerstats::gps::%{_p}'s uuid%} to floor(({playerstats::level::%{_p}'s uuid%})^(1+min({playerstats::level::%{_p}'s uuid%}*0.0111,2)))
+		set {playerstats::gold.required::%{_p}'s uuid%} to floor({playerstats::gps::%{_p}'s uuid%} * (30 + (45 * ({playerstats::level::%{_p}'s uuid%}-1))))
+		set {topLevel} to max( {playerstats::level::*} )
+		set {_p}'s max health to {playerstats::maxhealth::%{_p}'s uuid%}
+
+
+
+command /upgradecost:
+	trigger:
+		send "&aCurrent Upgrade Cost: %regex({playerstats::gold.required::%player's uuid%})%"
+		send "&cTime (from 0 gold to cost): %(({playerstats::gold.required::%player's uuid%} / {playerstats::gps::%player's uuid%}) / 60)% minutes"
+
+command /simulateupgradecosts <integer> [<string>]:
+	trigger:
+		if arg-1 > 0:
+			set {_level} to arg-1
+			set {_gps} to floor(({_level})^(1+min({_level}*0.0111,2)))
+			set {_gold.required} to floor({_gps} * (30 + (45 * ({_level}-1))))
+			send "&aLevel[%{_level}%] &8|&f &6Gps: %regex({_gps})% &8|&f &eGold.Required: %regex({_gold.required})% &8|&f Time Req: %(({_gold.required} / {_gps}) / 60)% minutes"
+		else:
+			loop 100 times:
+				set {_level} to loop-number
+				set {_gps} to floor(({_level})^(1+min({_level}*0.0111,2)))
+				set {_gold.required} to floor({_gps} * (30 + (45 * ({_level}-1))))
+				send "&aLevel[%{_level}%] &8|&f &6Gps: %regex({_gps})% &8|&f &eGold.Required: %regex({_gold.required})% &8|&f Time Req: %(({_gold.required} / {_gps}) / 60)% minutes"
+				send "&aLevel[%{_level}%] &8|&f &6Gps: %regex({_gps})% &8|&f &eGold.Required: %regex({_gold.required})% &8|&f Time Req: %(({_gold.required} / {_gps}) / 60)% minutes" to console if arg-2 is "send-to-console"
+				wait a tick
+
+command /remove-flag [<string>]:
+  permission: admin
+  trigger:
+    set {_p} to player
+    set {_p} to arg if arg is set
+    set block at {flags::%{_p}%} to air
+    delete {flags::%{_p}%}
+    send "&cSuccessful." if executor is not console
+
+
+function openFlag(p:player):
+	command "openmenu %{_p}% main_menu"
+
+every 2 seconds:
+	loop {flags::*}:
+		if block at {flags::%loop-index%} is not a banner:
+			command "remove-flag %loop-index%"
+
+on right click:
+	if clicked block is banner:
+		if {removingFlag::%player%} is not set:
+			set {_p} to "%findFlagFromLocation(location of clicked block)%" parsed as player
+			if "%{_p}%" is player's name:
+				command "openmenu %player% main_menu"
+			else:
+				if {_p} is set:
+					send "&cThis is %findFlagFromLocation(location of clicked block)%&c's flag. &a(%{playerstats::level::%{_p}'s uuid%}%)"

@@ -1,0 +1,9 @@
+{
+	"Name": "Mend",
+	"ItemType": "apple",
+	"LoreColor": "&7",
+	"Cost": 1,
+	"Desctiption": [
+		"Minor wounds will heal automatically"
+	]
+}

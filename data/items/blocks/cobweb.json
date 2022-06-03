@@ -1,0 +1,20 @@
+{
+	"Name": "&fCobweb",
+	"MakeUnique": false,
+	"HideAllFlags": true,
+	"ItemType": "cobweb",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Placement": "8,5",
+	"Cost": 5500,
+	"ExtraLore": [
+		
+	],
+	"Execute": {
+		"Place": [
+		],
+		"Break": [
+		]
+	},
+	"OtherNBT": "{}"
+}

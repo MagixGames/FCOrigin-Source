@@ -1,0 +1,29 @@
+{
+	"Name": "&cImposter's Dagger",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Type": "sword",
+	"ItemType": "iron sword",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "5.5/mainhand",
+		"Rate": "1/mainhand"
+	},
+	"CustomStats": {
+		
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"Execute": {
+		"Use": [
+			"PotionEffect(player, strength, 1, 2 seconds, true, true)"
+		]
+	},
+	"OtherNBT": "{}"
+}

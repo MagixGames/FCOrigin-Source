@@ -1,0 +1,41 @@
+menuname: Pickaxe Shop
+
+menurows: 4
+
+data:
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- wood pickaxe$!NBT!${Damage/$COLON/$0,HideFlags/$COLON/$111,Unbreakable/$COLON/$1b,display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"5 Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Wooden Pickaxe"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] wooden_pickaxe //shopbuy [player] wooden_pickaxe<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- iron pickaxe$!NBT!${Damage/$COLON/$0,Enchantments/$COLON/$[{id/$COLON/$"minecraft/$COLON/$efficiency",lvl/$COLON/$1s}],HideFlags/$COLON/$111,Unbreakable/$COLON/$1b,display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"12k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Steel Pickaxe"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] steel_pickaxe //shopbuy [player] steel_pickaxe<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- gold pickaxe$!NBT!${Damage/$COLON/$0,Enchantments/$COLON/$[{id/$COLON/$"minecraft/$COLON/$efficiency",lvl/$COLON/$2s}],HideFlags/$COLON/$111,Unbreakable/$COLON/$1b,display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"9m Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"gold","text"/$COLON/$"Gilded Pickaxe"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] gilded_pickaxe //shopbuy [player] gilded_pickaxe<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- stone pickaxe$!NBT!${Damage/$COLON/$0,Enchantments/$COLON/$[{id/$COLON/$"minecraft/$COLON/$efficiency",lvl/$COLON/$1s}],HideFlags/$COLON/$111,Unbreakable/$COLON/$1b,display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"800 Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"white","text"/$COLON/$"Stone Pickaxe"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] stone_pickaxe //shopbuy [player] stone_pickaxe<!CMD!>"}
+- air$!NBT!$<none>
+- diamond pickaxe$!NBT!${Damage/$COLON/$0,Enchantments/$COLON/$[{id/$COLON/$"minecraft/$COLON/$efficiency",lvl/$COLON/$2s}],HideFlags/$COLON/$111,Unbreakable/$COLON/$1b,display/$COLON/${Lore/$COLON/$['{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"yellow","text"/$COLON/$"240k Gold"}],"text"/$COLON/$""}'],Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"light_purple","text"/$COLON/$"Crystal Pickaxe"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/shopbuy [player] crystal_pickaxe //shopbuy [player] crystal_pickaxe<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- barrier block$!NBT!${HideFlags/$COLON/$111,display/$COLON/${Name/$COLON/$'{"extra"/$COLON/$[{"bold"/$COLON/$false,"italic"/$COLON/$false,"underlined"/$COLON/$false,"strikethrough"/$COLON/$false,"obfuscated"/$COLON/$false,"color"/$COLON/$"red","text"/$COLON/$"Exit Menu"}],"text"/$COLON/$""}'},runCmd/$COLON/$"<!CMD!>/openmenu [player] main_menu //openmenu [player] main_menu<!CMD!>"}
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>
+- air$!NBT!$<none>

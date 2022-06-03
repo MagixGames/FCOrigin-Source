@@ -1,0 +1,20 @@
+{
+	"Name": "&fHard Clay",
+	"MakeUnique": false,
+	"HideAllFlags": true,
+	"ItemType": "brown terracotta",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Placement": "2,3",
+	"Cost": 5000,
+	"ExtraLore": [
+		
+	],
+	"Execute": {
+		"Place": [
+		],
+		"Break": [
+		]
+	},
+	"OtherNBT": "{}"
+}

@@ -1,0 +1,21 @@
+{
+	"Name": "&6Darksteel Platearmor",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "armor",
+	"ItemType": "netherite chestplate",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Armor": "7.5/chest",
+		"swiftness": "-0.5/chest"
+	},
+	"Enchants": [
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

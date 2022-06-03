@@ -1,0 +1,88 @@
+options:
+	playerBlocks: cut sandstone or brown terracotta or gray terracotta or black terracotta or cobweb or dried kelp block or red glazed terracotta or yellow glazed terracotta or glass or white stained glass
+
+
+function checkForByID(check: string, checkFor: string) :: boolean:
+	return true if {_check} contains "<!%{_checkFor}%!>"
+	return false if {_check} does not contain "<!%{_checkFor}%!>"
+
+function findByID(check: string, split: string) :: string:
+	set {_y::*} to {_check} split at "<!%{_split}%!>"
+	return {_y::2}
+
+function splitFindData(check: string, split:string) :: string:
+	set {_y::*} to {_check} split at "%{_split}%"
+	return {_y::2}
+
+
+on rightclick:
+	set {_i} to player's tool
+	if checkForByID(nbt of {_i}, "EVENTITEM") is true:
+		set {_id} to findByID(nbt of {_i}, "EVENTITEM")
+		cancel event
+		if {_id} is "test":
+			command "/!send Found %player%"
+
+
+on right click:
+	set {_i} to player's tool
+	if checkForByID(nbt of {_i}, "EVENTITEM") is true:
+		set {_id} to findByID(nbt of {_i}, "EVENTITEM")
+		cancel event
+		if {_id} is "chicken_wing":
+			set {_t} to true if now > {wing.cooldown::%player%}
+			set {_t} to true if {wing.cooldown::%player%} is not set
+			if {_t} = true:
+				wait 1 tick
+				remove 1 of player's held item from player's inventory
+				draw 15 of cloud particle at location of player
+				play sound "minecraft:entity.chicken.hurt" with volume 2 at player
+				set {wing.cooldown::%player%} to 5 seconds from now
+				push player in the direction of player at force 2
+				set {_i} to 50
+				while now < {wing.cooldown::%player%}:
+					set {_t} to ""
+					loop {_i} times:
+						set {_t} to "%{_t}%|"
+					remove 1 from {_i}
+					send action bar "%{_t}%" to player
+					wait 0.1 seconds
+		else if {_id} is "shade_shard":
+			set {_t} to true if now > {shade.cooldown::%player%}
+			set {_t} to true if {shade.cooldown::%player%} is not set
+			if {_t} = true:
+				wait 1 tick
+				remove 1 of player's held item from player's inventory
+				draw 15 of squid ink particle at location of player
+				play sound "minecraft:entity.elder_guardian.curse" with pitch 0.5 at player
+				set {shade.cooldown::%player%} to 5 seconds from now
+				push player backwards at force 2.3
+				set {_i} to 50
+				while now < {shade.cooldown::%player%}:
+					set {_t} to ""
+					loop {_i} times:
+						set {_t} to "%{_t}%&0|"
+					remove 1 from {_i}
+					send action bar "%{_t}%" to player
+					wait 0.1 seconds
+
+on place of tnt:
+  if player is not sneaking:
+    cancel event
+    remove 1 of tnt from player's inventory
+    spawn primed tnt at event-location
+
+on explosion:
+	cancel event
+	create a fake explosion at event-location
+	loop exploded blocks:
+		if loop-block is {@playerBlocks}:
+			set loop-block to air
+			draw 10 of block particle using loop-block at loop-block
+		if loop-block is tnt:
+			set loop-block to air
+			create a fake explosion at loop-block
+
+on consume:
+	wait 1 tick
+	set player's tool to air

@@ -1,0 +1,23 @@
+{
+	"Name": "&5Flame Blade",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "artifact",
+	"ItemType": "gold sword",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "5/mainhand",
+		"Rate": "1.4/mainhand"
+	},
+	"CustomStats": {
+	},
+	"Enchants": [
+		"fire_aspect 1"
+	],
+	"ExtraLore": [
+	],
+	"OtherNBT": "{}"
+}

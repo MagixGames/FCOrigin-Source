@@ -1,0 +1,150 @@
+#foleoowwae fcolll made fiml!!!!!!!
+#best flocde!!!!!!
+
+command /clearquickvar:
+	permission: admin 
+	trigger:
+		SendVarManager(player,"Deleted %number of {varSaveList::*}% Quick Variables")
+		delete {varSaveList::*}
+
+
+command /searchlist [<string>] [<string>]:
+	permission: varManager
+	trigger:
+		if arg 2 is not set:
+			SendVarManager(player,"Usage: /searchlist <list> <keyword>")
+			stop
+		
+		set {_list} to arg 1
+		replace all "::*" with "" in {_list}
+		SendVarManager(player,"Searching for &e%arg 2%&f in &b{%{_list}%::*}")
+
+		loop {%{_list}%::*}:
+			set {_filter} to "%loop-index% %loop-value%"
+			if {_filter} contains arg 2:
+				add loop-index to {_results::*}
+
+		loop {_results::*}:
+			set {_index} to loop-value 
+			set {_value} to {%{_list}%::%{_index}%}
+			message " &b{%{_list}%&b::%{_index}%&b}&f is %GetVarDisplay({_value})%" 
+		SendVarManager(player,"Got %number of {_results::*}% result(s)")
+				
+command /getvar [<string>]:
+	aliases: var
+	permission: varManager
+	trigger:
+		if arg 1 is not set:
+			SendVarManager(player,"Usage: /getvar <var>")
+			stop
+		if arg 1 contains "::*":
+			set {_list} to arg 1
+			replace all "::*" with "" in {_list}
+
+			loop {%{_list}%::*}:
+				add "%{_list}%::%loop-index%" to {_vars::*}
+			if size of {_vars::*} is 0:
+				SendVarManager(player,"There's no variables in the list!")
+				
+		else:
+			set {_vars::*} to arg 1 split at ","
+		
+		loop {_vars::*}:
+			set {_var} to loop-value
+			delete {_varValue}
+			set {_value} to {%{_var}%}
+			SendVarManagerCopyable(player,"&e{%{_var}%&e}&f is set to %GetVarDisplay({_value})%","%{_value}%")
+
+command /setvar [<string>] [<string>]:
+	permission: varManager
+	trigger:
+
+		if arg 1 or arg 2 is not set:
+			SendVarManager(player,"Usage: /setvar <var> <string|number|'here'|'this'|'that',{var}>")
+			stop
+
+		if arg 1 contains "::*":
+			set {_list} to arg 1
+			replace all "::*" with "" in {_list}
+			loop {%{_list}%::*}:
+				add "%{_list}%::%loop-index%" to {_vars::*}
+			set {_save} to false
+		else:
+			set {_vars::*} to arg 1 split at ","
+			set {_save} to true        
+		set {_value} to arg 2
+		if {_value} does not contain """":
+			if {_value} is "here" or "pos" or "loc" or "location" or "position":
+				set {_value} to player's location
+			if {_value} is "tool" or "this" or "held" or "held item":
+				set {_value} to player's tool
+			if {_value} is "that" or "target" or "block":
+				set {_value} to type of player's targeted block
+			if {_value} is "nothing" or "none" or "delete" or "del" or "<none>":
+				delete {_value}
+			if {_value} contains "{" and "}":
+				set {_var} to {_value}
+				replace all "{" and "}" with "" in {_var}
+				set {_value} to {%{_var}%}
+			if {_value} parsed as number is set:
+				set {_value} to {_value} parsed as number
+		else:
+			set {_value} to "/\/\%{_value}%/\/\"
+			replace all """/\/\" and "/\/\""" with "" in {_value}
+
+		loop {_vars::*}:
+				
+			set {_var} to loop-value
+			
+			set {_v} to "%{_var}%"
+			replace all "::" with ";;" in {_v} 
+			if {_save}:
+				set {varSaveList::%{_v}%} to {_var}
+			
+			
+			delete {_varValue}
+			set {_oldValue} to {%{_var}%}
+			if {_value} is not set:
+				delete {%{_var}%}
+			else:
+				set {%{_var}%} to {_value}
+			if {_oldValue} is not set:
+				SendVarManager(player,"&e{%{_var}%} &fis now set to &d%GetVarDisplay({_value})%")
+			else:
+				SendVarManagerCopyable(player,"&e{%{_var}%} &fis now set to %GetVarDisplay({_value})% &7from %GetVarDisplay({_oldValue})%","%{_oldValue}%")
+
+
+
+function GetVarDisplay(var:object) :: string:
+	if {_var} is "%{_var}%":
+		return "&d""&f%{_var}%&d""&7 as string"
+	if {_var} is a number:
+		return "&d%{_var}%&7 as number"
+	if {_var} is a location:
+		return "&d%{_var}%&7 as location"
+	if {_var} is a item:
+		return "&d%{_var}%&7 as item"
+	if {_var} is a block:
+		return "&d%{_var}%&7 as block"
+	if {_var} is a boolean:
+		return "&d%{_var}%&7 as boolean"
+	if "%{_var}%" is "<none>":
+		return "&dnothing"
+	return "&d%{_var}%"
+
+function SendVarManagerCopyable(player:player,message:string,copy:string,tooltip:string="Click to copy"):
+	send formatted "<tooltip:%{_tooltip}%><suggest command:%{_copy}%>&3[VarManager] &8| &f%{_message}%" to {_player}
+
+function SendVarManager(player:player,message:string):
+	send formatted "&3[VarManager] &8| &f%{_message}%" to {_player}
+
+
+on tab complete of "/var":
+	set tab completions for position 1 to {varSaveList::*}
+
+on tab complete of "/getvar":
+	set tab completions for position 1 to {varSaveList::*}
+
+on tab complete of "/setvar":
+	set tab completions for position 1 to {varSaveList::*}
+	set tab completions for position 2 to "this","here","nothing"

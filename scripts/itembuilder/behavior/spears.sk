@@ -1,0 +1,12 @@
+on right click with shovel:
+	set {_item} to player's tool
+	if getItemNBTTag({_item},"IBItemsData;Type") = "spear":
+		set {_cooldown} to getItemNBTTag({_item}, "IBItemsData;cooldown")
+		set {_dash} to getItemNBTTag({_item}, "IBItemsData;dash")
+		set {_t} to true if not ActiveCooldown(player,"spear")
+		set {_t} to false if {CancelEvent::Use_Spear}
+		if {_t}:
+			particle(player's location, cloud, 15, 0.1)
+			playsound(player's location, "minecraft:entity.player.attack.sweep", 2)
+			push player backwards at force {_dash} * (6/10)
+			Cooldown(player,"spear",ceil({_cooldown} * 10),"&f|") 

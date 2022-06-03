@@ -1,0 +1,287 @@
+options:
+	prefixdev: &8[&2Dev&8]&f
+	path: plugins/Skript/
+
+function custom_case(player:player,case:string,olditem:item) :: item:
+	set {_uuid} to uuid of {_player}
+	set {_item} to redstone named "&cCASE ERROR"
+	set {_cmd} to "$cancel$"
+
+	if {_case} is "Test":
+		set {_item} to piston
+		set {_cmd} to "/say push!"
+	
+	add "{runCmd:""<!CMD!>%{_cmd}%<!CMD!>""}" to nbt of {_item}
+	return {_item}
+
+#
+#
+#              Magic Menus Code Below
+#
+#
+
+command /mm [<string>] [<string>] [<string>]:
+		permission: admin
+		aliases: magicmenu, magicmenus, menu
+		trigger:
+				if arg 1 is "edit":
+						if arg 2 is set:
+								send_mb(player,"Editing menu &b%arg 2%")
+								menu_edit(player,arg 2)
+								stop
+						send_error(player,"Incorrect usage! &7/mm edit <menu id>")
+						stop
+
+				if arg 1 is "open":
+						if arg 2 is set:
+								send_mb(player,"Opening menu &b%arg 2%")
+								menu_open(player,arg 2)
+								stop
+						send_error(player,"Incorrect usage! &7/mm open <menu id>")
+						stop
+
+				if arg 1 is "delete":
+						if arg 2 is set:
+								send_mb(player,"Deleted menu &b%arg 2%")
+								menu_delete(arg-2)
+								stop
+						send_error(player,"Incorrect usage! &7/mm delete <menu id>")
+						stop
+
+				if arg 1 is "rows":
+						if arg 2 is set:
+								if arg 3 is set:
+										set {_int} to arg 3 parsed as integer
+										if {_int} is 1 or 2 or 3 or 4 or 5 or 6:
+												set {menu.rows::%arg 2%} to {_int}
+												send_mb(player,"Menu rows updated!")
+												stop
+										send_error(player,"Not a valid number! Use 1 to 6!")
+										stop
+								send_error(player,"Incorrect usage! &7/mm rows <menu id> <rows>")
+								stop
+						send_error(player,"Incorrect usage! &7/mm rows <menu id> <rows>")
+						stop
+
+				if arg 1 is "name":
+						if arg 2 is set:
+								if arg 3 is set:
+										set {menu.name::%arg 2%} to colored arg-3
+										send_mb(player,"Menu display name set to %colored arg-3%&f!")
+										stop
+								
+								send_error(player,"Incorrect usage! &7/mm name <menu id> <display name>")
+								stop
+						send_error(player,"Incorrect usage! &7/mm name <menu id> <display name>")
+						stop
+
+				if arg 1 is set:
+						send_error(player,"Unknown sub-command, Use /mm for the list!")
+						stop
+				
+				message "&7 /mm edit <menu id>"
+				message "&7 /mm delete <menu id> (Deletes menu)"
+				message "&7 /mm open <menu id> (Opens a menu, for quick testing)"
+				message "&7 /openmenu <player> <menu id> (Opens a menu, use this everything!)"
+				
+				message "&7 /mm rows <menu id> <rows> (Change the number of rows of a menu)"
+				message "&7 /mm name <menu id> <display name> (Change the display name of a menu)"
+
+				message "&7 /setcmd (Set the click command for an item)"
+				message "&7 /setcustomcase (Set the custom case ID for an item)"
+				
+
+command /openmenu <player> <string>:
+		permission: admin 
+		trigger:
+				menu_open(arg 1,arg 2)
+				play sound "minecraft:entity.item.pickup" with volume 0.2 at arg-1
+
+
+on inventory close:
+		if {menuEdit::%player%} is set:
+				delete {menuEdit::%player%}
+				send_mb(player,"Menu edit succesful!")
+
+		if {menuOpen::%player%} is set:
+				delete {menuOpen::%player%}
+
+
+on every tick:
+		loop all players:
+				if {menuEdit::%loop-player%} is set:
+						set {_m} to {menuEdit::%loop-player%}
+
+
+						loop 9*{menu.rows::%{_m}%} times:
+								set {_n} to -1 + loop-number
+								set {_item} to slot {_n} of loop-player's current inventory
+								if {menuData.%{_m}%::%{_n}%} is not {_item}:
+										set {menuData.%{_m}%::%{_n}%} to {_item}
+
+on inventory click:
+		if {menuOpen::%player%} is set:
+				set {_m} to {menuOpen::%player%}
+				cancel event
+
+				set {_cmd} to nbt of clicked slot
+				set {_run::*} to {_cmd} split at "<!CMD!>"
+				set {_close} to true if {_cmd} contains "closeOnClick:1b"
+				set {_run} to {_run::2}
+
+
+				if {_cmd} is set:
+						if click type is left mouse:
+								set {_run} to replace({_run},"[player]","%player%")
+								set {_run} to replace({_run},"//","/$cancel$")
+								set {_c::*} to {_run} split at "/"
+								loop {_c::*}:
+										if {_c::%loop-index%} does not contain "$cancel$":
+												command {_c::%loop-index%}
+
+						if click type is right mouse:
+								set {_run} to replace({_run},"[player]","%player%")
+								set {_run} to replace({_run},"//","\")
+								set {_run} to replace({_run},"/","/$cancel$")
+								set {_run} to replace({_run},"\","/")
+
+
+								set {_c::*} to {_run} split at "/"
+
+								loop {_c::*}:
+										if {_c::%loop-index%} does not contain "$cancel$":
+												command {_c::%loop-index%}
+				if {_close} is set:
+						close player's inventory
+
+function menu_edit(p:player,m:string):
+		set {menuEdit::%{_p}%} to {_m}
+		menu_define({_m})
+				
+		open_chest({_p} , "%{menu.name::%{_m}%}% &7(edit mode)", {menu.rows::%{_m}%})
+		loop 9*{menu.rows::%{_m}%} times:
+				set {_n} to loop-number - 1
+				set slot {_n} of {_p}'s current inventory to {menuData.%{_m}%::%{_n}%}
+
+function menu_animate(p:player,i:item, n:integer):
+	set slot {_n} of {_p}'s current inventory to {_i}
+
+command /copymenu <string> <string>:
+	permission: admin
+	trigger:
+		loop 9*{menu.rows::%arg-1%} times:
+			set {_n} to loop-number - 1
+			set {_i} to {menuData.%arg-1%::%{_n}%}
+			set {menuData.%arg-2%::%{_n}%} to {_i}
+		send "{@prefixdev} Menu %arg-2%'s contents set to %arg-1%'s contents."
+
+
+function menu_open(p:player,m:string):
+
+		menu_define({_m})
+		if {menuOpen::%{_p}%} is not set:
+				open_chest({_p} , {menu.name::%{_m}%}, {menu.rows::%{_m}%})
+		set {menuOpen::%{_p}%} to {_m}
+		loop 9*{menu.rows::%{_m}%} times:
+				set {_n} to loop-number - 1
+				set {_i} to {menuData.%{_m}%::%{_n}%}
+				
+				if nbt of {_i} contains "<!CASE!>":
+						set {_c::*} to nbt of {_i} split at "<!CASE!>"
+						set {_i} to custom_case({_p},{_c::2},{_i})
+				set slot {_n} of {_p}'s current inventory to {_i}
+				
+
+function menu_define(m:string):
+		if {menu.name::%{_m}%} is not set:
+				set {menu.rows::%{_m}%} to 3
+				set {menu.name::%{_m}%} to {_m}
+
+function menu_delete(m:string):
+		delete {menu.rows::%{_m}%}
+		delete {menu.name::%{_m}%}
+		delete {menuData.%{_m}%::*}
+
+command /setcmd <string>:
+		permission: admin
+		trigger:
+				set player's tool to addNBT( player's tool, "runCMD", "<!CMD!>%arg 1%<!CMD!>" )
+				message "&eTip: use / for commands use // for rightclick commands use [player] for the player that clicked"
+
+command /setcustomcase <string>:
+		permission: admin
+		trigger:
+				add "{customCase:""<!CASE!>%arg 1%<!CASE!>""}" to nbt of player's held item
+				set name of player's held item to "&3[%arg 1%]"
+
+command /setcloseonclick:
+		permission: admin
+		trigger:
+				add "{closeOnClick:1b}" to nbt of player's held item
+				message "&aAdded!"
+
+
+on tab complete of "/mm" and "/menu" and "/magicmenu":
+	set {_completers1::*} to "edit", "delete", "open", "rows", and "name"
+	loop {menu.name::*}:
+		add loop-index to {_completers2::*}
+	set tab completions for position 1 to {_completers1::*}
+	set tab completions for position 2 to {_completers2::*}
+
+on tab complete of "/openmenu":
+	loop all players:
+		add loop-player to {_players::*}
+	loop {menu.name::*}:
+		add loop-index to {_completers::*}
+	set tab completions for position 1 to {_players::*}
+	set tab completions for position 2 to {_completers::*}
+
+on tab complete of "/copymenu" and "/exportmenu" and "/importmenu":
+	loop {menu.name::*}:
+		add loop-index to {_completers::*}
+	set tab completions for position 1 to {_completers::*}
+	set tab completions for position 2 to {_completers::*}
+
+# General useful functions. Delete them if you believe they are not needed.
+
+function open_chest(p:player,n:string,r:number):
+	open chest with {_r} rows named "%{_n}%" to {_p}
+
+function send_mb(p:player,s:string):
+	message "&a[MagicMenus] &8| &f%{_s}%" to {_p}
+
+function send_error(p:player,s:string):
+	message "&c[ERROR] &8| &f%{_s}%" to {_p}
+
+function colorize(string:string) :: string:
+	set {_string} to replace( {_string}, "&u", "&x&F&F&8&C&3&A" )
+	return {_string}
+function replace(inStr:string,replaceStr:string,endStr:string) :: string:
+	replace all {_replaceStr} with {_endStr} in {_inStr}
+	return {_inStr}
+
+function split(inStr:string,splitStr:string) :: objects:
+	set {_l::*} to {_inStr} split at {_splitStr}
+	return {_l::*}
+
+function join(inStr:string,joinStr:string) :: objects:
+	set {_l::*} to {_inStr} split at {_joinStr}
+	return {_l::*}
+
+function addNBT(i:item,nbtn:string, nbts:string) :: item:
+	add "{%{_nbtn}%:""%{_nbts}%""}" to nbt of {_i}
+	return {_i}
+
+function listContains(list: objects, check: object) :: boolean:
+	loop {_list::*}:
+		if loop-value is {_check}:
+			return true
+	return false
+
+
+on tab complete of "/sk" or "/skript":
+	set tab completions for position 1 to "reload", "enable", "disable", "update" and "help"
+	if tab arg-1 = "reload" or "disable":
+		set tab completions for position 2 to enabled scripts
+	if tab arg-1 = "enable":
+		set tab completions for position 2 to disabled scripts

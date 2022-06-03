@@ -1,0 +1,19 @@
+{
+	"Name": "&aGrappling Hook",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"ItemType": "fishing rod",
+	"LoreColor": "&7",
+	"Stack": 1,
+	"Placement": "4,2",
+	"Cost": 5000000,
+	"ExtraLore": [
+		"&7Travel around in style using",
+		"this Grappling Hook.",
+		"&8&oBetter than before!", "",
+		"&cBreaks on use"
+	],
+	"OtherNBT": "{}"
+}

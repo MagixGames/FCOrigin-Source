@@ -1,0 +1,113 @@
+options:
+	DenyPVP: "enormous_east_spawn" or "wild_west_spawn"
+	DenyPlacing: "enormous_east_spawn" or "wild_west_spawn" or "enormous_east_lavaplaces_spawn"
+	playerBlocks: infested stone bricks or infested chiseled stone bricks or cut sandstone or brown terracotta or gray terracotta or black terracotta or cobweb or dried kelp block or red glazed terracotta or yellow glazed terracotta or glass or white stained glass or red terracotta or shroomlight
+
+
+
+on place:
+	set {_test} to true if player is not op
+	set {_test} to true if player's gamemode is not creative
+	if {_test}:
+		set {_region} to "%region at event-block%"
+		if {_region} contains "%{currentMap}%_spawn":
+			send action bar "&c[ERROR] &fArea can not be built on!" to player
+			cancel event
+			stop
+
+
+command /resetmap:
+	permission: op
+	permission message: &cNo permission.
+	trigger:
+		set {_region} to {currentMap}
+		fcBroadcast("Reseting map...")
+		set {_count} to 0
+		loop blocks in region at {mapSpawns::%{currentMap}%_spawn}:
+			loop-block is {@playerBlocks}
+			stop if {haltMapReset} is set
+			set loop-block to air
+		fcBroadcast("&aMap reset complete.")
+
+every 5 seconds:
+	loop all players:
+		if "%region at loop-player%" does not contain {currentMap}:
+			if loop-player is not op:
+				teleport loop-player to {mapSpawns::%{currentMap}%_spawn} if {currentMap} is set
+
+command /setcurrentmap <string>:
+	permission: op
+	permission message: &cNo permission.
+	trigger:
+		if arg is set:
+			if {maps::%arg%} is set:
+				setMap(arg)
+			else:
+				send "&c[ERROR] &fMap does not exist in database."
+				stop
+		else:
+			send "&c[ERROR] &fParams not set."
+			stop
+
+function setMap(map:string): 
+	loop {flags::*}:
+		set {_p} to loop-index parsed as player
+		set block at {flags::%{_p}%} to air
+		delete {flags::%{_p}%}
+	set {currentMap} to {_map}
+	set {currentMap.visual} to {_map}
+	replace all "_" with " " in {currentMap.visual}
+	set {currentMap.visual} to capitalizeSentence({currentMap.visual})
+	loop all players:
+		teleport loop-player to {mapSpawns::%{currentMap}%_spawn}
+		set {noFallDamageStart::%loop-player%} to true
+	wait a tick
+	command "resetmap"
+	set {mapChangeTimer} to 0
+
+
+
+command /maplist:
+	permission: op
+	permission message: &cNo permission.
+	trigger:
+		send " - - Map List - - "
+		loop {maps::*}:
+			send loop-index
+
+every 1 minute:
+	add 1 to {mapChangeTimer}
+	if {mapChangeTimer} = 50:
+		fcBroadcast("Map change in 10 minutes!")
+	if {mapChangeTimer} = 59:
+		fcBroadcast("Map change in 1 minute!")
+	if {mapChangeTimer} >= 60:
+		fcBroadcast("Changing map...")
+		set {_m} to random element of indexes of {maps::*}
+		while {_m} = {currentMap}:
+			set {_m} to random element of indexes of {maps::*}
+		setMap("%{_m}%")
+
+function fcBroadcast(s:string):
+	broadcast "&bFlagClash &8| &f%{_s}%"
+
+command /mapconfig <string> <string>:
+	permission: op
+	permission message: &cNo permission.
+	trigger:
+		if arg-1 = "add":
+			set {maps::%arg-2%} to true 
+			send "&aAdded map: %arg-2%"
+		else if arg-1 = "setspawn":
+			set {mapSpawns::%arg-2%_spawn} to block at player's location
+			send "&aSet the spawn of map[%arg-2%] to %block at player's location%"
+		else if arg-1 = "delete":
+			delete {maps::%arg-2%}
+			delete {mapSpawns::%{currentMap}%_spawn}
+			send "&aDeleted map: %arg-2%"
+		else:
+			send "&cInvalid argument. &8<arg-1>"
+
+on tab complete of "/mapconfig":
+	set {_completers::*} to "add", "setspawn", "delete"
+	set tab completions for position 1 to {_completers::*}

@@ -1,0 +1,21 @@
+{
+	"Name": "&7Wooden Sword",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Type": "sword",
+	"ItemType": "wooden sword",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "4/mainhand",
+		"Rate": "-1/mainhand"
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

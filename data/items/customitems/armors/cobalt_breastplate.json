@@ -1,0 +1,20 @@
+{
+	"Name": "&5Cobalt Breastplate",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Type": "armor",
+	"ItemType": "leather chestplate",
+	"LoreColor": "<##4956A7>",
+	"Dye": [0, 0, 255],
+	"Stack": 1,
+	"Stats": {
+		"Armor": "5/chest"
+	},
+	"Enchants": [
+		"fire_protection 5"
+	],
+	"ExtraLore": [
+	],
+	"OtherNBT": "{}"
+}

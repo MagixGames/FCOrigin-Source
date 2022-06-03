@@ -1,0 +1,26 @@
+{
+	"Name": "&7Wooden Bow",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Type": "bow",
+	"ItemType": "bow",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		
+	},
+	"CustomStats": {
+		"Power": 4,
+		"Range": 1.1,
+		"Reload": 3,
+		"Accuracy": 1.5
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

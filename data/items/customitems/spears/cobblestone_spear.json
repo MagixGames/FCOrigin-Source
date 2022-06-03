@@ -1,0 +1,34 @@
+{
+	"Name": "&aCobblestone Spear",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "spear",
+	"ItemType": "stone shovel",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "4/mainhand",
+		"Rate": "-1/mainhand"
+	},
+	"CustomStats": {
+		"Dash": 1.1,
+		"Cooldown": 6
+	},
+	"Enchants": [
+	],
+	"CustomEnchants": {
+	},
+	"ExtraLore": [
+	],
+	"Execute": {
+		"Passive": [
+			
+		],
+		"Use": [
+			
+		]
+	},
+	"OtherNBT": "{}"
+}

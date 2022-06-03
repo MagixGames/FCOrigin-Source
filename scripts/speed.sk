@@ -1,0 +1,5 @@
+command /speed-test <text>:
+	trigger:
+		set {_now} to now
+		make player execute command "sk reload %arg%"
+		send "%difference between now and {_now}%"

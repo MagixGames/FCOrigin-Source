@@ -1,0 +1,24 @@
+{
+	"Name": "&cAngelic Boots",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "armor",
+	"ItemType": "leather boots",
+	"LoreColor": "<##4956A7>",
+	"Dye": [148, 41, 255],
+	"Stack": 1,
+	"Stats": {
+		"Armor": "3/feet",
+		"Swiftness": "0.5/feet",
+		"health": "4/feet"
+	},
+	"Enchants": [
+		"feather_falling 10"
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

@@ -1,0 +1,28 @@
+{
+	"Name": "&dWither Sickle+",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": true,
+	"Type": "scythe",
+	"ItemType": "netherite hoe",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "6.5/mainhand",
+		"Rate": "-1/mainhand",
+		"Armor": "-5/mainhand",
+		"Swiftness": "-1/mainhand"
+	},
+	"CustomStats": {
+		"Range": 3.75
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		"Has extended range",
+		"Has a chance to apply withering to opponents"
+	],
+	"OtherNBT": "{}"
+}

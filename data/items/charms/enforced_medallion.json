@@ -1,0 +1,10 @@
+{
+	"Name": "Enforced Medallion",
+	"HideAllFlags": true,
+	"ItemType": "iron block",
+	"LoreColor": "&7",
+	"Cost": 1,
+	"Desctiption": [
+		"Randomly adds a layer to blocks placed"
+	]
+}

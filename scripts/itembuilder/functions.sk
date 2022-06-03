@@ -1,0 +1,151 @@
+function playsound(loc:location, s:string="entity.experience_orb.pickup", v:number=1,pi:number=1):
+	play sound "%{_s}%" at volume {_v} at pitch {_pi} at {_loc}
+ 
+function teleport(p:player,l:location):
+	teleport {_p} to {_l}
+
+function LoreFormat(s:string, c:string) :: strings: #c = color
+	set {_split::*} to {_s} split at " "
+	loop {_split::*}:
+		if {_current} is not set:
+			set {_current} to "%{_c}% %loop-value%"
+			continue
+		if loop-value is "|":
+			add {_current} to {_result::*}
+			delete {_current}
+			continue
+		if length of {_current} + length of loop-value < 50:
+			set {_current} to "%{_current}% %loop-value%"
+			continue
+		add {_current} to {_result::*}
+		set {_current} to "%{_c}% %loop-value%"
+	add {_current} to {_result::*}
+	return {_result::*}
+
+function TextWrap(s:string, len:integer, c:string="") :: string: #c = color
+	set {_split::*} to {_s} split at " "
+	loop {_split::*}:
+		if {_current} is not set:
+			set {_current} to "%{_c}% %loop-value%"
+			continue
+		if loop-value is "|":
+			add {_current} to {_result::*}
+			delete {_current}
+			continue
+		if length of {_current} + length of loop-value < {_len}:
+			set {_current} to "%{_current}% %loop-value%"
+			continue
+		add {_current} to {_result::*}
+		set {_current} to "%{_c}% %loop-value%"
+	add {_current} to {_result::*}
+	return join({_result::*}, "%nl%")
+
+
+function capitalizeSentence(text: text, delimiter: text = " ") :: text:
+	set {_words::*} to split {_text} by {_delimiter}
+	loop {_words::*}:
+		add capitalizeFirst("%loop-value%") to {_output::*} 
+	return join({_output::*}, {_delimiter}) 
+
+# (Player,Event name, length (in ticks), character in actionbar)
+function Cooldown(p:player, e:string, l:integer, c:string="|", visual:boolean=true):
+	set {cooldown::%{_p}%::%{_e}%} to {_l}
+	while 0 < {cooldown::%{_p}%::%{_e}%}:
+		if {_visual}:
+			{cancelCooldownDisplay::%{_p}%} is not set
+			
+			#set {_a} to colored multiText({_c},"%ceil({cooldown::%{_e}%::%{_p}%}/2)%" parsed as integer)
+			#set {_t} to "%{_a}% &r[%{_e}%] %{_a}%"
+			set {_t} to colored multiText({_c},{cooldown::%{_p}%::%{_e}%})
+			send action bar "%{_t}%" to {_p}
+		wait 1 tick
+		remove 1 from {cooldown::%{_p}%::%{_e}%}
+	delete {cooldown::%{_p}%::%{_e}%}
+	send action bar "" to {_p}
+
+
+function ItemCooldown(p:player,n:int=20,i:item=air):
+		if {_i} is air: 
+				set {_type} to type of {_p}'s tool
+		{_p}.setCooldown( {_type}.getMaterial(), {_n})
+
+function GetItemCooldown(p:player,i:item=air) :: int:
+		if {_i} is air:
+				set {_type} to type of {_p}'s tool
+
+		if {_p}.hasCooldown( {_type}.getMaterial()) is false:
+				return 0
+		return {_p}.getCooldown( {_type}.getMaterial())
+
+on join:
+	delete {cooldown::%player%::*}
+
+function ActiveCooldown(p:player,e:string) :: boolean:
+	return false if {cooldown::%{_p}%::%{_e}%} is not set
+	return true
+
+function particle(loc:location,part:particle,a:integer,e:number):
+	draw {_a} of {_part} particle at {_loc} with extra {_e}
+
+function forceSwapHeld(p:player):
+	set {_mainhand} to {_p}'s tool
+	set {_offhand} to {_p}'s offhand item
+	set {_p}'s tool to {_offhand}
+	set {_p}'s offhand item to {_mainhand}
+
+
+function multiText(t:string,n:integer) :: string:
+	set {_s} to ""
+	loop {_n} times:
+		set {_s} to "%{_s}%%{_t}%"
+	return {_s}
+
+function PotionEffect(p:player,e:potion effect type,tier:integer,d:timespan, overwrite:boolean=false, particles:boolean=true):
+	remove {_e} from {_p} if {_overwrite}
+	apply {_e} of tier {_tier} without any particles to {_p} for {_d} if {_particles}
+	apply {_e} {_tier} to {_p} for {_d} if not {_particles}
+
+
+# https://github.com/Flowwave/Qween/blob/main/Packages/FunctionSet.sk (stolen flow code)
+
+
+function GetTimer(seconds:number) :: string:
+    set {_minutes} to floor({_seconds}/60)
+    set {_seconds} to Wrap({_seconds},0,59)
+    
+    set {_mins} to "%{_minutes}%"
+    set {_mins::*} to {_mins} split at ""
+            
+    if size of {_mins::*} is less than 3:
+        set {_mins} to "0%{_mins}%"
+    
+    set {_sec} to "%{_seconds}%" 
+    set {_sec::*} to {_sec} split at ""
+    
+    if size of {_sec::*} is less than 3:
+        set {_sec} to "0%{_sec}%"
+    set {_timer} to "%{_mins}%:%{_sec}%"
+    return {_timer}
+
+function RandI(min:number=0,max:number=100) :: number:
+    return a random integer between {_min} and {_max}
+
+function RandF(min:number=0,max:number=1) :: number:
+    return a random number between {_min} and {_max}
+
+function MultipleS(n:number) :: string:
+    if {_n} is not 1:
+        return "s"
+    return ""
+
+function OpenMenu(p:player, n:string, r:integer, canClick:boolean=false):
+	set metadata tag "CustomMenu.Inventory" of {_p} to chest inventory with {_r} rows named {_n}
+	open (metadata tag "CustomMenu.Inventory" of {_p}) to {_p}
+	set metadata tag "CustomMenu.CanClick" of {_p} to {_canClick}
+on inventory click:
+	event-inventory = (metadata tag "CustomMenu.Inventory" of player):
+		cancel event if not (metadata tag "CustomMenu.CanClick" of player)
+
+on inventory close:
+	delete metadata tag "CustomMenu.CanClick" of player
+	delete metadata tag "CustomMenu.Inventory" of player

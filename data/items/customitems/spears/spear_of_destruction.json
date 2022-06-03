@@ -1,0 +1,26 @@
+{
+	"Name": "&cSpear Of Destruction",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": true,
+	"Type": "spear",
+	"ItemType": "diamond shovel",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "10.0/mainhand",
+		"Rate": "1/mainhand"
+	},
+	"CustomStats": {
+		"Dash": -10,
+		"Cooldown": 30
+	},
+	"Enchants": [
+		"fire_aspect 1"
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

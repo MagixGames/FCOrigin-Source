@@ -1,0 +1,10 @@
+{
+	"Name": "Quick Respawn",
+	"HideAllFlags": true,
+	"ItemType": "melon slice",
+	"LoreColor": "&7",
+	"Cost": 1,
+	"Desctiption": [
+		"Cuts down the respawn time"
+	]
+}

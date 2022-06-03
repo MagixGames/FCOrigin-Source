@@ -1,0 +1,509 @@
+options:
+	playerBlocks: barrier or cut sandstone or brown terracotta or gray terracotta or black terracotta or cobweb or dried kelp block or red glazed terracotta or yellow glazed terracotta or glass or white stained glass or red terracotta or shroomlight
+	playerBlocksWithO: infested stone bricks or infested chiseled stone bricks 
+	
+	permission: sk.administrator
+	permission_message: &cNo permission.
+	prefix: &8[&eProjectFCM&8]
+	prefix_cut: &eProjectFCM&f
+
+function units(b: object) :: text: #garbage
+	set {_unit::*} to split "K|M|B|T|Q|Quintillion|Sextillion|Septillion|Octillion|Nonillion" at "|"
+	set {_num} to {_b} parsed as number
+	set {_n} to {_num}
+	loop 10 times:
+		if {_n} < 1000:
+			exit 1 loop
+		else:
+			set {_unitForFunc} to {_unit::%loop-number%}
+			set {_n} to {_n} / 1000
+
+	return "%{_n}%%{_unitForFunc}%"
+
+function toUnits(value:number) :: text:
+	if {_value} >= 1000:
+		set {_units::*} to split("K,M,B,T,Q,U,S,E,O,N",",")
+		set {_t1} to {_value}
+		while {_t1} >= 1000:
+			set {_t1} to {_t1} / 1000
+			add 1 to {_c} #count
+		return "%{_t1}%%lower case {_units::%{_c}%}%"
+	else:
+		return "%{_value}%"
+
+
+function a(b: string) :: text:
+	if length of {_b} > 3:
+		return "%a(first length of {_b} - 3 characters of {_b})%,%last 3 characters of {_b}%"
+	return {_b}
+
+function regex(n: object) :: text:
+	if "%{_n}%" contains ".":
+		set {_s::*} to split "%{_n}%" at "."
+		set {_n} to "%a({_s::1})%.%last 2 characters of {_s::2}%"
+		return "%{_n}%"
+	else:
+		set {_n} to a("%{_n}%")
+		return "%{_n} ? 0%"
+
+
+function listContains(list: objects, check: object) :: boolean:
+	loop {_list::*}:
+		if loop-value is {_check}:
+			return true
+	return false
+
+
+#command /dm <player> <string>:
+#	aliases: /whisper, /minecraft:whisper
+#	trigger:
+#		send "&dFrom %{nicks::%player's uuid%}%&r &8| &f%arg-2%" to arg-1
+#		send "&dTo %{nicks::%arg-1's uuid%}%&r &8| &f%arg-2%" to player
+
+command /alert <string>:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		broadcast "&8[{@prefix_cut}: &c&lBROADCAST&8] &f%colored arg%"
+		play sound "minecraft:block.anvil.land" at volume 1.1 to all players
+
+every 2 seconds:
+	loop all players:
+		send action bar "&aYou are currently vanished!" to loop-player if listContains({hiddenplayers::*}, loop-player)
+
+on craft:
+	cancel event
+
+command /$$vanish [<string>]:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		hide player from all players
+		add player to {hiddenplayers::*}
+		broadcast "&fQuit &8| &f%{nicks::%player's uuid%}% &fleft the game" if arg is not set
+
+on projectile hit:
+	if projectile = arrow:
+		kill projectile
+		#draw 1 of block break particle at location of projectile with extra 0.1
+
+command /$$reveal [<string>]:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		reveal player to all players
+		remove player from {hiddenplayers::*}
+		broadcast "&fJoin &8| &f%{nicks::%player's uuid%}% &fjoined the game" if arg is not set
+
+command /enchant <enchantment type>:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		enchant the player's tool with arg-1
+		send "&aDone! &7Added enchantment &b%arg-1% &7to your held tool."
+
+command /disenchant:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		disenchant the player's tool
+		send "&aDone! &7Held item has been disenchanted."
+
+command /eval <string>:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		evaluate arg-1
+
+function print(o:object):
+	loop all players:
+		if loop-player is op:
+			send formatted "&c[Print] &8| &f<suggest command:%{_o}%>%{_o}%" to loop-player
+ 
+
+on block trample:
+	cancel event
+on fade:
+	cancel event
+
+command /addAllHideFlags:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		set {_t} to player's tool with all flags hidden
+		set player's tool to {_t}
+
+command /addUnbreakable:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		set {_t} to unbreakable player's tool
+		set player's tool to {_t}
+
+command /invseeedit <player>:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		open arg's inventory to player
+
+
+command /toggleEditMaps <offline player>:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		set {allowedEdit::%arg%} to not {allowedEdit::%arg%}
+		send "{@prefix} &f%arg%'s ability to edit maps has been set to: %{allowedEdit::%arg%}%"
+
+function p_hasPermission(p:player,perm:string) :: boolean:
+	return true if {_p} has permission "%{_perm}%"
+	return false
+
+on break:
+	if (not p_hasPermission(player, "{@permission}")) or (not {allowedEdit::%player%}):
+		if event-block is not {@playerBlocks} or banner:
+			cancel event
+			if player's tool is netherite hoe:
+				if event-block is {@playerBlocksWithO}:
+					uncancel event
+on place:
+	if (not p_hasPermission(player, "{@permission}")) or (not {allowedEdit::%player%}):
+		if event-block is not {@playerBlocks} or banner:
+			cancel event
+			if event-block is {@playerBlocksWithO}:
+				stop if past event-block is lava or water
+				uncancel event
+				give player 0 of event-block
+		loop all blocks in radius 1 of the event-block:
+			cancel event if past event-block is lava or water
+
+command me:
+	aliases: w, whisper, tell
+	trigger:
+		stop
+
+on command:
+	if command contains ":":
+		cancel event
+		send "&C[ERROR] &FYou cannot execute a command with a ':' in it!"
+
+
+function test_units(b: object) :: text:
+	set {unit::*} to split "k|m|b|t|q" at "|"
+	if length of {_b} > 3:
+		set {_temp} to mod(length of {_b}, 3)
+		set {_string} to {unit::%{temp}%}
+	return {_string}
+
+command /setStat <offline player> [<text>] <integer>:
+	permission: skript.damage_system.admin
+	permission message: &cNo Permission.
+	trigger:
+		if {playerstats::%arg-2%::%arg-1's uuid%} is set:
+			set {playerstats::%arg-2%::%arg-1's uuid%} to arg-3
+			send "&aStat &a%arg-2% &ashould now be set to &a%arg-3%."
+			stop
+		else if {playerstats::%arg-2%::%arg-1's uuid%} is not set:
+			send "&c[ERROR] &fStat does not exist!"
+			stop
+
+
+command /loop <integer> <integer> <string>:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		if (arg-1 is less than or equal to 100):
+			loop arg-1 times:
+				make player execute arg-3
+				loop arg-2 times:
+					wait a tick
+		else:
+			send "&cYour loop amount is bigger than the cap of &a100&c!"
+
+command /fullDefine <string>:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		make player execute "rg define %arg%"
+		make player execute "rg flag %arg% build allow"
+		make player execute "rg flag %arg% pvp allow"
+		make player execute "rg flag %arg% passthrough allow"
+		make player execute "rg flag %arg% interact allow"
+
+command /fixDefine <string>:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		make player execute "rg flag %arg% build allow"
+		make player execute "rg flag %arg% pvp allow"
+		make player execute "rg flag %arg% passthrough allow"
+		make player execute "rg flag %arg% interact allow"
+
+on rightclick on chest or barrel or loom or anvil or furnace or beacon or dispenser or hopper or dropper or enchanting table or shulker box or crafting table or blast furnace or stone cutter or smoker or cartography table:
+	if player's gamemode is not creative:
+		cancel event
+
+command /gm <gamemode> [<player>]:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		if arg-2 is set:
+			set arg-2's gamemode to arg-1
+			send colored "{@prefix} &f%arg-2%&f's gamemode has been set to &a&l%arg-1%&f."
+		set player's gamemode to arg-1 if arg-2 is not set
+		send colored "{@prefix} &f%player%&f's gamemode has been set to &a&l%arg-1%&f." if arg-2 is not set
+
+on tab complete of "/gm":
+	set {_completers::*} to "creative", "survival", "spectator", and "adventure"
+	set tab completions for position 1 to {_completers::*}
+
+command /rename [<text>]:
+	permission: skript.damage_system.admin
+	permission message: &cNo Permission.
+	trigger:
+		set player's held item's name to colored arg
+		send "&fSet Item's name to ""%arg%"""
+
+
+command /relore <integer> [<text>]:
+	permission: skript.damage_system.admin
+	permission message: &cNo Permission.
+	trigger:
+		set line arg-1 of the player's held item's lore to colored arg-2
+		send "&aDone! &7Line %arg-1% &7of your held item has been set to %arg-2%&7."
+command /deleteline <integer>:
+	permission: skript.damage_system.admin
+	permission message: &cNo Permission.
+	trigger:
+		delete line arg of player's tool's lore
+		send "&aDone! &7Line %arg% &7of your held item has been deleted."
+
+command /dm <player> <string>:
+	aliases: /pm
+	trigger:
+		send "&c[PM from %{nicks::%player's uuid%}%&c] &7%arg-2%" to arg-1
+		send "&c[PM to %{nicks::%arg-1's uuid%}%&c] &7%arg-2%" to player
+
+on hunger meter change:
+	cancel event
+
+
+command /nick <player> <string>:
+	permission: op
+	permission message: &cNo Permission
+	trigger:
+		set {nicks::%arg-1's uuid%} to colored arg-2
+		send "&fFlagClash &8| &fChanged %arg-1%'s nick to %colored arg-2%"
+		set arg-1's tab list name to "%{nicks::%arg-1's uuid%}%"
+		set arg-1's display name to "%{nicks::%arg-1's uuid%}%"
+
+on join:
+	loop {hiddenplayers::*}:
+		hide loop-value from all players
+	set player's max health to 20
+	if {nicks::%player's uuid%} is not set:
+		set {nicks::%player's uuid%} to "&f%player%"
+		set player's tab list name to "&f%player%"
+		set player's display name to "&f%player%"
+	else if {nicks::%player's uuid%} is set:
+		set player's tab list name to "%{nicks::%player's uuid%}%"
+		set player's display name to "%{nicks::%player's uuid%}%"
+	set join message to "&fJoin &8| &f%{nicks::%player's uuid%}% &fjoined the game" if not listContains({hiddenplayers::*}, player)
+	set join message to "{@prefix} Remember to join the discord! &9/discord" if listContains({hiddenplayers::*}, player)
+	
+on quit:
+	set quit message to "&fQuit &8| &f%{nicks::%player's uuid%}% &fleft the game"
+
+on chat:
+	loop all players:
+		if message contains "%loop-player%":
+			set {_newmessage} to message
+			replace all "%loop-player%" with "&e@%loop-player%&f" in {_newmessage} 
+			play sound "minecraft:entity.experience_orb.pickup" at volume 0.85 to loop-player
+			set chat format to "%{nicks::%player's uuid%}% &8| &f%{_newmessage}%"
+			stop
+	set chat format to "%{nicks::%player's uuid%}% &8| &f%message%"
+
+on jump:
+	getItemNBTTag(player's chestplate,"IBItemsData;ItemID") = "deepslate_platebody"
+	wait a tick
+	push player downwards at speed 0.15
+	push player backwards at speed 0.1
+
+command /item <string> [<integer>]:
+	permission: op
+	permission message: &cNo Permission
+	trigger:
+		if {customitems::%arg-1%} is set:
+			give player {customitems::%arg-1%} if arg-2 is not set
+			give player arg-2 of {customitems::%arg-1%} if arg-2 is set
+			send "&aGiven!"
+			play sound "entity.experience_orb.pickup" with volume 15 at pitch 2
+		else if {blocks::%arg-1%} is set:
+			give player {blocks::%arg-1%} if arg-2 is not set
+			give player arg-2 of {blocks::%arg-1%} if arg-2 is set
+			send "&aGiven!"
+			play sound "entity.experience_orb.pickup" with volume 15 at pitch 2
+		else if {items::%arg-1%} is set:
+			give player {items::%arg-1%} if arg-2 is not set
+			give player arg-2 of {items::%arg-1%} if arg-2 is set
+			send "&aGiven!"
+			play sound "entity.experience_orb.pickup" with volume 15 at pitch 2
+		else:
+			send "&c[ERROR] &fItem does not exist!"
+
+command /ibgive <player> <string> <string>:
+	permission: op
+	permission message: &cNo Permission
+	trigger:
+		give arg-1 {%arg-2%::%arg-3%}
+		playsound(arg-1)
+
+
+on tab complete of "/item":
+	add uppercase indexes of {customitems::*} to {_c::*} 
+	add uppercase indexes of {blocks::*} to {_c::*} 
+	add uppercase indexes of {items::*} to {_c::*} 
+	set tab completions for position 1 to {_c::*}
+
+every 1 seconds:
+	loop all players:
+		if loop-player does not have banner:
+			give loop-player 1 of banner named "&9Flag"
+
+on drop:
+	if player's gamemode is not creative:
+		cancel event
+
+
+on tab complete of "/sk" or "/skript":
+	set tab completions for position 1 to "reload", "enable", "disable", "update" and "help"
+	if tab arg-1 = "reload" or "disable":
+		set tab completions for position 2 to enabled scripts
+	if tab arg-1 = "enable":
+		set tab completions for position 2 to disabled scripts
+
+on damage:
+	#broadcast "%damage cause%"
+	set {_regionattacker} to "%region at attacker%"
+	set {_regionavictim} to "%region at victim%"
+	if {_regionattacker} or {_regionavictim} contain "%{currentMap}%_spawn":
+		send action bar "&c&lYou can not pvp in this area!" to attacker
+		cancel event
+		stop
+	if damage cause is fall:
+		if {noFallDamageStart::%victim%} is set:
+			cancel event
+			delete {noFallDamageStart::%victim%}
+			stop
+	
+	set {_d} to damage
+	if {charm_toggle::%attacker's uuid%::assassin}:
+		ceil(attacker's max health) is ceil(attacker's health)
+		set {_d} to {_d} * 1.5
+	if "%damage cause%" contains "fall":
+		victim is sneaking
+		set {_d} to {_d} * 0.5
+	set damage to 0.01
+	set victim's health to victim's health - max(({_d} - 0.5), 0.01)
+	play hurt at victim
+	set {lastAttacked::%victim%} to attacker if attacker is a player
+
+	wait 1 tick
+	if {charm_toggle::%attacker's uuid%::sixth_sense} = true:
+		send action bar "&f%getHPInHearts(victim)%" to attacker
+		set {cancelCooldownDisplay::%attacker%} to now
+		set {_t} to now
+		wait 1.5 seconds
+		delete {cancelCooldownDisplay::%attacker%} if {cancelCooldownDisplay::%attacker%} = {_t}
+
+function deathGoldC(victim:player, attacker:player):
+	if {_attacker} is a player:
+		set {_gold} to floor({playerstats::gold::%{_victim}'s uuid%}/10)
+		set {_gold2} to min({_gold}, floor({playerstats::gps::%{_attacker}'s uuid%}*15^1.3)) #scaling
+		remove {_gold} from {playerstats::gold::%{_victim}'s uuid%}
+		send "&c-%regex({_gold})%" to {_victim}
+		add {_gold2} to {playerstats::gold::%{_attacker}'s uuid%}
+		send "&e+%regex({_gold2})%" to {_attacker}
+
+command /suicide:
+	trigger:
+		set player's health to 0.1
+		PotionEffect(player,blindness, 5, 3.5 seconds, true, true)
+		set {_t} to now
+		set {SuicideTime::%player%} to now
+		wait 3 seconds
+		kill player if {SuicideTime::%player%} = {_t}
+		delete {SuicideTime::%player%} if {SuicideTime::%player%} = {_t}
+
+on join:
+	set {ip::%player%} to player's ip
+	add player to {ipget::%player's ip%::*} if player is not in {ipget::%player's ip%::*}
+
+#command /getips <string> <string>:
+#	permission: admin
+#	trigger:
+
+
+on respawn:
+	set player's gamemode to spectator
+	teleport player to {loc::%player%}
+	delete {loc::%player%}
+
+function death(p:player):
+	set {inDeath::%{_p}%} to true
+	set {_time} to 10
+	set {_time} to floor({_time} * 0.75) if {charm_toggle::%{_p}'s uuid%::quick_respawn}
+	set {_mul} to 1
+	set {_x} to {_time}
+	loop {_time} times:
+		send title "&f%{_x} - loop-number + 1%" to {_p}
+		play sound "minecraft:entity.experience_orb.pickup" at pitch (loop-value/({_time} * {_mul})) to {_p}
+		wait 1 second
+	set {_p}'s gamemode to survival
+	set {_p}'s fly speed to 0.1
+	if {flags::%{_p}%} is set:
+		teleport {_p} to {flags::%{_p}%}
+		set block above {flags::%{_p}%} to air if block above {flags::%{_p}%} is {@playerBlocks}
+	else:
+		teleport {_p} to {mapSpawns::%{currentMap}%_spawn}
+		set {noFallDamageStart::%{_p}%} to true
+	send subtitle "&f&lRespawned!" to {_p}
+	send title " " to {_p}
+	play sound "minecraft:block.beacon.activate" at pitch 0.7 to {_p}
+	delete {inDeath::%{_p}%}
+
+command /cmds:
+	trigger:
+		send "&8-------------------------------"
+		send "&8| &f/setsidebar"
+		send "&8| &f/toggleothertablist"
+		send "&8| &f/suicide"
+		send "&8| &f/credits"
+		send "&8| &f"
+		send "&8| &f"
+		send "&8-------------------------------"
+
+function removeFlag(p:player):
+	set {removingFlag::%{_p}%} to true
+	loop 50 times:
+		play sound "minecraft:block.ladder.mine" with pitch 0.9 at location of {flags::%{_p}%}
+		make 20 of block using ladder at location of {flags::%{_p}%}
+		make 20 of block using ladder at block above location of {flags::%{_p}%}
+		wait 4 ticks
+	play sound "minecraft:entity.zombie.break_wooden_door" at location of {flags::%{_p}%}
+	set block at {flags::%{_p}%} to air
+	delete {flags::%{_p}%}
+	delete {removingFlag::%{_p}%}
+
+on join:
+	if {inDeath::%player%} is true:
+		death(player)
+
+on death:
+	victim is a player
+	{loc::%player%} is not set
+	set {loc::%victim%} to victim's location
+	heal attacker by 2
+	heal attacker by 10 if {charm_toggle::%attacker's uuid%::vampirism} = true
+	deathGoldC(victim, {lastAttacked::%victim%})
+	death(victim)

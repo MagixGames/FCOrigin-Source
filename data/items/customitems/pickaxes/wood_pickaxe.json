@@ -1,0 +1,22 @@
+{
+	"Name": "&fWood Pickaxe",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"ID": "wood_pickaxe",
+	"Type": "tool",
+	"ItemType": "wooden pickaxe",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "3/mainhand",
+		"Rate": "1/mainhand"
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

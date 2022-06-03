@@ -1,0 +1,32 @@
+on damage:
+	{charm_toggle::%victim's uuid%::god_mode} = true
+	set damage to 0.1
+	heal victim
+
+function unlockCharm(p:player,charm:string):
+	playsound({_p}, "minecraft:ui.toast.challenge_complete", 3, 1.5)
+	command "/charm %{_p}% add %{_charm}%"
+	send title "&3Charm Unlocked!" to {_p}
+	loop 3 times:
+		particle(block above {_p}, totem of undying, 150, 0.7)
+
+function playerHasCharm(p:player,charm:string):
+	return true if {playerdata::charms_obtained::%{_p}'s uuid%::%{_charm}%} is true
+	return false
+
+every tick: #this fucking sucks idk what else to do for clocks though
+	loop all players:
+		if {charm_toggle::%loop-player's uuid%::olympic_runner} = true:
+			if mod({charmClock},1 * 20) = 0:
+				PotionEffect(loop-player, speed, 1, 1.1 seconds, true, true) if loop-player's health = loop-player's max health
+
+		if {charm_toggle::%loop-player's uuid%::mend} = true:
+			if mod({charmClock},2 * 20) = 0:
+				heal loop-player by 0.5 if floor(loop-player's max health * (13/16)) < loop-player's health
+
+		if {charm_toggle::%loop-player's uuid%::aquatic_bracelet} = true:
+			if mod({charmClock},1 * 20) = 0:
+				PotionEffect(loop-player, dolphins grace, 1, 1.1 seconds, true, true)
+
+		set {charmClock} to 0 if {charmClock} > 200
+		add 1 to {charmclock}

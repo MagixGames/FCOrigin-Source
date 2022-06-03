@@ -1,0 +1,21 @@
+function sendCredits(p:player):
+
+
+	send "&8&m                                                " to {_p}
+	send "Magix_ - Head Developer" to {_p}
+	send "Aljae - Shortbow calculations" to {_p}
+	send "TommyFoxes - Vector shit" to {_p}
+	send "Boxeyy - Moral Support" to {_p}
+	send "" to {_p}
+	send "" to {_p}
+	send "" to {_p}
+	send "" to {_p}
+	send "" to {_p}
+	send "" to {_p}
+	send "" to {_p}
+	send "And flowwave, for making FlagClash in the first place!" to {_p}
+	send "&8&m                                                " to {_p}
+
+command /credits:
+	trigger:
+		sendCredits(player)

@@ -1,0 +1,199 @@
+options:
+	serveraddress: 127.0.0.1:25565
+function displayWithCommas(n: object) :: text:
+	if "%{_n}%" contains ".":
+		set {_s::*} to split "%{_n}%" at "."
+		set {_n} to "%a({_s::1})%.%last 2 characters of {_s::2}%"
+		return "%{_n}%"
+	else:
+		set {_n} to a("%{_n}%")
+		return "%{_n} ? 0%"
+
+function setScoreboard(p:player,line:integer,text:string):
+	set line {_line} of {_p}'s scoreboard to "%{_text}%"
+
+function scoreboard_fcorigin(p:player):
+	set {_uuid} to uuid of {_p}
+	set title of {_p}'s scoreboard to "&cFC&6Origin"
+	setScoreboard({_p},15,"&CMap: %{currentMap.visual}%")
+	setScoreboard({_p},14,"&r&r&8&m                     ")
+	setScoreboard({_p},13,"&6Gold: %displayWithCommas({playerstats::gold::%{_uuid}%})%")
+	setScoreboard({_p},12,"&bLevel: %displayWithCommas({playerstats::level::%{_uuid}%})%")
+	setScoreboard({_p},11,"&aGPS: %displayWithCommas({playerstats::gps::%{_uuid}%})%")
+	if {playerstats::soulshards::%{_uuid}%} > 0:
+		setScoreboard({_p},10,"&dSoul Shards: %displayWithCommas({playerstats::soulshards::%{_uuid}%})%")
+	else:
+		delete line 10 of {_p}'s scoreboard
+	setScoreboard({_p},7,"&r&r&8&m                     ")
+	setScoreboard({_p},6,"&x&3&f&6&c&b&5{@serveraddress}")
+
+function scoreboard_fc5(p:player):
+	set {_uuid} to uuid of {_p}
+	set title of {_p}'s scoreboard to "&f&lFlagClash &cO"
+	setScoreboard({_p},15,"&r&r&8&m                          ")
+	setScoreboard({_p},14,"&aLevel: %toUnits({playerstats::level::%{_uuid}%})%")
+	setScoreboard({_p},13,"&eGps: %toUnits({playerstats::gps::%{_uuid}%})%")
+	setScoreboard({_p},12,"&6Gold: %toUnits({playerstats::gold::%{_uuid}%})%")
+	if {playerstats::soulshards::%{_uuid}%} > 0:
+		setScoreboard({_p},11,"&dSoul Shards: %toUnits({playerstats::soulshards::%{_uuid}%})%")
+	else:
+		delete line 11 of {_p}'s scoreboard
+	setScoreboard({_p},5,"&r&r&8&m                          ")
+	setScoreboard({_p},4,"&9Try: /discord")
+	setScoreboard({_p},3,"&3Map: %{currentMap.visual}%")
+	setScoreboard({_p},2,"&r&r&8&m                          ")
+	setScoreboard({_p},1,"&bServer: {@serveraddress}")
+
+
+function scoreboard_fc10(p:player):
+	set {_uuid} to uuid of {_p}
+	set title of {_p}'s scoreboard to "&f&lFlagClash &f&lO"
+	setScoreboard({_p},10,"&7|   &r                          ")
+	setScoreboard({_p},9,"&7|  &fLevel: %toUnits({playerstats::level::%{_uuid}%})%")
+	setScoreboard({_p},8,"&7|  &fGold: %toUnits({playerstats::gold::%{_uuid}%})%")
+	setScoreboard({_p},7,"&7|  &fGps: %toUnits({playerstats::gps::%{_uuid}%})%")
+	if {playerstats::soulshards::%{_uuid}%} > 0:
+		setScoreboard({_p},6,"&7|  &fSoul Shards: %toUnits({playerstats::soulshards::%{_uuid}%})%")
+	else:
+		delete line 6 of {_p}'s scoreboard
+	setScoreboard({_p},5,"&7|   &r                          ")
+	setScoreboard({_p},4,"&7|  &fMap: %{currentMap.visual}%")
+	set {_tps::*} to tps
+	setScoreboard({_p},3,"&7|  &fTps: %{_tps::1}%")
+	setScoreboard({_p},2,"&7|  &fPlayers: %size of players%/10 ")
+	setScoreboard({_p},1,"&7|   &r                          ")
+
+
+function scoreboard_fc11(p:player):
+	set {_uuid} to uuid of {_p}
+	set title of {_p}'s scoreboard to "&f&lFlagClash O"
+	setScoreboard({_p},13,"&r                     ")
+	setScoreboard({_p},12,"&a Level %toUnits({playerstats::level::%{_uuid}%})%")
+	setScoreboard({_p},11,"&e Gold %toUnits({playerstats::gold::%{_uuid}%})%")
+	setScoreboard({_p},10,"&6 Gps %toUnits({playerstats::gps::%{_uuid}%})%")
+	setScoreboard({_p},8,"&c Multiplier 100%% + 0%%")
+	setScoreboard({_p},7,"&b Shards %{playerstats::soulshards::%{_uuid}%}%")
+	setScoreboard({_p},6,"&9 Marks: -1")
+	#if {playerstats::soulshards::%{_uuid}%} > 0:
+	#	setScoreboard({_p},9,"&d Soul Shards %displayWithCommas({playerstats::soulshards::%#{_uuid}%})%")
+	#else:
+	#	delete line 9 of {_p}'s scoreboard
+	setScoreboard({_p},5,"&r                     ")
+	setScoreboard({_p},4,"&7 Current Quest:")
+	setScoreboard({_p},3,"&f Get Some Bitches")
+	setScoreboard({_p},2,"&8 |||||||||||||||||||||")
+	setScoreboard({_p},1,"&r                     ")
+
+
+function scoreboard_fc4(p:player):
+	set {_uuid} to uuid of {_p}
+	set title of {_p}'s scoreboard to "&c&lFlagClash &f&lLXIX"
+	setScoreboard({_p},9,"    &7&lCharms of wonder")
+	setScoreboard({_p},9,"&7&l--------------")
+	setScoreboard({_p},8,"&aLevel: %displayWithCommas({playerstats::level::%{_uuid}%})%")
+	setScoreboard({_p},7,"&eGold: %displayWithCommas({playerstats::gold::%{_uuid}%})%")
+	setScoreboard({_p},6,"&6Gps: %displayWithCommas({playerstats::gps::%{_uuid}%})%")
+	setScoreboard({_p},4,"&cResets: -1")
+	if {playerstats::soulshards::%{_uuid}%} > 0:
+		setScoreboard({_p},5,"&dSoul Shards: %displayWithCommas({playerstats::soulshards::%{_uuid}%})%")
+	else:
+		delete line 11 of {_p}'s scoreboard
+	setScoreboard({_p},3,"&d/discord")
+	setScoreboard({_p},1,"&7&l--------------")
+
+function scoreboard_fc1(p:player):
+	set {_uuid} to uuid of {_p}
+	set title of {_p}'s scoreboard to "&3&lFlagClash!"
+	setScoreboard({_p},9,"&r&r&8&m                         ")
+	setScoreboard({_p},8,"&eGold: %{playerstats::gold::%{_uuid}%}%")
+	setScoreboard({_p},7,"&aLvl: %{playerstats::level::%{_uuid}%}%  &6Gps: %{playerstats::gps::%{_uuid}%}%")
+	setScoreboard({_p},4,"&9Mana: -1")
+	if {playerstats::soulshards::%{_uuid}%} > 0:
+		setScoreboard({_p},6,"&dSoul Shards: %{playerstats::soulshards::%{_uuid}%}%")
+	else:
+		delete line 6 of {_p}'s scoreboard
+	setScoreboard({_p},2,"&r&r&8&m                         ")
+	setScoreboard({_p},1,"&7   {@serveraddress}")
+
+function scoreboard_fc3(p:player):
+	set {_uuid} to uuid of {_p}
+	set title of {_p}'s scoreboard to "&3&lFlag&b&lClash &f&lIII"
+	setScoreboard({_p},8,"&r&r&8&m                           ")
+	setScoreboard({_p},7,"&e  Gold: %uppercase toUnits({playerstats::gold::%{_uuid}%})%")
+	setScoreboard({_p},6,"&a  Level: %{playerstats::level::%{_uuid}%}%  &6Gps: %{playerstats::gps::%{_uuid}%}%")
+	setScoreboard({_p},5,"&9  Crystals: -1")
+	if {playerstats::soulshards::%{_uuid}%} > 0:
+		setScoreboard({_p},4,"&d  Soul Shards: %{playerstats::soulshards::%{_uuid}%}%")
+	else:
+		delete line 4 of {_p}'s scoreboard
+	setScoreboard({_p},3,"&r&r&8&m                           ")
+	setScoreboard({_p},2,"&7 Play my game. :D")
+	setScoreboard({_p},1,"&r&r&8&m                           ")
+
+
+function scoreboard_fc9(p:player):
+	set {_uuid} to uuid of {_p}
+	set title of {_p}'s scoreboard to "&fFlagClash"
+	setScoreboard({_p},9,"&r                         ")
+	setScoreboard({_p},8,"&a Level: %toUnits({playerstats::level::%{_uuid}%})%")
+	setScoreboard({_p},7,"&e Gold: %toUnits({playerstats::gold::%{_uuid}%})%")
+	setScoreboard({_p},6,"&6 Gps: %toUnits({playerstats::gps::%{_uuid}%})%")
+	if {playerstats::soulshards::%{_uuid}%} > 0:
+		setScoreboard({_p},5,"&d Soul Shards: %toUnits({playerstats::soulshards::%{_uuid}%})%")
+	else:
+		delete line 5 of {_p}'s scoreboard
+	setScoreboard({_p},3,"&r                         ")
+	setScoreboard({_p},2,"&c Zone: %{currentMap.visual}%")
+	setScoreboard({_p},1,"&r                         ")
+
+every second:
+	loop all players:
+		if {selectedscoreboard::%loop-player%} is "fcorigin":
+			scoreboard_fcorigin(loop-player)
+		else if {selectedscoreboard::%loop-player%} is "fc11":
+			scoreboard_fc11(loop-player)
+		else if {selectedscoreboard::%loop-player%} is "fc10":
+			scoreboard_fc10(loop-player)
+		else if {selectedscoreboard::%loop-player%} is "fc9":
+			scoreboard_fc9(loop-player)
+		else if {selectedscoreboard::%loop-player%} is "fc5":
+			scoreboard_fc5(loop-player)
+		else if {selectedscoreboard::%loop-player%} is "fc4":
+			scoreboard_fc4(loop-player)
+		else if {selectedscoreboard::%loop-player%} is "fc3":
+			scoreboard_fc3(loop-player)
+		else if {selectedscoreboard::%loop-player%} is "fc1":
+			scoreboard_fc1(loop-player)
+		else if {selectedscoreboard::%loop-player%} is not set:
+			set {selectedscoreboard::%loop-player%} to "fcorigin"
+		
+		updateTablist(loop-player, {useFC8Tablist::%loop-player%})
+
+command /setsidebar <string>:
+	trigger:
+		if arg is "fc11" or "fc10" or "fcorigin" or "fc9" or "fc5" or "fc4" or "fc3" or "fc1":
+			set {selectedscoreboard::%player%} to arg
+			clear player's scoreboard
+			send "&aSidebar type set to: %arg%"
+		else:
+			send "&c[Error] &fThat is not a valid sidebar type!"
+
+command /toggleothertablist:
+	trigger:
+		if {useFC8Tablist::%player%} is not set:
+			set {useFC8Tablist::%player%} to true
+		else if {useFC8Tablist::%player%} is true or false:
+			set {useFC8Tablist::%player%} to not {useFC8Tablist::%player%}
+		send "&aUsage of the other tablist set to: %{useFC8Tablist::%player%}%"
+
+on tab complete of "/setsidebar":
+	set {_completers::*} to "fcorigin","fc11","fc10","fc9","fc5","fc4","fc3","fc1"
+	set tab completions for position 1 to {_completers::*}
+
+function updateTablist(p:player, useFC8: boolean = false):
+	set {_uuid} to {_p}'s uuid
+	set {_t43} to replace("%players%", " and ", " ")
+	set {_playerstext} to TextWrap("%{_t43}%", 40, "&e")
+	set {_p}'s tab list header to "                  &c&lFC&6&lOrigin              %nl%"
+	set {_p}'s tab list header to "                                         &c&lFC&6&lOrigin                                 %nl%%nl%&8&m                                %nl%&e%{_playerstext}%%nl%&8&m                                %nl%%nl%&rPing: %{_p}'s ping% TPS: %first element of tps%%nl%Players: %size of players%/10 Map: %{currentmap.visual}% Top Level: %{topLevel}%%nl%%nl%&aLevel: %displayWithCommas({playerstats::level::%{_uuid}%})% &6GPS: %displayWithCommas({playerstats::gps::%{_uuid}%})% &eGold: %displayWithCommas({playerstats::gold::%{_uuid}%})%%nl%&bShards: %displayWithCommas({playerstats::soulshards::%{_uuid}%})% &8Bitches: 0%nl%%nl%&3fcorigin.minehut.gg%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%%nl%" if {_useFC8} is true
+	set {_p}'s tab list footer to "%nl%Ping: %{_p}'s ping% TPS: %first element of tps% Top Level: %{topLevel}%%nl%Players: %size of players% Map: %{currentmap.visual}%%nl%%nl%&aLevel: %displayWithCommas({playerstats::level::%{_uuid}%})% &6GPS: %displayWithCommas({playerstats::gps::%{_uuid}%})% &eGold: %displayWithCommas({playerstats::gold::%{_uuid}%})%%nl%&bShards: %displayWithCommas({playerstats::soulshards::%{_uuid}%})%%nl%%nl%&3fcorigin.minehut.gg%nl%" if {_useFC8} is not true

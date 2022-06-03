@@ -1,0 +1,25 @@
+{
+	"Name": "&3Blood Artifact",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": true,
+	"Type": "artifact",
+	"ItemType": "red dye",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "1/offhand",
+		"Armor": "-3/offhand",
+		"Health": "-4/offhand"
+	},
+	"CustomStats": {
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		"Grants damage when in your offhand in exchange for protection and health"
+	],
+	"OtherNBT": "{}"
+}

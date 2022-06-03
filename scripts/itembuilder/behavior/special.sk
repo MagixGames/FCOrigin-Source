@@ -1,0 +1,27 @@
+on shoot:
+	set {_p} to shooter
+	set {_item} to shooter's tool
+	if getItemID({_item}) = "angelic_bow":
+		set {_power} to getItemNBTTag({_item}, "IBItemsData;power")
+		set {_vel1} to event-projectile's velocity
+		set {_vel1} to {_vel1} // vector(3*(1/{_power}), 3*(1/{_power}), 3*(1/{_power}))
+		set shooter's velocity to {_v}
+		cancel event
+		set {_reload} to getItemNBTTag({_item}, "IBItemsData;reload")
+		set {_t} to true if not ActiveCooldown({_p},"bow")
+		{_t} is set
+		playsound({_p}'s location, "minecraft:entity.player.attack.sweep", 3, 1.5)
+		#push {_p} forwards at force {_power} * (3/4)
+		set {_p}'s velocity to {_vel1}
+		ItemCooldown({_p},ceil({_reload} * 10))
+		wait 5 ticks
+		while block under {_p} is air:
+			particle({_p}'s location, cloud, 15, 0.15)
+			wait 2 ticks
+
+on damage:
+	event is not canceled
+	getItemNBTTag(attacker's tool, "IBItemsData;ItemID") = "offcurse_spear"
+	wait a tick
+	forceSwapHeld(attacker)
+	forceSwapHeld(victim)

@@ -1,0 +1,19 @@
+{
+	"Name": "&9Shellmet",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Type": "armor",
+	"ItemType": "leather helmet",
+	"LoreColor": "<##4956A7>",
+	"Dye": [255, 243, 133],
+	"Stack": 1,
+	"Stats": {
+		"Armor": "2/head"
+	},
+	"Enchants": [
+	],
+	"ExtraLore": [
+	],
+	"OtherNBT": "{}"
+}

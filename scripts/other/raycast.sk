@@ -1,0 +1,89 @@
+function SnapFloor(x:number,snap:number=1) :: number:
+    return floor({_x}/{_snap})*{_snap}
+function Snap(x:number,snap:number=1) :: number:
+    return round({_x}/{_snap})*{_snap}
+function SnapCeil(x:number,snap:number=1) :: number:
+    return ceil({_x}/{_snap})*{_snap}
+
+function Wrap(x:number,min:number=0,max:number=1) :: number:
+    if Between({_x},{_min},{_max}):
+        return {_x}
+    set {_delta} to {_max} - {_min}
+    if {_x} < {_min}:
+        return {_x} - SnapFloor({_x},{_delta}) + {_delta}
+    if {_x} > {_min}:
+        return {_x} - SnapCeil({_x},{_delta}) + {_delta}
+    return {_x}
+
+function Between(x:number,min:number=0,max:number=1) :: boolean:
+    if {_x} > {_min}:
+        if {_x} < {_max}:
+            return true
+    return false
+
+
+
+
+function RayCastStep(l:location,n:number) :: location:
+    add sin(pitch of {_l})*-1*{_n} to y-pos of {_l}
+    set {_dY} to abs(cos(pitch of {_l}))*{_n}
+    add sin(yaw of {_l})*-1*{_dY} to x-pos of {_l}
+    add cos(yaw of {_l})*{_dY} to z-pos of {_l}
+    
+    return {_l}
+
+function RayCastDelta(l:location,n:number) :: location:
+    set y-pos of {_l} to  sin(pitch of {_l})*-1*{_n} 
+    set {_dY} to abs(cos(pitch of {_l}))*{_n}
+    set x-pos of {_l} to  sin(yaw of {_l})*-1*{_dY}
+    set z-pos of {_l} to  cos(yaw of {_l})*{_dY} 
+    
+    return {_l}
+
+
+aliases:
+    unsolid = sign, fence, chain, coral, iron bars, moving piston
+    
+function RayCastCollide(l:location,step:number=0.25,max:number=100,preciseness:number=10) :: location:
+    while true:
+        remove 1 from {_max}
+        if {_max} <= 0:
+            return {_l}
+        set {_newL} to RayCastStep({_l},{_step})
+
+        if PointCollide({_newL}):
+            remove 1 from {_preciseness}
+            add 1 to {_max}
+            if {_preciseness} < 0:
+                broadcast "hit"
+                return {_l}
+
+            set {_step} to {_step}/2
+        else:
+            set {_l} to {_newL}
+
+function PointCollide(l:location) :: boolean:
+    if block at {_l} is unsolid:
+        return false
+    if block at {_l} is azalea or flowering azalea:
+        if Wrap(y-pos of {_l}) > 0.5:
+            return true 
+    if block at {_l} is carpet:
+        if Wrap(y-pos of {_l}) < 0.0625:
+            return true 
+    
+    if block at {_l} is a slab:
+        set {_str} to "%block at {_l}%"
+        if {_str} contains "double":
+            return true
+        if {_str} contains "top":
+            if Wrap(y-pos of {_l}) > 0.5:
+                return true
+        else:
+            if Wrap(y-pos of {_l}) < 0.5:
+                return true
+    else:
+        if block at {_l} is solid:
+            return true
+    
+    return false

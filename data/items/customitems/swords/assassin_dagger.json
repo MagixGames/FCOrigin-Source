@@ -1,0 +1,33 @@
+{
+	"Name": "&9Assassin's Dagger",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "sword",
+	"ItemType": "iron nugget",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "5.5/mainhand",
+		"Rate": "-1/mainhand",
+		"swiftness": "1.5/mainhand"
+	},
+	"CustomStats": {
+	},
+	"Enchants": [
+	],
+	"CustomEnchants": {
+	},
+	"ExtraLore": [
+	],
+	"Execute": {
+		"Passive": [
+			
+		],
+		"Use": [
+			
+		]
+	},
+	"OtherNBT": "{}"
+}

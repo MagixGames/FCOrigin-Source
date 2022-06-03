@@ -1,0 +1,28 @@
+{
+	"Name": "&cFlame Bow Test",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": true,
+	"Type": "bow",
+	"ItemType": "bow",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		
+	},
+	"CustomStats": {
+		"Power": 4,
+		"Range": 1.1,
+		"Reload": 3,
+		"Accuracy": 1.5,
+		"Flame": 1
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

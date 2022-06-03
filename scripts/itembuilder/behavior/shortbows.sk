@@ -1,0 +1,33 @@
+import:
+	org.bukkit.entity.Player
+
+on left click with bow:
+	player's gamemode is not spectator
+	set {_item} to player's tool
+	if getItemNBTTag({_item},"IBItemsData;Type") = "shortbow":
+		set {_power} to getItemNBTTag({_item}, "IBItemsData;power")
+		set {_cooldown} to getItemNBTTag({_item}, "IBItemsData;reload")
+		set {_range} to getItemNBTTag({_item}, "IBItemsData;range")
+		set {_accuracy} to getItemNBTTag({_item}, "IBItemsData;accuracy")
+		set {_multishot} to getItemNBTTag({_item}, "IBItemsData;multishot")
+		set {_t} to true if not ActiveCooldown(player, "shortbow")
+		set {_t} to false if {CancelEvent::Use_Shortbow}
+		if {_t}:
+			set {_a} to (5 - {_accuracy}) * 2
+			set {_a} to 0 if {_accuracy} >= 5
+			loop {_multishot} + 1 times:
+				set {_loc} to location(player's x coordinate, player's y coordinate, player's z coordinate, player's world, (random number between player's yaw + {_a} and player's yaw - {_a}), (random number between player's pitch + {_a} and player's pitch - {_a}))
+				set {_loc} to location 1.5 meter above {_loc}
+				shoot arrow from {_loc} at speed {_range}
+				set nbt of last shot arrow to "{damage:%{_power}%}"
+			Cooldown(player,"shortbow",ceil({_cooldown} * 10),"&2|") 
+
+on right click with bow:
+	set {_item} to player's tool
+	if getItemNBTTag({_item},"IBItemsData;Type") = "shortbow":
+		cancel event
+
+on shoot:
+	set {_item} to shooter's tool
+	if getItemNBTTag({_item},"IBItemsData;Type") = "shortbow":
+		cancel event

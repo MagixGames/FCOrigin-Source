@@ -1,0 +1,9 @@
+{
+	"Name": "Olympic Runner",
+	"ItemType": "sugar",
+	"LoreColor": "&7",
+	"Cost": 1,
+	"Desctiption": [
+		"Applies speed when at max health"
+	]
+}

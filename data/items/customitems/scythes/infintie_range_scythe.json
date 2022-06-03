@@ -1,0 +1,25 @@
+{
+	"Name": "&cInfintie Range Scythe",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": true,
+	"Type": "scythe",
+	"ItemType": "diamond hoe",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "1.0/mainhand",
+		"Rate": "-1/mainhand"
+	},
+	"CustomStats": {
+		"Range": 100
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		"Has extended range"
+	],
+	"OtherNBT": "{}"
+}

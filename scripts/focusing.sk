@@ -1,0 +1,82 @@
+function playerCanFocus(p: player) :: boolean:
+	loop 3 times:
+		set {_p%loop-number%} to false
+	set {_p1} to true if {_p} is sneaking
+	set {_p2} to true if {_p}'s pitch = 90
+	set {_p3} to true if {_p}'s health != {_p}'s max health
+	set {_list::*} to {_p1}, {_p2} and {_p3}
+	if {_list::*} contains false:
+		return false
+	else:
+		return true
+
+on sneak toggle:
+	wait 1 tick
+	{charm_toggle::%player's uuid%::focus} = true
+	while player is sneaking:
+		
+		if {charm_toggle::%player's uuid%::quick_focus} = true:
+			while playerCanFocus(player) = true:
+				set {_u} to false
+				set {_i} to 0
+				set {_t} to player's health
+				loop 75 times:
+					{_u} is not true
+					if playerCanFocus(player):
+						if player's health == {_t}:
+							set {_focus.loc2} to location(player's x coordinate, player's y coordinate +0.2, player's z coordinate, player's world, {_focus.loc2}'s yaw + 16, -50)
+							set {_focus.loc1} to location 0.8 meter infront, 0.2 meter above {_focus.loc2}
+							make 1 of end rod at {_focus.loc1} with extra 0.001
+							
+							apply potion of blindness without any particles to player for 0.2 seconds
+							apply potion of slowness of tier 2 without any particles to player for 0.2 seconds
+							play sound "minecraft:entity.player.breath" at pitch loop-number/50 to player# if mod(loop-number, 5) = 0
+							wait 1 tick
+						else:
+							set {_u} to true
+					else:
+						remove blindness from player
+						remove slowness from player
+						exit loop
+
+				if {_u} is not true:
+					while playerCanFocus(player) and player's health == {_t}:
+						make 15 of end rod at player with extra 0.1
+						heal player by 1
+						play sound "minecraft:entity.firework_rocket.twinkle" at volume 1 at pitch 1.5 to player
+						set {_t} to player's health
+						wait 4 tick
+					remove blindness from player
+					remove slowness from player
+					stop
+		else:
+			while playerCanFocus(player) = true:
+				set {_u} to false
+				set {_i} to 0
+				set {_t} to player's health
+				loop 50 times:
+					{_u} is not true
+					if playerCanFocus(player):
+						if player's health == {_t}:
+							set {_focus.loc2} to location(player's x coordinate, player's y coordinate +0.2, player's z coordinate, player's world, {_focus.loc2}'s yaw + 16, -50)
+							set {_focus.loc1} to location 0.8 meter infront, 0.2 meter above {_focus.loc2}
+							make 1 of end rod at {_focus.loc1} with extra 0.001
+							
+							apply potion of blindness without any particles to player for 0.2 seconds
+							apply potion of slowness of tier 2 without any particles to player for 0.2 seconds
+							play sound "minecraft:entity.player.breath" at pitch loop-number/30 to player# if mod(loop-number, 5) = 0
+							wait 1 tick
+						else:
+							set {_u} to true
+					else:
+						remove blindness from player
+						remove slowness from player
+						stop
+
+				if {_u} is not true:
+					heal player by 4 
+					play sound "minecraft:entity.firework_rocket.twinkle" at volume 1 at pitch 1.5 to player
+			wait 0.25 seconds
+		wait 0.25 seconds
+	remove blindness from player
+	remove slowness from player

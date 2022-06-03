@@ -1,0 +1,24 @@
+{
+	"Name": "&8Shade Shard But",
+	"MakeUnique": true,
+	"HideAllFlags": true,
+	"ItemType": "flint",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"GenStack": 1,
+	"Placement": "3,2",
+	"Cost": 75000,
+	"ExtraLore": [
+		"&87s cooldown"
+	],
+	"Execute": {
+		"Use": [
+			"playsound(player, ''minecraft:entity.elder_guardian.curse'')",
+			"particle(player's location, squid ink, 25, 0.2)",
+			"push player backwards at force 2.2",
+			"remove 1 of player's tool from player's tool",
+			"ItemCooldown(player, 140)"
+		]
+	},
+	"OtherNBT": "{}"
+}

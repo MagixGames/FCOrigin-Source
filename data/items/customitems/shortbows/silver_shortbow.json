@@ -1,0 +1,35 @@
+{
+	"Name": "&9Silver Shortbow",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "shortbow",
+	"ItemType": "bow",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+	},
+	"CustomStats": {
+		"Power": 5,
+		"Range": 0.9,
+		"Reload": 2.2,
+		"Accuracy": 0.6
+	},
+	"Enchants": [
+	],
+	"CustomEnchants": {
+	},
+	"ExtraLore": [
+		"Left click to instantly shoot"
+	],
+	"Execute": {
+		"Passive": [
+			
+		],
+		"Use": [
+			
+		]
+	},
+	"OtherNBT": "{}"
+}

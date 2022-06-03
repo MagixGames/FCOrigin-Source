@@ -1,0 +1,24 @@
+{
+	"Name": "&6Sharper Scythe",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "scythe",
+	"ItemType": "diamond hoe",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "6.5/mainhand",
+		"Rate": "-1/mainhand"
+	},
+	"CustomStats": {
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+	],
+	"OtherNBT": "{}"
+}
+

@@ -1,0 +1,23 @@
+on left click:
+	player's target is set
+	player's gamemode is not spectator
+	set {_item} to player's tool
+	if getItemNBTTag({_item},"IBItemsData;Type") = "scythe":
+		set {_range} to getItemNBTTag({_item}, "IBItemsData;range")
+		set {_blockRange} to distance between player and player's target block
+		set {_entityRange} to distance between player and player's target
+		if getItemNBTTag({_item},"IBItemsData;ItemID") is "phantom_scythe" or "INFINTIE_RANGE_SCYTHE":
+			{_entityRange} <= {_range}
+			make player attack player's target
+			stop
+		if 0.1+{_entityRange} < {_blockRange}:
+			{_entityRange} <= {_range}
+			make player attack player's target
+
+on damage:
+	wait a tick
+	event is not canceled
+	set {_item} to attacker's tool
+	if getItemNBTTag({_item},"IBItemsData;ItemID") = "wither_sickle_plus":
+		chance of 25%:
+			PotionEffect(victim, wither, 2, 2 second, true, false)

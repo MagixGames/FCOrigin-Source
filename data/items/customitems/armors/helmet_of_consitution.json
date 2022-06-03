@@ -1,0 +1,21 @@
+{
+	"Name": "&dHelmet of Constitution",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": true,
+	"Type": "armor",
+	"ItemType": "leather helmet",
+	"LoreColor": "<##4956A7>",
+	"Dye": [107, 5, 0],
+	"Stack": 1,
+	"Stats": {
+		"Armor": "2/head",
+		"health": "4/head"
+	},
+	"Enchants": [
+	],
+	"ExtraLore": [
+	],
+	"OtherNBT": "{}"
+}

@@ -1,0 +1,26 @@
+{
+	"Name": "&5Phantom Scythe",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "scythe",
+	"ItemType": "stone hoe",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "4/mainhand",
+		"Rate": "-1/mainhand"
+	},
+	"CustomStats": {
+		"Range": 4
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		"Has extended range",
+		"Can damage opponents through solid surfaces."
+	],
+	"OtherNBT": "{}"
+}

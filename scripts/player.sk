@@ -1,0 +1,43 @@
+options:
+	wtdv: wtplayerdata
+	gtdv: gtplayerdata
+
+on join:
+	wait a tick
+	player_setDefaults(player)
+
+function player_resetAllData(p:player, setdefault: boolean = true):
+	loop indices of {playerstats::*}:
+		delete {playerstats::%loop-value%::%{_p}'s uuid%}
+	delete {{@wtdv}.slots::%{_p}%}
+	delete {{@gtdv}.slots::%{_p}%}
+	delete {{@wtdv}.cw::%{_p}%::*}
+	delete {{@gtdv}.cw::%{_p}%::*}
+	delete {charm_toggle::%{_p}'s uuid%::*}
+	player_setDefaults({_p}) if {_setdefault}
+	clear {_p}'s inventory
+	teleport {_p} to {mapSpawns::%{currentMap}%_spawn}
+
+#$ all_resetFuckingEverything("ireallywanttofuckingdothiseventhoughthisisprobablyareallyfuckingbadideaalsoihavetorcopythisfromthecode",true)
+function all_resetFuckingEverything(confirm:string,setdefaults:boolean=true):
+	{_confirm} = "ireallywanttofuckingdothiseventhoughthisisprobablyareallyfuckingbadideaalsoihavetorcopythisfromthecode"
+	delete {playerstats::*}
+	delete {{@wtdv}.slots::*}
+	delete {{@gtdv}.slots::*}
+	delete {{@wtdv}.cw::*}
+	delete {{@gtdv}.cw::*}
+	delete {charm_toggle::*}
+	loop all players:
+		set {_p} to loop-player
+		player_setDefaults({_p}) if {_setdefaults}
+		clear {_p}'s inventory
+		teleport {_p} to {mapSpawns::%{currentMap}%_spawn}
+
+
+function player_setDefaults(p:player):
+	set {playerstats::gps::%{_p}'s uuid%} to {playerstats::gps::%{_p}'s uuid%} ? 1
+	set {playerstats::level::%{_p}'s uuid%} to {playerstats::level::%{_p}'s uuid%} ? 1
+	set {playerstats::gold::%{_p}'s uuid%} to {playerstats::gold::%{_p}'s uuid%} ? 0
+	set {playerstats::soulshards::%{_p}'s uuid%} to {playerstats::soulshards::%{_p}'s uuid%} ? 0
+	set {playerstats::charmslotsmax::%{_p}'s uuid%} to {playerstats::charmslotsmax::%{_p}'s uuid%} ? 3  
+	set {playerstats::maxhealth::%{_p}'s uuid%} to {playerstats::maxhealth::%{_p}'s uuid%} ? 20

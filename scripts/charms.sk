@@ -1,0 +1,67 @@
+
+command /charmtoggle <player> <string>:
+	permission: console
+	permission message: &cNo Permission.
+	trigger:
+		if {charm_toggle::%arg-1's uuid%::%arg-2%} = true:
+			set {charm_toggle::%arg-1's uuid%::%arg-2%} to false
+			updateCharmSlotsUsed(arg-1)
+			play sound "minecraft:block.end_portal_frame.fill" to arg-1
+			command "openmenu %arg-1% %{menuOpen::%arg-1%}%"
+			stop
+		
+		if {playerstats::charmslotsmax::%arg-1's uuid%} is not less than ({charmcosts::%arg-2%} + {playerstats::charmslotsused::%arg-1's uuid%}):
+			if {charm_toggle::%arg-1's uuid%::%arg-2%} is false:
+				set {charm_toggle::%arg-1's uuid%::%arg-2%} to true
+			else if {charm_toggle::%arg-1's uuid%::%arg-2%} is not set:
+				set {charm_toggle::%arg-1's uuid%::%arg-2%} to true
+			updateCharmSlotsUsed(arg-1)
+			play sound "minecraft:block.end_portal_frame.fill" to arg-1
+			command "openmenu %arg-1% %{menuOpen::%arg-1%}%"
+			stop
+		else if {playerstats::charmslotsused::%arg-1's uuid%} = {playerstats::charmslotsmax::%arg-1's uuid%}:
+			if {charm_toggle::%arg-1's uuid%::%arg-2%} = false:
+				play sound "minecraft:entity.enderman.hurt" to arg-1
+			if {charm_toggle::%arg-1's uuid%::%arg-2%} is not set:
+				play sound "minecraft:entity.enderman.hurt" to arg-1
+			updateCharmSlotsUsed(arg-1)
+			command "openmenu %arg-1% %{menuOpen::%arg-1%}%"
+			stop
+		play sound "minecraft:entity.enderman.hurt" to arg-1
+
+function updateCharmSlotsUsed(p:player):
+	loop {charm_toggle::%{_p}'s uuid%::*}:
+		loop-value is true
+		add {charmcosts::%loop-index%} to {_v}
+	set {playerstats::charmslotsused::%{_p}'s uuid%} to {_v}
+
+command /charm <player> <string> <string>:
+	permission: op
+	permission message: &cNo Permission.
+	trigger:
+		if arg-2 is "add":
+			if arg-3 is "*":
+				loop {charmicons::*}:
+					set {playerdata::charms_obtained::%arg-1's uuid%::%loop-index%} to true
+					send colored "&fFlagClash &8| &fAdded charm ""%loop-index%"" to %arg-1%'s charm list."
+			else:
+				set {playerdata::charms_obtained::%arg-1's uuid%::%arg-3%} to true
+				send colored "&fFlagClash &8| &fAdded charm ""%arg-3%"" to %arg-1%'s charm list."
+		else if arg-2 is "remove":
+			if arg-3 is "*":
+				delete {playerdata::charms_obtained::%arg-1's uuid%::*}
+				send colored "&fFlagClash &8| &fRemoved all charms from %arg-1%'s charm list."
+			else:
+				delete {playerdata::charms_obtained::%arg-1's uuid%::%arg-3%}
+				delete {charm_toggle::%arg-1's uuid%::%arg-3%}
+				send colored "&fFlagClash &8| &fRemoved charm ""%arg-3%"" from %arg-1%'s charm list."
+
+on tab complete of "/charm":
+	set {_completers2::*} to "add", "remove"
+	set {_completers3::*} to indices of {charmicons::*}
+	set tab completions for position 2 to {_completers2::*}
+	set tab completions for position 3 to {_completers3::*}
+
+function playerHasCharm(p:player,c:string) :: boolean:
+	return true if {playerdata::charms_obtained::%{_p}'s uuid%::%{_c}%} is true
+	return false

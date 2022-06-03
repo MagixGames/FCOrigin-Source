@@ -1,0 +1,21 @@
+{
+	"Name": "&9Flame Hardhat",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Type": "armor",
+	"ItemType": "leather helmet",
+	"LoreColor": "<##4956A7>",
+	"Dye": [255, 77, 77],
+	"Stack": 1,
+	"Stats": {
+		"Armor": "1/helmet"
+	},
+	"Enchants": [
+		"fire_protection 5"
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

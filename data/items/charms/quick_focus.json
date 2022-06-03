@@ -1,0 +1,11 @@
+{
+	"Name": "Quick Focus",
+	"HideAllFlags": true,
+	"ItemType": "popped chorus fruit",
+	"LoreColor": "&7",
+	"Cost": 1,
+	"Desctiption": [
+		"Upgrade to charm: Focus",
+		"(Focus must be activated)"
+	]
+}

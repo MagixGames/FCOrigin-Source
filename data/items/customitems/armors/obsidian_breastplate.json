@@ -1,0 +1,21 @@
+{
+	"Name": "&6Obsidian Breastplate",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Type": "armor",
+	"ItemType": "leather chestplate",
+	"LoreColor": "<##4956A7>",
+	"Dye": [0, 0, 0],
+	"Stack": 1,
+	"Stats": {
+		"Armor": "8/chest",
+		"swiftness": "-3/chest"
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+	],
+	"OtherNBT": "{}"
+}

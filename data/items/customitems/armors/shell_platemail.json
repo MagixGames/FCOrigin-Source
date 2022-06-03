@@ -1,0 +1,22 @@
+{
+	"Name": "&aShell Platemail",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Type": "armor",
+	"ItemType": "leather chestplate",
+	"LoreColor": "<##4956A7>",
+	"Dye": [255, 176, 112],
+	"Stack": 1,
+	"Stats": {
+		"Armor": "3/chest",
+		"Swiftness": "0.5/chest"
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

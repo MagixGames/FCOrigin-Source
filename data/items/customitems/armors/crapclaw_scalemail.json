@@ -1,0 +1,22 @@
+{
+	"Name": "&dCrapclaw Scalemail",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Type": "armor",
+	"ItemType": "leather chestplate",
+	"LoreColor": "<##4956A7>",
+	"Dye": [3, 84, 0],
+	"Stack": 1,
+	"Stats": {
+		"Armor": "6.5/chest",
+		"rate": "4.6/chest"
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		"Increases attack speed of all weapons"
+	],
+	"OtherNBT": "{}"
+}

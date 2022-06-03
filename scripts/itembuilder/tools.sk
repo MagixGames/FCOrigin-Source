@@ -1,0 +1,173 @@
+options:
+	permission: sk.administrator
+	permission_message: &cNo permission.
+	prefix: &8[&eProjectFCM&8]
+	prefix_cut: &eProjectFCM&f
+	color1: &x&8&5&4&b&2&a
+	version: 0.1
+	path: plugins/Skript/data/items/
+ 
+on load:
+	broadcast "&8[{@color1}ItemBuilder &7{@version}&9B&8] &f Loaded!"
+	loadResources()
+	wait 3 seconds
+	loadResources()
+
+function readFile(path:string) :: string:
+	set {_file::*} to file contents of "plugins/Skript/data/items/%{_name}%.json"
+	set {_file} to (join {_file::*} by newline)
+	return {_file}
+
+function getLastInList(list:objects) :: object:
+	set {_size} to size of {_list::*}
+	return {_list::%{_size}%}
+
+function getFilesInDir(path:string) :: objects:
+	loop files in dir including sub dirs "%{_path}%":
+		add loop-value to {_objs::*}
+	return {_objs::*}
+
+
+function filterListString(list:objects, contains:object) :: objects:
+	loop {_list::*}:
+		add loop-value to {_filtered::*} if loop-value contains "%{_contains}%"
+	return {_filtered::*}
+
+function addCompoundNBT(i:item, tag:string, nbt:string) :: item:
+	set {_n} to nbt compound of {_i}
+	set {_a::*} to tag "tag;%{_tag}%" of {_n}
+	add nbt compound of "%{_nbt}%" to {_a::*}
+	add nbt compound of "{}" to {_a::*}
+	set tag "tag;%{_tag}%" of {_n} to {_a::*}
+	return nbt item from {_n}
+
+function setItemNBTTag(i:item,tag:string,value:object) :: item:
+	set {_nbt} to nbt compound of {_i}
+	set tag "tag;%{_tag}%" of {_nbt} to {_value}
+	set {_i} to item from nbt {_nbt}
+	return {_i}
+
+function getItemNBTTag(i:item,tag:string) :: object:
+	set {_nbt} to nbt compound of {_i}
+	return (tag "tag;%{_tag}%" of {_nbt})
+
+function addAttribute(i:item, type:string,amount:string,slot:string) :: item:
+	set {_item} to addCompoundNBT({_i}, "AttributeModifiers", "{AttributeName:""generic.%{_type}%"",Amount:%{_amount}%,Operation:0,Slot:%{_slot}%,UUID:[I;%random integer from -100000 and 100000%,%random integer from -100000 and 100000%,%random integer from -100000 and 100000%,%random integer from -100000 and 100000%],Name:""generic.%{_type}%""}")
+	return {_item}
+	#Slots: "mainhand" ; "offhand" ; "head" ; "chest" ; "legs" ; "feet"
+
+
+
+function translate_01(s:string) :: string:
+	# armor ; armor_toughness ; attack_damage ; attack_knockback ; attack_speed ; flying_speed ; follow_range ; knockback_resistance ; luck ; max_health ; movement_speed
+	set {_str} to {_s}
+	set {_to::*} to "armor;attack_damage;attack_knockback;attack_speed;knockback_resistance;max_health;movement_speed" split at ";"
+	set {_org::*} to "armor;damage;knockback;rate;knockback resistance;health;swiftness" split at ";"
+	set {_count} to (size of {_to::*})
+	loop {_count} times:
+		replace all "%{_org::%loop-number%}%" in {_str} with "%{_to::%loop-number%}%"
+	return {_str}
+
+function capitalizeFirst(text: texts) :: texts: 
+	loop {_text::*}:
+		set {_first-char} to first character of loop-value
+		set {_remaining} to last (length of loop-value - 1) characters of loop-value
+		set {_output::%loop-index%} to "%{_first-char} in upper case%%{_remaining}%"
+	return {_output::*}
+
+function generateUnique() :: string:
+	return "%random integer between 111111111111 and 999999999999%"
+ 
+function compileAllItems():
+	delete {customitems::*}
+	set {_files::*} to getFilesInDir("{@path}/customitems/")
+	set {_files::*} to filterListString({_files::*}, ".json")
+	loop {_files::*}:
+		set {_t1} to loop-value
+		set {_t2} to {_t1}
+		replace all ".json" in {_t2} with ""
+		set {_t2} to getLastInList(split {_t2} at "\")
+		set {customitems::%{_t2}%} to jsonItemParse( {_t1} )
+
+	delete {UIElements::*}
+	set {UIElements::<none>} to redstone dust named "&cINVALID UI ELEMENT"
+	set {_files::*} to getFilesInDir("{@path}/UI/")
+	set {_files::*} to filterListString({_files::*}, ".json")
+	loop {_files::*}:
+		set {_t1} to loop-value
+		set {_t2} to {_t1}
+		replace all ".json" in {_t2} with ""
+		set {_t2} to getLastInList(split {_t2} at "\")
+		set {UIElements::%{_t2}%} to loadUIElements( {_t1} )
+ 
+	delete {charmicons::*}
+	delete {charmCosts::*}
+	set {charmicons::<none>} to lapis named "&cINVALID CHARM ELEMENT"
+	set {_files::*} to getFilesInDir("{@path}/charms/")
+	set {_files::*} to filterListString({_files::*}, ".json")
+	loop {_files::*}:
+		set {_t1} to loop-value
+		set {_t2} to {_t1}
+		replace all ".json" in {_t2} with ""
+		set {_t2} to getLastInList(split {_t2} at "\")
+		set {charmicons::%{_t2}%} to loadCharms( {_t1} )
+ 
+	delete {items::*}
+	set {_files::*} to getFilesInDir("{@path}/items/")
+	set {_files::*} to filterListString({_files::*}, ".json")
+	loop {_files::*}:
+		set {_t1} to loop-value
+		set {_t2} to {_t1}
+		replace all ".json" in {_t2} with ""
+		set {_t2} to getLastInList(split {_t2} at "\")
+		set {items::%{_t2}%} to loadItems( {_t1} )
+
+	delete {blocks::*}
+	set {_files::*} to getFilesInDir("{@path}/blocks/")
+	set {_files::*} to filterListString({_files::*}, ".json")
+	loop {_files::*}:
+		set {_t1} to loop-value
+		set {_t2} to {_t1}
+		replace all ".json" in {_t2} with ""
+		set {_t2} to getLastInList(split {_t2} at "\")
+		set {blocks::%{_t2}%} to loadBlocks( {_t1} )
+
+on command "/loadserverresources":
+	cancel event
+	player is op
+	loadResources()
+
+function loadResources():
+	broadcast "&8[&c$&8] &bMagicItems &8| &bLoading server resources. . ."
+	compileAllItems()
+	WT_loadCosts()
+	WT_loadTree()
+	broadcast "&8[&c$&8] &bMagicItems &8| &bDone!"
+	wait 5 ticks
+	loop all players:
+		updateAllCustomItems(loop-players)
+
+#UNFINISHED NEEDS TO BE FIXED
+function updateAllCustomItems(p:player):
+	loop all items in {_p}'s inventory:
+		if getItemNBTTag(loop-slot, "IBItemsData;ItemID") is set:
+			#print(getItemNBTTag(loop-item, "WeaponTreeSlot"))
+			set {_i} to {customitems::%getItemNBTTag(loop-item, "IBItemsData;ItemID")%}
+			set {_i} to {items::%getItemNBTTag(loop-item, "IBItemsData;ItemID")%} if {_i} is not set
+			set {_i} to {blocks::%getItemNBTTag(loop-item, "IBItemsData;ItemID")%} if {_i} is not set
+			set {_stack::*} to split("%loop-item%", " ")
+			set {_stack} to {_stack::1} parsed as integer
+			#broadcast "%loop-item%%nl%&r%getItemNBTTag(loop-item, "IBItemsData;ItemID")%"
+			set {_t1} to getItemNBTTag(loop-item, "WeaponTreeSlot")
+			set {_i} to setItemNBTTag({_i}, "WeaponTreeSlot", "%{_t1}%" parsed as integer)
+			#print({_t1})
+
+			set {_t2} to getItemNBTTag(loop-item, "GearTreeSlot")
+			set {_i} to setItemNBTTag({_i}, "GearTreeSlot", "%{_t2}%" parsed as integer)
+
+			set {_t2} to getItemNBTTag(loop-item, "Unique")
+			set {_i} to setItemNBTTag({_i}, "Unique", "%{_t2}%" parsed as integer)
+			#print({_t2})
+
+			set loop-slot to {_stack} of {_i} if {_stack} is set
+			set loop-slot to {_i} if {_stack} is not set

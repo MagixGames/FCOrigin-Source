@@ -1,0 +1,51 @@
+
+on item damage:
+	if checkForByID(event-item's nbt, "DURABILITYCONF") is true:
+		if checkForByID(event-item's nbt, "DURABILITYINF") is true:
+			cancel event
+			stop
+		takeDurability(player, event-item)
+
+function takeDurability(p:player, i:item):
+	set {_currentDurability} to findByID({_i}'s nbt, "CURRENTDURABILITY") parsed as number
+	set {_currentDurability} to {_currentDurability} - 1
+	set {_iInt} to {_i}
+	play sound "minecraft:entity.item.break" to {_p} if {_currentDurability} is less than 1
+	set {_i} to air if {_currentDurability} is less than 1
+	send action bar "&cYour tool broke!" to {_p} if {_currentDurability} is less than 1
+	add "{itemCurrentDurability:""<!CURRENTDURABILITY!>%{_currentDurability}%<!CURRENTDURABILITY!>""}" to nbt of {_i}
+	set {_i}'s name to "&f%findByID({_i}'s nbt, "NAME")% &8| &5%findByID({_i}'s nbt, "CURRENTDURABILITY")%&8/&5%findByID({_i}'s nbt, "MAXDURABILITY")%"
+	loop {_p}'s inventory:
+		if loop-slot is {_iInt}:
+			set loop-slot to {_i}
+
+command /setcurrentdurability <integer>:
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		set {_i} to player's tool
+		add "{itemCurrentDurability:""<!CURRENTDURABILITY!>%arg%<!CURRENTDURABILITY!>""}" to nbt of {_i}
+		set {_i}'s name to "&f%findByID({_i}'s nbt, "NAME")% &8| &5%findByID({_i}'s nbt, "CURRENTDURABILITY")%&8/&5%findByID({_i}'s nbt, "MAXDURABILITY")%"
+		set player's tool to {_i}
+		send "{@prefixdev} Durability of held item set to %arg%."
+command /setDurability <string> <integer> [<integer>]:
+	usage: /setDurability <item name> <max durability> [<current durability>]
+	permission: {@permission}
+	permission message: {@permission_message}
+	trigger:
+		send "{@prefixdev} setDurabilityInformation{"
+		send "&8- &7[&fItem_Name&7] ( ""%uncolored arg-1%"" ) "
+		send "&8- &7[&fItem_MaxDurability&7] ( ""%arg-2%"" ) "
+		send "&8- &7[&fItem_CurrentDurability&7] ( ""%arg-3%"" ) " if arg-3 is set
+		send "}"
+		
+		add "{itemName:""<!NAME!>%uncolored arg-1%<!NAME!>""}" to nbt of player's tool
+		set {_maxd} to "--" if arg-2 is -1
+		set {_maxd} to arg-2 if arg-2 is not -1
+		add "{itemMaxDurability:""<!MAXDURABILITY!>%{_maxd}%<!MAXDURABILITY!>""}" to nbt of player's tool
+		add "{itemCurrentDurability:""<!CURRENTDURABILITY!>%{_maxd}%<!CURRENTDURABILITY!>""}" to nbt of player's tool if arg-3 is set
+		add "{itemCurrentDurability:""<!CURRENTDURABILITY!>%{_maxd}%<!CURRENTDURABILITY!>""}" to nbt of player's tool if arg-3 is not set
+		add "{customDurability:""<!DURABILITYCONF!>true<!DURABILITYCONF!>""}" to nbt of player's tool
+		add "{customDurabilityInfConf:""<!DURABILITYINF!>true<!DURABILITYINF!>""}" to nbt of player's tool if {_maxd} is "--"
+		add "{customDurabilityInfConf:""false""}" to nbt of player's tool if {_maxd} does not contain "--"
+		set player's tool's name to "&f%findByID(player's tool's nbt, "NAME")% &8| &5%findByID(player's tool's nbt, "CURRENTDURABILITY")%&8/&5%findByID(player's tool's nbt, "MAXDURABILITY")%"

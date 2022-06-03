@@ -1,0 +1,26 @@
+{
+	"Name": "&dSpear of the Mountain",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "spear",
+	"ItemType": "netherite shovel",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "5.0/mainhand",
+		"Rate": "-1/mainhand"
+	},
+	"CustomStats": {
+		"Dash": 1.5,
+		"Cooldown": 1.4
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

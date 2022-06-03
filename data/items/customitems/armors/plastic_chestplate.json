@@ -1,0 +1,21 @@
+{
+	"Name": "&aPlastic Chestplate",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"Type": "armor",
+	"ItemType": "leather chestplate",
+	"LoreColor": "<##4956A7>",
+	"Dye": [192, 237, 234],
+	"Stack": 1,
+	"Stats": {
+		"Armor": "3/chest"
+	},
+	"Enchants": [
+		
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

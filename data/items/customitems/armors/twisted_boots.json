@@ -1,0 +1,22 @@
+{
+	"Name": "&5Twisted Boots",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "armor",
+	"ItemType": "leather boots",
+	"LoreColor": "<##4956A7>",
+	"Dye": [21, 89, 35],
+	"Stack": 1,
+	"Stats": {
+		"Armor": "2/feet",
+		"Swiftness": "0.5/feet"
+	},
+	"Enchants": [
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

@@ -1,0 +1,33 @@
+{
+	"Name": "&aPrismarine Dagger",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"EnchantGlow": false,
+	"Type": "sword",
+	"ItemType": "prismarine shard",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "4.5/mainhand",
+		"Rate": "-1/mainhand",
+		"swiftness": "1/mainhand"
+	},
+	"CustomStats": {
+	},
+	"Enchants": [
+	],
+	"CustomEnchants": {
+	},
+	"ExtraLore": [
+	],
+	"Execute": {
+		"Passive": [
+			
+		],
+		"Use": [
+			
+		]
+	},
+	"OtherNBT": "{}"
+}

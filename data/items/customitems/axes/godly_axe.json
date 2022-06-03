@@ -1,0 +1,23 @@
+{
+	"Name": "&6Godly Axe",
+	"MakeUnique": true,
+	"Unbreakable": true,
+	"HideAllFlags": true,
+	"ID": "god_axe",
+	"Type": "axe",
+	"ItemType": "gold axe",
+	"LoreColor": "<##4956A7>",
+	"Stack": 1,
+	"Stats": {
+		"Damage": "9/mainhand",
+		"Rate": "1.6/mainhand"
+	},
+	"Enchants": [
+		"knockback 1",
+		"fire_aspect 1"
+	],
+	"ExtraLore": [
+		
+	],
+	"OtherNBT": "{}"
+}

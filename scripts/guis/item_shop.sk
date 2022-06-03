@@ -1,0 +1,49 @@
+options:
+	permission: sk.administrator
+	permission_message: &cNo permission.
+	prefix: &8[&eProjectFCM&8]
+	prefix_cut: &eProjectFCM&f
+	feedback: &aFeed &8|&f
+	#extra
+	color1: &x&8&5&4&b&2&a # 854b2a
+	color2: &x&0&3&b&a&3&8 # 03ba38
+	lorecolor: &x&4&9&5&6&A&7 # 4956a7
+
+#Item shop creator
+#arg1: player to open shop to
+
+function openItemShop(p:player):
+	create a gui with virtual chest inventory with 6 rows named "Item Shop":
+		format gui slot 0,1,2,3,4,5,6,7,8,9,17,18,26,27,35,36,44,45,46,47,48,50,51,52,53 with black stained glass pane named "&7" #frame
+		format gui slot 49 with barrier named "&cBack":
+			command "/openmenu %{_p}% main_menu"
+		#loop 28 times:
+		#	format next gui slot with gray stained glass pane named "&8Not Coming Soon"
+		set {_uuid} to uuid of {_p}
+		loop {itemdata::Placement::*}:
+			set {_id} to loop-index
+			set {_cost} to {itemdata::Cost::%{_id}%}
+			set {_cost} to floor({_cost} * 0.85) if {charm_toggle::%{_uuid}%::bargain} = true
+			set {_lore} to "%nl%{@lorecolor} Price: {@color2}&e%regex({_cost})%%nl%&8&o Right-Click to quick-buy"
+			set {_i2} to {items::%{_id}%}
+			add {_lore} to lore of {_i2}
+			format gui slot ("%getPlacementID(loop-value)%" parsed as integer) with {_i2}:
+				set {_loopcount} to 1
+				set {_loopcount} to 8 if "%gui click type%" contains "right"
+				loop {_loopcount} times:
+					if {playerstats::gold::%{_uuid}%} >= {_cost}:
+						remove {_cost} from {playerstats::gold::%{_uuid}%}
+						playsound({_p}, "entity.experience_orb.pickup", 1/{_loopcount})
+						set {_i} to {items::%{_id}%}
+						set {_i} to setItemNBTTag({_i}, "Unique", generateUnique()) if getItemNBTTag({_i}, "IBItemsData;GenUnique") is more than 0
+						give {_p} (max(1, getItemNBTTag({_i}, "IBItemsData;GenStack"))) of {_i}
+					else:
+						send "&cYou cannot afford that!" to {_p}
+						stop
+	open last gui for {_p}
+
+function getPlacementID(s:string) :: number:
+	set {_coords::*} to split({_s},",")
+	set {_x} to {_coords::1} parsed as integer
+	set {_y} to {_coords::2} parsed as integer
+	return ((({_y}-1)*9) + {_x} - 1)
